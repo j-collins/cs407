@@ -29,16 +29,12 @@
                                     <navigationItem title="BoilerFind" id="PFU-ac-QWr"/>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pf3-uX-pfk">
-                                <rect key="frame" x="16" y="288" width="90" height="90"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.89740425349999997" green="0.91317194700000004" blue="0.95049613710000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFe-UN-SYJ">
+                                <rect key="frame" x="142" y="288" width="90" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Maps"/>
                                 <connections>
-                                    <segue destination="Dwr-FK-o5C" kind="presentation" id="Z41-X1-XXd"/>
+                                    <segue destination="Dwr-FK-o5C" kind="presentation" id="DR3-fR-Z0T"/>
                                 </connections>
                             </button>
                         </subviews>

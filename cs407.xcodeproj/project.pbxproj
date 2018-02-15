@@ -15,6 +15,10 @@
 		1EBEFEB7202141F30079B994 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EBEFEB5202141F30079B994 /* LaunchScreen.storyboard */; };
 		1EBEFEC2202141F30079B994 /* cs407Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEFEC1202141F30079B994 /* cs407Tests.swift */; };
 		1EBEFECD202141F30079B994 /* cs407UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEFECC202141F30079B994 /* cs407UITests.swift */; };
+		8D662BFE203531FD00238C6F /* Campus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D662BFD203531FD00238C6F /* Campus.swift */; };
+		8D662C002035327700238C6F /* CampusMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D662BFF2035327700238C6F /* CampusMapOverlay.swift */; };
+		8D662C02203532D600238C6F /* CampusMapOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D662C01203532D600238C6F /* CampusMapOverlayView.swift */; };
+		8D662C04203537F300238C6F /* Campus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D662C03203537F300238C6F /* Campus.plist */; };
 		8DA193EF202E69C500123BAE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA193EE202E69C500123BAE /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +54,10 @@
 		1EBEFEC8202141F30079B994 /* cs407UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cs407UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EBEFECC202141F30079B994 /* cs407UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cs407UITests.swift; sourceTree = "<group>"; };
 		1EBEFECE202141F30079B994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D662BFD203531FD00238C6F /* Campus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus.swift; sourceTree = "<group>"; };
+		8D662BFF2035327700238C6F /* CampusMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapOverlay.swift; sourceTree = "<group>"; };
+		8D662C01203532D600238C6F /* CampusMapOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapOverlayView.swift; sourceTree = "<group>"; };
+		8D662C03203537F300238C6F /* Campus.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Campus.plist; sourceTree = "<group>"; };
 		8DA193EE202E69C500123BAE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,11 +112,15 @@
 				1EBEFEA9202141F30079B994 /* AppDelegate.swift */,
 				1EBEFEAB202141F30079B994 /* HomeViewController.swift */,
 				8DA193EE202E69C500123BAE /* MapViewController.swift */,
+				8D662C03203537F300238C6F /* Campus.plist */,
 				1EBEFEAD202141F30079B994 /* Main.storyboard */,
 				1EBEFEB3202141F30079B994 /* Assets.xcassets */,
 				1EBEFEB5202141F30079B994 /* LaunchScreen.storyboard */,
 				1EBEFEB8202141F30079B994 /* Info.plist */,
+				8D662BFD203531FD00238C6F /* Campus.swift */,
 				1EBEFEB0202141F30079B994 /* cs407.xcdatamodeld */,
+				8D662BFF2035327700238C6F /* CampusMapOverlay.swift */,
+				8D662C01203532D600238C6F /* CampusMapOverlayView.swift */,
 			);
 			path = cs407;
 			sourceTree = "<group>";
@@ -241,6 +253,7 @@
 				1EBEFEB7202141F30079B994 /* LaunchScreen.storyboard in Resources */,
 				1EBEFEB4202141F30079B994 /* Assets.xcassets in Resources */,
 				1EBEFEAF202141F30079B994 /* Main.storyboard in Resources */,
+				8D662C04203537F300238C6F /* Campus.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +282,9 @@
 				1EBEFEAA202141F30079B994 /* AppDelegate.swift in Sources */,
 				1EBEFEB2202141F30079B994 /* cs407.xcdatamodeld in Sources */,
 				8DA193EF202E69C500123BAE /* MapViewController.swift in Sources */,
+				8D662C002035327700238C6F /* CampusMapOverlay.swift in Sources */,
+				8D662C02203532D600238C6F /* CampusMapOverlayView.swift in Sources */,
+				8D662BFE203531FD00238C6F /* Campus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
