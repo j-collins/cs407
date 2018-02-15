@@ -10,13 +10,13 @@
 <plist version="1.0">
     <dict>
         <key>midCoord</key>
-        <string>{40.427974 , -86.913499}</string>
+        <string>{40.427878 , -86.914467}</string>
         <key>overlayTopLeftCoord</key>
-        <string>{40.430924, -86.917528}</string>
+        <string>{40.431348, -86.919099}</string>
         <key>overlayTopRightCoord</key>
-        <string>{40.431340, -86.911587}</string>
+        <string>{40.431243, -86.910506}</string>
         <key>overlayBottomLeftCoord</key>
-        <string>{40.423559, -86.916856}</string>
+        <string>{40.424308, -86.919025}</string>
         <key>boundary</key>
         <array>
             <string></string>
