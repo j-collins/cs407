@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Campus.plist
+   cs407
+
+   Created by Ashley Nussel on 2/14/18.
+   Copyright (c) 2018 CS407Group. All rights reserved.
+-->
 <plist version="1.0">
-<dict>
-	<key>midCoord</key>
-	<string>{40.427974 , -86.913499}</string>
-	<key>overlayTopLeftCoord</key>
-	<string>{40.430924, -86.917528}</string>
-	<key>overlayTopRightCoord</key>
-	<string>{40.431340, -86.911587}</string>
-	<key>overlayBottomLeftCoord</key>
-	<string>{40.423559, -86.916856}</string>
-	<key>boundary</key>
-	<array>
-		<string></string>
-		<string></string>
-		<string></string>
-		<string></string>
-		<string></string>
-	</array>
-</dict>
+    <dict>
+        <key>midCoord</key>
+        <string>{40.427974 , -86.913499}</string>
+        <key>overlayTopLeftCoord</key>
+        <string>{40.430924, -86.917528}</string>
+        <key>overlayTopRightCoord</key>
+        <string>{40.431340, -86.911587}</string>
+        <key>overlayBottomLeftCoord</key>
+        <string>{40.423559, -86.916856}</string>
+        <key>boundary</key>
+        <array>
+            <string></string>
+            <string></string>
+            <string></string>
+            <string></string>
+            <string></string>
+        </array>
+    </dict>
 </plist>
