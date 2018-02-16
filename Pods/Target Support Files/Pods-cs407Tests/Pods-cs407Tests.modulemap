@@ -1,0 +1,6 @@
+framework module Pods_cs407Tests {
+  umbrella header "Pods-cs407Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
