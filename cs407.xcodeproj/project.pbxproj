@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04A1DE62203B853A006D4C4C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A1DE61203B853A006D4C4C /* CoreLocation.framework */; };
+		04A1DE63203B8550006D4C4C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A1DE61203B853A006D4C4C /* CoreLocation.framework */; };
+		04A1DE64203B8558006D4C4C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A1DE61203B853A006D4C4C /* CoreLocation.framework */; };
 		1EBEFEAA202141F30079B994 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEFEA9202141F30079B994 /* AppDelegate.swift */; };
 		1EBEFEAC202141F30079B994 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEFEAB202141F30079B994 /* HomeViewController.swift */; };
 		1EBEFEAF202141F30079B994 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EBEFEAD202141F30079B994 /* Main.storyboard */; };
@@ -46,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04A1DE61203B853A006D4C4C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1E21D3AD42F685F5EA818E35 /* Pods-cs407.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407.release.xcconfig"; path = "Pods/Target Support Files/Pods-cs407/Pods-cs407.release.xcconfig"; sourceTree = "<group>"; };
 		1EBEFEA6202141F30079B994 /* cs407.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cs407.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EBEFEA9202141F30079B994 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A1DE62203B853A006D4C4C /* CoreLocation.framework in Frameworks */,
 				ED72260AFAB334184DD569CD /* Pods_cs407.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A1DE63203B8550006D4C4C /* CoreLocation.framework in Frameworks */,
 				6D3E443303B258273908A050 /* Pods_cs407Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A1DE64203B8558006D4C4C /* CoreLocation.framework in Frameworks */,
 				4B73819FB59003D929B13630 /* Pods_cs407UITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,6 +188,7 @@
 		DD46D537EC037D8BECB32BB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04A1DE61203B853A006D4C4C /* CoreLocation.framework */,
 				2222009AE20EF4540FDCBB18 /* Pods_cs407.framework */,
 				C19C1D2B78A517ADF1C6D692 /* Pods_cs407Tests.framework */,
 				5EE9C8B9554684015DD09D9A /* Pods_cs407UITests.framework */,

@@ -8,11 +8,13 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var map: MKMapView!
     var campus = Campus(filename: "Campus")
+    let manager = CLLocationManager()
     
     //let regionRadiusDisplay: CLLocationDistance = 1000 //1000 meters (1/2 a mile)
     
@@ -33,9 +35,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         map.region = region
         map.delegate = self;
         
+        //the stuff below is to make a user's location appear on the map
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
+        
+        //this chunk is for overlays
         let overlay = CampusMapOverlay(campus: campus)
         map.add(overlay)
         //mapView(overlay, rendererFor: campus: campus)
+
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -46,6 +56,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         return MKOverlayRenderer()
     }
+    
+    //this function is for updating the users location - it is called every time user changes position
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0] //we want the first element because it is the most recent element of the user
+        //zoom in the map on that location - span is how much we are zoomed in
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+        //set the location of the user
+        let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        //set the region (combine 2 variables: how much the map is zoomed into the users location and the users location)
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+        map.setRegion(region, animated:true)
+        
+        //shows blue dot
+        self.map.showsUserLocation = true;
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
