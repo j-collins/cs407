@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "campusMapNoSidewalks.png",
+      "filename" : "Map.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "campusMapNoSidewalks-1.png",
+      "filename" : "Map-1.png",
       "scale" : "2x"
     },
     {
