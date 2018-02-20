@@ -17,7 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
     
-    @IBAction func logoutAction(_ sender: Any) {
+    @IBAction func logoutAction1(_ sender: Any) {
         do {
             try Auth.auth().signOut()
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUp")
