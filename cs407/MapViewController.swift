@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import FirebaseAuth
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
@@ -16,6 +17,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
     
+    @IBAction func logoutAction(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUp")
+            self.present(vc!, animated: true, completion: nil)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
     //let regionRadiusDisplay: CLLocationDistance = 1000 //1000 meters (1/2 a mile)
     
     override func viewDidLoad() {
