@@ -19,6 +19,8 @@
 		1EBEFEC2202141F30079B994 /* cs407Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEFEC1202141F30079B994 /* cs407Tests.swift */; };
 		1EBEFECD202141F30079B994 /* cs407UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEFECC202141F30079B994 /* cs407UITests.swift */; };
 		4B73819FB59003D929B13630 /* Pods_cs407UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EE9C8B9554684015DD09D9A /* Pods_cs407UITests.framework */; };
+		555C9421203CBAB800359C84 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C9420203CBAB800359C84 /* LoginViewController.swift */; };
+		555C9423203CBAC700359C84 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C9422203CBAC700359C84 /* SignUpViewController.swift */; };
 		6D3E443303B258273908A050 /* Pods_cs407Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C19C1D2B78A517ADF1C6D692 /* Pods_cs407Tests.framework */; };
 		8D662BFE203531FD00238C6F /* Campus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D662BFD203531FD00238C6F /* Campus.swift */; };
 		8D662C002035327700238C6F /* CampusMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D662BFF2035327700238C6F /* CampusMapOverlay.swift */; };
@@ -67,6 +69,8 @@
 		1EBEFECE202141F30079B994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2222009AE20EF4540FDCBB18 /* Pods_cs407.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cs407.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24BE2FEA74D481D12D0A9FD1 /* Pods-cs407UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cs407UITests/Pods-cs407UITests.release.xcconfig"; sourceTree = "<group>"; };
+		555C9420203CBAB800359C84 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		555C9422203CBAC700359C84 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		556F3BB8496E8A32CE691576 /* Pods-cs407UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cs407UITests/Pods-cs407UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C2C5E026CC74CA6B2F4B53A /* Pods-cs407Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cs407Tests/Pods-cs407Tests.release.xcconfig"; sourceTree = "<group>"; };
 		5EE9C8B9554684015DD09D9A /* Pods_cs407UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cs407UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +143,8 @@
 			children = (
 				1EBEFEA9202141F30079B994 /* AppDelegate.swift */,
 				1EBEFEAB202141F30079B994 /* HomeViewController.swift */,
+				555C9420203CBAB800359C84 /* LoginViewController.swift */,
+				555C9422203CBAC700359C84 /* SignUpViewController.swift */,
 				8DA193EE202E69C500123BAE /* MapViewController.swift */,
 				8D662C03203537F300238C6F /* Campus.plist */,
 				1EBEFEAD202141F30079B994 /* Main.storyboard */,
@@ -445,12 +451,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-cs407/Pods-cs407-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,7 +509,9 @@
 				1EBEFEAA202141F30079B994 /* AppDelegate.swift in Sources */,
 				1EBEFEB2202141F30079B994 /* cs407.xcdatamodeld in Sources */,
 				8DA193EF202E69C500123BAE /* MapViewController.swift in Sources */,
+				555C9421203CBAB800359C84 /* LoginViewController.swift in Sources */,
 				8D662C002035327700238C6F /* CampusMapOverlay.swift in Sources */,
+				555C9423203CBAC700359C84 /* SignUpViewController.swift in Sources */,
 				8D662C02203532D600238C6F /* CampusMapOverlayView.swift in Sources */,
 				8D662BFE203531FD00238C6F /* Campus.swift in Sources */,
 			);
