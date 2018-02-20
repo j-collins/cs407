@@ -49,7 +49,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
+        //manager.startUpdatingLocation()
+        self.map.showsUserLocation = true;
         
         //this chunk is for overlays
         let overlay = CampusMapOverlay(campus: campus)
@@ -65,6 +66,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         return MKOverlayRenderer()
+    }
+    
+    @IBAction func getCurrentLocButton(_ sender: Any) {
+        manager.startUpdatingLocation()
+        self.map.showsUserLocation = true;
     }
     
     //this function is for updating the users location - it is called every time user changes position

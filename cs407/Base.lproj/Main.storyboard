@@ -83,6 +83,14 @@
                                     <action selector="logoutAction1:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="qy2-c2-24i"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqT-07-xpC">
+                                <rect key="frame" x="130" y="83" width="115" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Current Location"/>
+                                <connections>
+                                    <action selector="getCurrentLocButton:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="fyE-pP-nEl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
