@@ -10,12 +10,14 @@ import UIKit
 import MapKit
 import CoreLocation
 import FirebaseAuth
+import FirebaseDatabase
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var map: MKMapView!
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
+    var ref: DatabaseReference!
     
     @IBAction func logoutAction1(_ sender: Any) {
         do {
@@ -30,6 +32,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // define reference variable for database
+        ref = Database.database().reference()
         
         //NEEDED FOR THE MAP GETTING STARTED TUTORIAL
         //Set initial location for map: 610 Purdue Mall, West Lafayette, IN 47907
@@ -67,7 +72,22 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         return MKOverlayRenderer()
     }
-    
+    //when you click the Populate Buildings Button, the building info is updated to database
+    @IBAction func UploadBuildingInfo(_ sender: Any) {
+        print("in UploadBuildingInfo")
+       //Lawson
+        ref?.child("Buildings").child("Lawson").child("Longitude").setValue("40.427579,")
+        ref?.child("Buildings").child("Lawson").child("Latitude").setValue("-86.917496")
+        ref?.child("Buildings").child("Lawson").child("Information").setValue("Laswon is a computer Science Building")
+        ref?.child("Buildings").child("Lawson").child("Address").setValue("L305 N University St, West Lafayette, IN 47907")
+        //Class of 1950
+        ref?.child("Buildings").child("ClassOf1950").child("Longitude").setValue("40.426481,")
+        ref?.child("Buildings").child("ClassOf1950").child("Latitude").setValue("-86.915005")
+        ref?.child("Buildings").child("ClassOf1950").child("Information").setValue("Exams are held here")
+        ref?.child("Buildings").child("ClassOf1950").child("Address").setValue("Stanley Coulter Hall, 640 Oval Dr, West Lafayette, IN 47907")
+        
+        
+    }
     @IBAction func getCurrentLocButton(_ sender: Any) {
         manager.startUpdatingLocation()
         self.map.showsUserLocation = true;
