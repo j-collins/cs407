@@ -18,6 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
     var ref: DatabaseReference!
+    var databaseHandle : DatabaseHandle?
     
     @IBAction func logoutAction1(_ sender: Any) {
         do {
@@ -86,6 +87,22 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         ref?.child("Buildings").child("ClassOf1950").child("Information").setValue("Exams are held here")
         ref?.child("Buildings").child("ClassOf1950").child("Address").setValue("Stanley Coulter Hall, 640 Oval Dr, West Lafayette, IN 47907")
         
+        
+    }
+    @IBAction func getInfoOnLawson(_ sender: Any) {
+        //get info about lawson
+       print("trying to get info on lawson")
+        ref?.child("Buildings").child("Lawson").child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
+            //code to execute when a child is added under "posts"
+            let post = snapshot.value as? String
+            var postData = ""
+            if let actualPost = post{
+                postData = actualPost
+            }
+            print("!!!!!!!!!!")
+            print(postData)
+            
+        })
         
     }
     @IBAction func getCurrentLocButton(_ sender: Any) {
