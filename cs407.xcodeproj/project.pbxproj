@@ -156,14 +156,11 @@
 				555C9420203CBAB800359C84 /* LoginViewController.swift */,
 				555C9422203CBAC700359C84 /* SignUpViewController.swift */,
 				8DA193EE202E69C500123BAE /* MapViewController.swift */,
-<<<<<<< Updated upstream
 				8D662C01203532D600238C6F /* CampusMapOverlayView.swift */,
 				8D662BFF2035327700238C6F /* CampusMapOverlay.swift */,
 				8D662BFD203531FD00238C6F /* Campus.swift */,
 				1EB22DF9203E4AD2006D8D82 /* AmenitiesViewController.swift */,
-=======
 				8DED20C4203E65A900983C3E /* Buidlings.swift */,
->>>>>>> Stashed changes
 				8D662C03203537F300238C6F /* Campus.plist */,
 				8D71130420378B9300D7C5AC /* GoogleService-Info.plist */,
 				1EBEFEB8202141F30079B994 /* Info.plist */,
