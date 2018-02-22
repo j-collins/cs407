@@ -86,18 +86,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }*/
     
     //the building info is updated to database
-    func updateBuildingInfo() {
+    func updateBuildingInfo() { //This should be gone!
         print("in update building info")
        //Lawson
         ref?.child("Buildings").child("Lawson").child("Longitude").setValue(-86.917496)
         ref?.child("Buildings").child("Lawson").child("Latitude").setValue(40.427579)
-        ref?.child("Buildings").child("Lawson").child("Information").setValue("Laswon is a computer Science Building")
+        ref?.child("Buildings").child("Lawson").child("Information").setValue("Lawson is a Computer Science building on campus")
         ref?.child("Buildings").child("Lawson").child("Address").setValue("L305 N University St, West Lafayette, IN 47907")
         //Class of 1950
         ref?.child("Buildings").child("ClassOf1950").child("Longitude").setValue(-86.915005)
         ref?.child("Buildings").child("ClassOf1950").child("Latitude").setValue(40.426481)
         ref?.child("Buildings").child("ClassOf1950").child("Information").setValue("Exams are held here")
         ref?.child("Buildings").child("ClassOf1950").child("Address").setValue("Stanley Coulter Hall, 640 Oval Dr, West Lafayette, IN 47907")
+ 
     }
     
     /*@IBAction func getInfoOnLawson(_ sender: Any) {
