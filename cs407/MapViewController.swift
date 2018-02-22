@@ -79,11 +79,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return MKOverlayRenderer()
     }
     
-    //when you click the Populate Buildings Button, updateBuildingInfo() is called
-    @IBAction func UploadBuildingInfo(_ sender: Any) {
+    //when you click the Populate Buildings Button, updateBuildingInfo() is called, 
+    /*@IBAction func UploadBuildingInfo(_ sender: Any) {
         print("in UploadBuildingInfo button function")
         updateBuildingInfo();
-    }
+    }*/
     
     //the building info is updated to database
     func updateBuildingInfo() {
@@ -100,7 +100,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         ref?.child("Buildings").child("ClassOf1950").child("Address").setValue("Stanley Coulter Hall, 640 Oval Dr, West Lafayette, IN 47907")
     }
     
-    @IBAction func getInfoOnLawson(_ sender: Any) {
+    /*@IBAction func getInfoOnLawson(_ sender: Any) {
         //get info about lawson
         print("trying to get info on lawson")
         ref?.child("Buildings").child("Lawson").child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -113,7 +113,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             print("!!!!!!!!!!")
             print(postData)
         })
-    }
+    }*/
     
     func dropBuildingPins() { //used for testing dropping one pin
         let building = Buildings(title: "Lawson", locationName: "Building", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: 40.427579, longitude: -86.917496))
