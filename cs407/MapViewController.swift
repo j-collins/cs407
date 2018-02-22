@@ -19,7 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     let manager = CLLocationManager()
     var ref: DatabaseReference!
     var databaseHandle : DatabaseHandle?
-    var buildingNames: [String] = ["Lawson", "ClassOf1950"] //List of all buildings in Database
+    var buildingNames: [String] = ["ClassOf1950", "Lawson", "Lilly Hall of Life Sciences", "MSEE", "Neil Armstrong Hall of Engineering"] //List of all buildings in Database
     
     @IBAction func logoutAction1(_ sender: Any) {
         do {
@@ -66,13 +66,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         updateBuildingInfo()
         
+        //show building pins on map
         loadBuildingPins()
+        
         //dropBuildingPins()
-
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        //print("in first")
         if overlay is CampusMapOverlay {
             return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
         }
@@ -138,7 +138,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                             print("Map Pin Coordinates for " + item + ": ")
                             print(lat)
                             print(long)
-                            let building = Buildings(title: item, locationName: "", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
+                            let building = Buildings(title: item, locationName: "The " + item + " campus building.", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
                             self.map.addAnnotation(building) //adds the pin to the map
                             //get the building information
                             self.ref?.child("Buildings").child(item).child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -148,8 +148,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                                 if let actualPost = post{
                                     postData = actualPost
                                     print(postData) //print the information in the database for the building
-                                    //let building = Buildings(title: item, locationName: postData, discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
-                                    //self.map.addAnnotation(building) //adds the pin to the map
                                 }
                             })
                         }
@@ -183,6 +181,27 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? Buildings else { return nil }
+        let identifier = "marker"
+        var view: MKMarkerAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView { // 3
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        } else {
+            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        return view
+    }
+        
+    /*func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let location = view.annotation as! Artwork
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving] location.mapItem().openInMaps(launchOptions: launchOptions)
+    }*/
     
     //NEEDED FOR THE MAP GETTING STARTED TUTORIAL
     // location refers to the center point
