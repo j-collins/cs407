@@ -34,6 +34,7 @@
 		8D71130620378B9300D7C5AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D71130420378B9300D7C5AC /* GoogleService-Info.plist */; };
 		8D71130720378B9300D7C5AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D71130420378B9300D7C5AC /* GoogleService-Info.plist */; };
 		8DA193EF202E69C500123BAE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA193EE202E69C500123BAE /* MapViewController.swift */; };
+		8DED20C5203E65A900983C3E /* Buidlings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED20C4203E65A900983C3E /* Buidlings.swift */; };
 		ED72260AFAB334184DD569CD /* Pods_cs407.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2222009AE20EF4540FDCBB18 /* Pods_cs407.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		8D662C03203537F300238C6F /* Campus.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Campus.plist; sourceTree = "<group>"; };
 		8D71130420378B9300D7C5AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8DA193EE202E69C500123BAE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		8DED20C4203E65A900983C3E /* Buidlings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buidlings.swift; sourceTree = "<group>"; };
 		C19C1D2B78A517ADF1C6D692 /* Pods_cs407Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cs407Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D72B33C7AC511206597DF5D0 /* Pods-cs407Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cs407Tests/Pods-cs407Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,10 +156,14 @@
 				555C9420203CBAB800359C84 /* LoginViewController.swift */,
 				555C9422203CBAC700359C84 /* SignUpViewController.swift */,
 				8DA193EE202E69C500123BAE /* MapViewController.swift */,
+<<<<<<< Updated upstream
 				8D662C01203532D600238C6F /* CampusMapOverlayView.swift */,
 				8D662BFF2035327700238C6F /* CampusMapOverlay.swift */,
 				8D662BFD203531FD00238C6F /* Campus.swift */,
 				1EB22DF9203E4AD2006D8D82 /* AmenitiesViewController.swift */,
+=======
+				8DED20C4203E65A900983C3E /* Buidlings.swift */,
+>>>>>>> Stashed changes
 				8D662C03203537F300238C6F /* Campus.plist */,
 				8D71130420378B9300D7C5AC /* GoogleService-Info.plist */,
 				1EBEFEB8202141F30079B994 /* Info.plist */,
@@ -520,6 +526,7 @@
 				1EB22DFA203E4AD2006D8D82 /* AmenitiesViewController.swift in Sources */,
 				1EB22E00203E53FE006D8D82 /* Building.swift in Sources */,
 				1EBEFEAC202141F30079B994 /* HomeViewController.swift in Sources */,
+				8DED20C5203E65A900983C3E /* Buidlings.swift in Sources */,
 				1EBEFEAA202141F30079B994 /* AppDelegate.swift in Sources */,
 				1EBEFEB2202141F30079B994 /* cs407.xcdatamodeld in Sources */,
 				8DA193EF202E69C500123BAE /* MapViewController.swift in Sources */,
