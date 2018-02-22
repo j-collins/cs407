@@ -136,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQC-mX-MCu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1245.5999999999999" y="132.68365817091455"/>
+            <point key="canvasLocation" x="1370" y="232"/>
         </scene>
         <!--Buildings Table View Controller-->
         <scene sceneID="vne-cc-2CW">
@@ -481,6 +481,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="RKR-A9-a3S"/>
         <segue reference="mPg-1o-p8q"/>
-        <segue reference="Pbp-Ky-sqq"/>
+        <segue reference="wCx-Xt-L6H"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -138,7 +138,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                             print("Map Pin Coordinates for " + item + ": ")
                             print(lat)
                             print(long)
-                            let building = Buildings(title: item, locationName: "The " + item + " campus building.", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
+                            let building = Buildings(title: item, locationName: "", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
                             self.map.addAnnotation(building) //adds the pin to the map
                             //get the building information
                             self.ref?.child("Buildings").child(item).child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -182,6 +182,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // Dispose of any resources that can be recreated.
     }
     
+    //this function is called every time self.map.addAnnotation(building) is called
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? Buildings else { return nil }
         let identifier = "marker"
@@ -193,11 +194,52 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) //the "i" button on the marker popup
         }
         return view
     }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        //used if sequing to Johanna's Amenities view controller
+        /*print("   info button was tapped")
+        if control == view.rightCalloutAccessoryView {
+            print("    in if statement")
+            performSegue(withIdentifier: "toTheMoon", sender: view)
+        }*/
         
+        let buildingInfo = view.annotation as! Buildings
+        let buildingName = buildingInfo.title
+
+        ref?.child("Buildings").child(buildingName!).child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
+            let post = snapshot.value as? String
+            var postData = ""
+            if let actualPost = post{
+                postData = actualPost
+            }
+        
+            //creates a popup alart window with info
+            let ac = UIAlertController(title: buildingName, message: postData, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true)
+        })
+    }
+    
+    //used if seguing to johanna's amenities view controller
+    /*func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("    preparing for segue")
+        if (segue.identifier == "toTheMoon" )
+        {
+            //var amenities =segue.destination as! AmenitiesViewController
+            //amenities.viewDidLoad() = (sender as! MKAnnotationView).annotation!.title
+            print("   in segue if")
+            if let destinationVC = segue.destination as? AmenitiesViewController {
+                print("   trying to segue")
+                destinationVC.name = title
+            }
+        }
+        
+    }*/
+    
     /*func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let location = view.annotation as! Artwork
         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving] location.mapItem().openInMaps(launchOptions: launchOptions)
