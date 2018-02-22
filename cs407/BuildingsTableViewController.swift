@@ -118,14 +118,15 @@ class BuildingsTableViewController: UITableViewController {
     }
     
     private func loadBuildings() {
-        self.firebaseReference?.child("Buildings").observeSingleEvent(of: .value, with: { (snapshot) in
+        firebaseReference?.child("Buildings").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             if let actualValue = value {
-                for (buildingName, _) in actualValue {
+                for (buildingName, _) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
                     //print(otherStuff)
                     guard let building = Building(name: buildingName as! String, photo: nil) else {
                         fatalError("Unable to instantiate building!")
                     }
+                    print(buildingName)
                     self.buildings.append(building)
                 }
                 self.tableView.reloadData()
