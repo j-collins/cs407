@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class AmenitiesViewController: UIViewController {
 
@@ -16,12 +18,27 @@ class AmenitiesViewController: UIViewController {
     var name : String? = "Default"
     //var photo : UIImage?
     
+    var firebaseReference : DatabaseReference!
+    
     @IBOutlet weak var buildingNameLabel: UILabel!
+    @IBOutlet weak var amenitiesLabel: UILabel!
+    @IBOutlet weak var amenitiesTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Define reference variable for firebase database.
+        self.firebaseReference = Database.database().reference()
 
         buildingNameLabel.text = name
+        self.firebaseReference?.child("Buildings").child(name!).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            if let actualValue = value {
+                self.amenitiesTextView.text = actualValue["Information"] as! String
+                
+            }
+        })
+        
     }
 
     override func didReceiveMemoryWarning() {

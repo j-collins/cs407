@@ -150,7 +150,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y8Y-lv-0b6">
+                                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8Y-lv-0b6">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <textAttributes key="titleTextAttributes">
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -172,6 +172,7 @@
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="Y8Y-lv-0b6" secondAttribute="trailing" id="207-YW-iEH"/>
                                 <constraint firstItem="Y8Y-lv-0b6" firstAttribute="leading" secondItem="30E-hh-NYU" secondAttribute="leading" id="NV8-eK-wEW"/>
+                                <constraint firstItem="Y8Y-lv-0b6" firstAttribute="top" secondItem="30E-hh-NYU" secondAttribute="top" id="tic-6M-Vyt"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -212,7 +213,7 @@
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Back" id="8rh-EK-cJp"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Rs7-2u-hAP">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fG6-hJ-pDS">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fG6-hJ-pDS">
                                 <rect key="frame" x="311" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
@@ -264,19 +265,50 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MM0-3N-JLd">
+                                <rect key="frame" x="10" y="627" width="62" height="30"/>
+                                <state key="normal" title="Favorites"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9l-At-Act">
+                                <rect key="frame" x="301" y="627" width="64" height="30"/>
+                                <state key="normal" title="Floorplan"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amenities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cc5-9p-SrH">
+                                <rect key="frame" x="16" y="269" width="76" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QWn-Ay-qv5">
+                                <rect key="frame" x="10" y="309" width="349" height="281"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tJ5-Z7-ErN" firstAttribute="trailing" secondItem="CzE-GJ-eUR" secondAttribute="trailing" id="6Nj-A4-EYT"/>
                             <constraint firstItem="tJ5-Z7-ErN" firstAttribute="top" secondItem="CzE-GJ-eUR" secondAttribute="top" id="AI8-yZ-00b"/>
+                            <constraint firstItem="CzE-GJ-eUR" firstAttribute="bottom" secondItem="MM0-3N-JLd" secondAttribute="bottom" constant="10" id="AaU-Xr-J14"/>
+                            <constraint firstItem="CzE-GJ-eUR" firstAttribute="bottom" secondItem="W9l-At-Act" secondAttribute="bottom" constant="10" id="HAb-p7-XiM"/>
                             <constraint firstItem="tJ5-Z7-ErN" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" id="ILk-Ko-gA3"/>
+                            <constraint firstItem="CzE-GJ-eUR" firstAttribute="trailing" secondItem="W9l-At-Act" secondAttribute="trailing" constant="10" id="TMd-yv-RJf"/>
                             <constraint firstItem="qDJ-tL-9kt" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" constant="10" id="W7R-Z1-9d0"/>
                             <constraint firstItem="CzE-GJ-eUR" firstAttribute="trailing" secondItem="qDJ-tL-9kt" secondAttribute="trailing" constant="10" id="qHc-tZ-yS9"/>
+                            <constraint firstItem="MM0-3N-JLd" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" constant="10" id="raS-iF-d8m"/>
                             <constraint firstItem="qDJ-tL-9kt" firstAttribute="top" secondItem="CzE-GJ-eUR" secondAttribute="top" constant="60" id="vRd-Hh-AqN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CzE-GJ-eUR"/>
                     </view>
                     <connections>
+                        <outlet property="amenitiesLabel" destination="cc5-9p-SrH" id="SM8-om-dlC"/>
+                        <outlet property="amenitiesTextView" destination="QWn-Ay-qv5" id="xLV-BB-ULB"/>
                         <outlet property="buildingNameLabel" destination="fXs-H2-AY4" id="o80-Yo-zmN"/>
                     </connections>
                 </viewController>
@@ -293,7 +325,7 @@
                 </navigationItem>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZc-HC-HQ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1550" y="1095"/>
+            <point key="canvasLocation" x="1549.5999999999999" y="1094.3028485757122"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="zau-tc-Dwq">
@@ -447,7 +479,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QlP-A6-wVJ"/>
         <segue reference="RKR-A9-a3S"/>
         <segue reference="mPg-1o-p8q"/>
         <segue reference="Pbp-Ky-sqq"/>
