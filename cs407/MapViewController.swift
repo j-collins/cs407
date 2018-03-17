@@ -76,8 +76,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is CampusMapOverlay {
-            
+            print("  *** overlay")
             return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
+        } else {
+            print("  *** route")
+            let renderer = MKPolylineRenderer(overlay: overlay)
+            renderer.strokeColor = UIColor.red
+            renderer.lineWidth = 4.0
+            return renderer
         }
         return MKOverlayRenderer()
     }
@@ -147,6 +153,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+    func removeBuildingPins() {
+        let allAnnotations = self.map.annotations
+        self.map.removeAnnotations(allAnnotations)
+    }
+    
     private func loadBuildingNames() {
         ref?.child("Buildings").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
@@ -208,8 +219,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         //used if sequing to Johanna's Amenities view controller
-        /*print("   info button was tapped")
-        if control == view.rightCalloutAccessoryView {
+        print("   info button was tapped")
+        /*if control == view.rightCalloutAccessoryView {
             print("    in if statement")
             performSegue(withIdentifier: "toTheMoon", sender: view)
         }*/
@@ -217,7 +228,38 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let buildingInfo = view.annotation as! Buildings
         let buildingName = buildingInfo.title
 
-        ref?.child("Buildings").child(buildingName!).child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
+        
+        let test = self.ref.child("Buildings").child(buildingName!)
+        test.observe(.value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                if let actualValue = value {
+                    var postData = actualValue["Information"] as! String
+                    let lat = actualValue["Latitude"] as! Double
+                    let long = actualValue["Longitude"] as! Double
+                    
+                    //creates a popup alart window with info
+                    let ac = UIAlertController(title: buildingName, message: postData, preferredStyle: .alert)
+                    //Create ok button
+                    let okButtonAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                        print("ok button pressed")
+                    }
+                    ac.addAction(okButtonAction)
+                    
+                    //Create route button
+                    let routeButtonAction = UIAlertAction(title: "Route", style: .default) { (action:UIAlertAction!) in
+                        print("route button pressed")
+                        //call a routing method
+                        self.routing(lat: lat, long: long, name: buildingName!)
+                    }
+                    ac.addAction(routeButtonAction)
+                    
+                    //present the pop-up
+                    self.present(ac, animated: true)
+                }
+            })
+        
+        
+       /* ref?.child("Buildings").child(buildingName!).child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
             let post = snapshot.value as? String
             var postData = ""
             if let actualPost = post{
@@ -226,9 +268,110 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
             //creates a popup alart window with info
             let ac = UIAlertController(title: buildingName, message: postData, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            //Create ok button
+            let okButtonAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                print("ok button pressed")
+            }
+            ac.addAction(okButtonAction)
+            
+            //Create route button
+            let routeButtonAction = UIAlertAction(title: "Route", style: .default) { (action:UIAlertAction!) in
+                print("route button pressed")
+                //call a routing method
+                routing(buildingName)
+            }
+            ac.addAction(routeButtonAction)
+            
+            //present the pop-up
             self.present(ac, animated: true)
-        })
+        })*/
+    }
+    
+    func routing(lat: Double, long: Double, name: String) {
+        removeBuildingPins()
+        
+        //get current location
+        let sourceLoc: CLLocationCoordinate2D = (manager.location?.coordinate)!
+        // !!!! What if the user is not sharing their location???
+        
+        //get destination location
+        let destLoc = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        
+        //Create pins to mark the start and end of the route
+        let sourcePin = MKPlacemark(coordinate: sourceLoc, addressDictionary: nil)
+        let destPin = MKPlacemark(coordinate: destLoc, addressDictionary: nil)
+     
+        //MKMapItems are used for routing, giving them information about the pins
+        let sourceMapItem = MKMapItem(placemark: sourcePin)
+        let destMapItem = MKMapItem(placemark: destPin)
+        
+        //annotations to give the names of the start and end location pins
+        let sourceAnnotation = MKPointAnnotation()
+        sourceAnnotation.title = "Current Location"
+        
+        if let location = sourcePin.location {
+            sourceAnnotation.coordinate = location.coordinate
+        }
+        
+        let destAnnotation = MKPointAnnotation()
+        destAnnotation.title = name
+        
+        if let location = destPin.location {
+            destAnnotation.coordinate = location.coordinate
+        }
+        
+        self.map.showAnnotations([sourceAnnotation,destAnnotation], animated: true ) //display on map
+        
+        print("** here **")
+        //MKDirectionsRequest class is used to compute the route
+        let directionRequest = MKDirectionsRequest()
+        print("** MKDirectionsRequest **")
+
+        directionRequest.source = sourceMapItem
+        print("** source **")
+
+        directionRequest.destination = destMapItem
+        print("** dest **")
+
+        directionRequest.transportType = .walking
+        print("** type **")
+
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        print("** directions **")
+
+        
+        directions.calculate {
+            (response, error) -> Void in
+            print("** calculate **")
+
+            guard let response = response else {
+                print("** response **")
+
+                if let error = error {
+                    print("** error **")
+
+                    print("Error: \(error)")
+                }
+                print("** return **")
+                return
+            }
+            
+            let route = response.routes[0]
+            print("** route **")
+
+            self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
+            print("** add line **")
+
+            let rect = route.polyline.boundingMapRect
+            print("** rect **")
+
+            self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+            print("** set region **")
+
+        }
+        
     }
     
     //used if seguing to johanna's amenities view controller
