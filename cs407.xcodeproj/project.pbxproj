@@ -704,7 +704,7 @@
 				DEVELOPMENT_TEAM = NBFD9SR924;
 				INFOPLIST_FILE = cs407/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = basic.cs407;
+				PRODUCT_BUNDLE_IDENTIFIER = basic.cs407.version01.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -720,7 +720,7 @@
 				DEVELOPMENT_TEAM = NBFD9SR924;
 				INFOPLIST_FILE = cs407/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = basic.cs407;
+				PRODUCT_BUNDLE_IDENTIFIER = basic.cs407.version01.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

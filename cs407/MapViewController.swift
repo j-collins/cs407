@@ -19,6 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     let manager = CLLocationManager()
     var ref: DatabaseReference!
     var databaseHandle : DatabaseHandle?
+    var buildings = [Building]()
     var buildingNames: [String] = ["ClassOf1950", "Lawson", "Lilly Hall of Life Sciences", "MSEE", "Neil Armstrong Hall of Engineering"] //List of all buildings in Database
     
     @IBAction func logoutAction1(_ sender: Any) {
@@ -34,7 +35,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        loadBuildingNames()
+
         // define reference variable for database
         ref = Database.database().reference()
         
@@ -64,7 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         map.add(overlay)
         //mapView(overlay, rendererFor: campus: campus)
         
-        updateBuildingInfo()
+        //updateBuildingInfo()
         
         //show building pins on map
         loadBuildingPins()
@@ -74,6 +76,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is CampusMapOverlay {
+            
             return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
         }
         return MKOverlayRenderer()
@@ -88,9 +91,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //the building info is updated to database
     func updateBuildingInfo() { //This should be gone!
         print("in update building info")
-       //Lawson
-        ref?.child("Buildings").child("Lawson").child("Longitude").setValue(-86.917496)
-        ref?.child("Buildings").child("Lawson").child("Latitude").setValue(40.427579)
+       /*//Lawson
+        ref?.child("Buildings").child("Lawson").child("Longitude").setValue(-86.917900) //-86.917496)
+        ref?.child("Buildings").child("Lawson").child("Latitude").setValue(40.423466) //40.427579)
         ref?.child("Buildings").child("Lawson").child("Information").setValue("Lawson is a Computer Science building on campus")
         ref?.child("Buildings").child("Lawson").child("Address").setValue("L305 N University St, West Lafayette, IN 47907")
         //Class of 1950
@@ -98,7 +101,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         ref?.child("Buildings").child("ClassOf1950").child("Latitude").setValue(40.426481)
         ref?.child("Buildings").child("ClassOf1950").child("Information").setValue("Exams are held here")
         ref?.child("Buildings").child("ClassOf1950").child("Address").setValue("Stanley Coulter Hall, 640 Oval Dr, West Lafayette, IN 47907")
- 
+ */
     }
     
     /*@IBAction func getInfoOnLawson(_ sender: Any) {
@@ -125,37 +128,40 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         var lat = 0.0
         var long = 0.0
         
+        //loadBuildingNames()
+        //print("*** Here")
+        
         for item in buildingNames {
-            //get Latitude
-            ref?.child("Buildings").child(item).child("Latitude").observeSingleEvent(of: .value, with: { (snapshot) in
-                let post = snapshot.value as? Double
-                if let actualPost = post{
-                    lat = actualPost
-                    //get longitude
-                    self.ref?.child("Buildings").child(item).child("Longitude").observeSingleEvent(of: .value, with: { (snapshot) in
-                        let post = snapshot.value as? Double
-                        if let actualPost = post{
-                            long = actualPost
-                            print("Map Pin Coordinates for " + item + ": ")
-                            print(lat)
-                            print(long)
-                            let building = Buildings(title: item, locationName: "", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
-                            self.map.addAnnotation(building) //adds the pin to the map
-                            //get the building information
-                            self.ref?.child("Buildings").child(item).child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
-                                //code to execute when a child is added under "posts"
-                                let post = snapshot.value as? String
-                                var postData = ""
-                                if let actualPost = post{
-                                    postData = actualPost
-                                    print(postData) //print the information in the database for the building
-                                }
-                            })
-                        }
-                    })
+            let test = self.ref.child("Buildings").child(String(describing: item))
+            test.observe(.value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                if let actualValue = value {
+                    lat = actualValue["Latitude"] as! Double
+                    long = actualValue["Longitude"] as! Double
+                    print("values: ", lat, long)
+                    let building = Buildings(title: item, locationName: "", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
+                    self.map.addAnnotation(building) //adds the pin to the map
+
                 }
             })
         }
+    }
+    
+    private func loadBuildingNames() {
+        ref?.child("Buildings").observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            if let actualValue = value {
+                for (buildingName, _) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
+                    //print(otherStuff)
+                    guard let building = Building(name: buildingName as! String, photo: nil) else {
+                        fatalError("Unable to instantiate building!")
+                    }
+                    print(buildingName)
+                    self.buildings.append(building)
+                }
+                //self.tableView.reloadData()
+            }
+        })
     }
     
     @IBAction func getCurrentLocButton(_ sender: Any) {
