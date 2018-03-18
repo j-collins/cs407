@@ -66,8 +66,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         map.add(overlay)
         //mapView(overlay, rendererFor: campus: campus)
         
-        //updateBuildingInfo()
-        
         //show building pins on map
         loadBuildingPins()
         
@@ -76,54 +74,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is CampusMapOverlay {
-            print("  *** overlay")
             return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
         } else {
-            print("  *** route")
             let renderer = MKPolylineRenderer(overlay: overlay)
-            renderer.strokeColor = UIColor.red
+            renderer.strokeColor = UIColor.blue
             renderer.lineWidth = 4.0
             return renderer
         }
         return MKOverlayRenderer()
     }
-    
-    //when you click the Populate Buildings Button, updateBuildingInfo() is called, 
-    /*@IBAction func UploadBuildingInfo(_ sender: Any) {
-        print("in UploadBuildingInfo button function")
-        updateBuildingInfo();
-    }*/
-    
-    //the building info is updated to database
-    func updateBuildingInfo() { //This should be gone!
-        print("in update building info")
-       /*//Lawson
-        ref?.child("Buildings").child("Lawson").child("Longitude").setValue(-86.917900) //-86.917496)
-        ref?.child("Buildings").child("Lawson").child("Latitude").setValue(40.423466) //40.427579)
-        ref?.child("Buildings").child("Lawson").child("Information").setValue("Lawson is a Computer Science building on campus")
-        ref?.child("Buildings").child("Lawson").child("Address").setValue("L305 N University St, West Lafayette, IN 47907")
-        //Class of 1950
-        ref?.child("Buildings").child("ClassOf1950").child("Longitude").setValue(-86.915005)
-        ref?.child("Buildings").child("ClassOf1950").child("Latitude").setValue(40.426481)
-        ref?.child("Buildings").child("ClassOf1950").child("Information").setValue("Exams are held here")
-        ref?.child("Buildings").child("ClassOf1950").child("Address").setValue("Stanley Coulter Hall, 640 Oval Dr, West Lafayette, IN 47907")
- */
-    }
-    
-    /*@IBAction func getInfoOnLawson(_ sender: Any) {
-        //get info about lawson
-        print("trying to get info on lawson")
-        ref?.child("Buildings").child("Lawson").child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
-            //code to execute when a child is added under "posts"
-            let post = snapshot.value as? String
-            var postData = ""
-            if let actualPost = post{
-                postData = actualPost
-            }
-            print("!!!!!!!!!!")
-            print(postData)
-        })
-    }*/
     
     func dropBuildingPins() { //used for testing dropping one pin
         let building = Buildings(title: "Lawson", locationName: "Building", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: 40.427579, longitude: -86.917496))
@@ -163,14 +122,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             let value = snapshot.value as? NSDictionary
             if let actualValue = value {
                 for (buildingName, _) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
-                    //print(otherStuff)
                     guard let building = Building(name: buildingName as! String, photo: nil) else {
                         fatalError("Unable to instantiate building!")
                     }
                     print(buildingName)
                     self.buildings.append(building)
                 }
-                //self.tableView.reloadData()
             }
         })
     }
@@ -248,8 +205,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     //Create route button
                     let routeButtonAction = UIAlertAction(title: "Route", style: .default) { (action:UIAlertAction!) in
                         print("route button pressed")
-                        //call a routing method
-                        self.routing(lat: lat, long: long, name: buildingName!)
+                        self.routing(lat: lat, long: long, name: buildingName!) //call method to create route
                     }
                     ac.addAction(routeButtonAction)
                     
@@ -257,34 +213,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     self.present(ac, animated: true)
                 }
             })
-        
-        
-       /* ref?.child("Buildings").child(buildingName!).child("Information").observeSingleEvent(of: .value, with: { (snapshot) in
-            let post = snapshot.value as? String
-            var postData = ""
-            if let actualPost = post{
-                postData = actualPost
-            }
-        
-            //creates a popup alart window with info
-            let ac = UIAlertController(title: buildingName, message: postData, preferredStyle: .alert)
-            //Create ok button
-            let okButtonAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-                print("ok button pressed")
-            }
-            ac.addAction(okButtonAction)
-            
-            //Create route button
-            let routeButtonAction = UIAlertAction(title: "Route", style: .default) { (action:UIAlertAction!) in
-                print("route button pressed")
-                //call a routing method
-                routing(buildingName)
-            }
-            ac.addAction(routeButtonAction)
-            
-            //present the pop-up
-            self.present(ac, animated: true)
-        })*/
     }
     
     func routing(lat: Double, long: Double, name: String) {
@@ -322,56 +250,29 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         self.map.showAnnotations([sourceAnnotation,destAnnotation], animated: true ) //display on map
         
-        print("** here **")
         //MKDirectionsRequest class is used to compute the route
         let directionRequest = MKDirectionsRequest()
-        print("** MKDirectionsRequest **")
-
         directionRequest.source = sourceMapItem
-        print("** source **")
-
         directionRequest.destination = destMapItem
-        print("** dest **")
-
         directionRequest.transportType = .walking
-        print("** type **")
-
         
         // Calculate the direction
         let directions = MKDirections(request: directionRequest)
-        print("** directions **")
-
         
         directions.calculate {
             (response, error) -> Void in
-            print("** calculate **")
-
             guard let response = response else {
-                print("** response **")
-
                 if let error = error {
-                    print("** error **")
-
                     print("Error: \(error)")
                 }
-                print("** return **")
                 return
             }
             
             let route = response.routes[0]
-            print("** route **")
-
             self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
-            print("** add line **")
-
             let rect = route.polyline.boundingMapRect
-            print("** rect **")
-
             self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
-            print("** set region **")
-
         }
-        
     }
     
     //used if seguing to johanna's amenities view controller
@@ -389,28 +290,4 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
     }*/
-    
-    /*func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let location = view.annotation as! Artwork
-        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving] location.mapItem().openInMaps(launchOptions: launchOptions)
-    }*/
-    
-    //NEEDED FOR THE MAP GETTING STARTED TUTORIAL
-    // location refers to the center point
-    /*func centerMapOnInitialLocation(location: CLLocation) {
-        let coordRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadiusDisplay, regionRadiusDisplay)
-        map.setRegion(coordRegion, animated: true) //tells the map to display this specified region, the true animates a zoom to this location
-    }*/
-    
 }
-
-//extension MapViewController: MKMapViewDelegate {
-    /*private func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        print("in second")
-        if overlay is CampusMapOverlay {
-            //return CampusMapOverlayView(overlay: overlay, overlayImage: )
-        }
-        
-        return MKOverlayRenderer()
-    }*/
-//}
