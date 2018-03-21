@@ -21,6 +21,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var databaseHandle : DatabaseHandle?
     var buildings = [Building]()
     var buildingNames: [String] = ["ClassOf1950", "Lawson", "Lilly Hall of Life Sciences", "MSEE", "Neil Armstrong Hall of Engineering"] //List of all buildings in Database
+    //var response: MKDirectionsResponse = nil
+    var polyline: MKPolyline = MKPolyline()
     
     @IBAction func logoutAction1(_ sender: Any) {
         do {
@@ -45,11 +47,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //let initialLoc = CLLocation(latitude: 40.428246, longitude: -86.914391)
         //centerMapOnInitialLocation(location: initialLoc) //call the helper function to center the map
     
+        print(" * * Line 1");
         let latDelta = campus.overlayTopLeftCoordinate.latitude - campus.overlayBottomRightCoordinate.latitude
+        print(" * * Line 2");
         
         // Think of a span as a tv size, measure from one corner to another
         let span = MKCoordinateSpanMake(fabs(latDelta), 0.0)
         let region = MKCoordinateRegionMake(campus.midCoordinate, span)
+        print(" * * Line 3");
         
         map.region = region
         map.delegate = self;
@@ -63,19 +68,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         //this chunk is for overlays
         let overlay = CampusMapOverlay(campus: campus)
+        print(" * * Line 4");
+        
         map.add(overlay)
+        print(" * * Line 5");
         //mapView(overlay, rendererFor: campus: campus)
         
         //show building pins on map
+        print(" * * Line 6");
         loadBuildingPins()
+        print(" * * Line 7");
         
         //dropBuildingPins()
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is CampusMapOverlay {
+            print(" * * if mapView CampusMapOverlay")
             return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
         } else {
+            print(" * * else not mapView CampusMapOverlay")
             let renderer = MKPolylineRenderer(overlay: overlay)
             renderer.strokeColor = UIColor.blue
             renderer.lineWidth = 4.0
@@ -153,12 +165,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     override func didReceiveMemoryWarning() {
+        print(" * * DID RECIEVE MEMORY WARNING: MapViewController.swift")
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     //this function is called every time self.map.addAnnotation(building) is called
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        print(" * * addind annotation")
         guard let annotation = annotation as? Buildings else { return nil }
         let identifier = "marker"
         var view: MKMarkerAnnotationView
@@ -254,6 +268,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let directionRequest = MKDirectionsRequest()
         directionRequest.source = sourceMapItem
         directionRequest.destination = destMapItem
+        directionRequest.requestsAlternateRoutes = true
         directionRequest.transportType = .walking
         
         // Calculate the direction
@@ -269,10 +284,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
             
             let route = response.routes[0]
+            self.polyline = route.polyline
             self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
-            let rect = route.polyline.boundingMapRect
+            let rect = route.polyline.boundingMapRect //this should be a little bigger...
             self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
         }
+    }
+    
+    @IBAction func removeRoutePolylines(_ sender: Any) {
+        //let allRoutes = self.map.
+        self.map.remove(self.polyline)
+        removeBuildingPins()
+        loadBuildingPins()
+        //self.map.removeOverlays(self.route.polyline)
+
     }
     
     //used if seguing to johanna's amenities view controller

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZtJ-Go-W6D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -148,11 +148,11 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqT-07-xpC">
-                                <rect key="frame" x="86" y="75" width="149" height="32"/>
+                                <rect key="frame" x="16" y="76" width="104" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <state key="normal" title="Current Location">
+                                <state key="normal" title="My Location">
                                     <color key="titleColor" red="0.89740425349999997" green="0.91317194700000004" blue="0.95049613710000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -185,6 +185,19 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8e-FT-Wgw">
+                                <rect key="frame" x="194" y="76" width="111" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Clear Routes">
+                                    <color key="titleColor" red="0.89740425349999997" green="0.91317194700000004" blue="0.95049613710000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="getCurrentLocButton:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="i4N-pb-fM2"/>
+                                    <action selector="removeRoutePolylines:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="6bU-yQ-Giu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -557,6 +570,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="HyO-3f-If3"/>
         <segue reference="ofJ-GK-dR4"/>
         <segue reference="wCx-Xt-L6H"/>
     </inferredMetricsTieBreakers>
