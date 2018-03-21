@@ -51,6 +51,12 @@ class LoginViewController: UIViewController {
     }
     }
     }
+    
+    /* Method to hide keyboard if the user taps outside of the keyboard */
+    @IBAction func tapAnywhereToRemoveKeyboard(_ sender: Any) {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+    }
 }
 
 
