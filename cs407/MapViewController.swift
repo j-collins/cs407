@@ -72,7 +72,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let overlay = CampusMapOverlay(campus: campus)
         print(" * * Line 4");
         
-        //map.add(overlay)
+        map.add(overlay)
         print(" * * Line 5");
         //mapView(overlay, rendererFor: campus: campus)
         
