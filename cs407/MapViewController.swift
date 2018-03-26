@@ -72,7 +72,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let overlay = CampusMapOverlay(campus: campus)
         print(" * * Line 4");
         
-        map.add(overlay)
+        //map.add(overlay)
         print(" * * Line 5");
         //mapView(overlay, rendererFor: campus: campus)
         
@@ -294,6 +294,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
                 let rect = route.polyline.boundingMapRect //this should be a little bigger...
                 self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+                self.getSteps(route: route)
             }
             
             //display the button to clear routes
@@ -310,6 +311,25 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             alertVC.addAction(alertActionOkay)
             self.present(alertVC, animated: true, completion: nil)
         }
+    }
+    
+    func getSteps(route: MKRoute) {
+        var directionsString: String;
+        directionsString = "";
+        var i: Int;
+        i = 0;
+        for _ in route.steps {
+            directionsString = directionsString + route.steps[i].instructions
+            directionsString = directionsString + "\n"
+            i = i + 1
+        }
+        
+        let alertVC = UIAlertController(title: "Directions", message: directionsString, preferredStyle: .alert)
+        
+        let alertActionOkay = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        
+        alertVC.addAction(alertActionOkay)
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     @IBAction func removeRoutePolylines(_ sender: Any) {
