@@ -13,7 +13,7 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-
+    
     @IBOutlet weak var map: MKMapView!
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
@@ -23,6 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var buildingNames: [String] = ["ClassOf1950", "Lawson", "Lilly Hall of Life Sciences", "MSEE", "Neil Armstrong Hall of Engineering"] //List of all buildings in Database
     //var response: MKDirectionsResponse = nil
     var polyline: MKPolyline = MKPolyline()
+    var isrouting = false;
     
     @IBAction func logoutAction1(_ sender: Any) {
         do {
@@ -38,7 +39,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
         loadBuildingNames()
-
+        
         // define reference variable for database
         ref = Database.database().reference()
         
@@ -46,7 +47,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //Set initial location for map: 610 Purdue Mall, West Lafayette, IN 47907
         //let initialLoc = CLLocation(latitude: 40.428246, longitude: -86.914391)
         //centerMapOnInitialLocation(location: initialLoc) //call the helper function to center the map
-    
+        
         print(" * * Line 1");
         let latDelta = campus.overlayTopLeftCoordinate.latitude - campus.overlayBottomRightCoordinate.latitude
         print(" * * Line 2");
@@ -118,7 +119,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     print("values: ", lat, long)
                     let building = Buildings(title: item, locationName: "", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
                     self.map.addAnnotation(building) //adds the pin to the map
-
+                    
                 }
             })
         }
@@ -162,6 +163,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         //shows blue dot
         self.map.showsUserLocation = true;
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -192,102 +194,116 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //used if sequing to Johanna's Amenities view controller
         print("   info button was tapped")
         /*if control == view.rightCalloutAccessoryView {
-            print("    in if statement")
-            performSegue(withIdentifier: "toTheMoon", sender: view)
-        }*/
+         print("    in if statement")
+         performSegue(withIdentifier: "toTheMoon", sender: view)
+         }*/
         
         let buildingInfo = view.annotation as! Buildings
         let buildingName = buildingInfo.title
-
+        
         
         let test = self.ref.child("Buildings").child(buildingName!)
         test.observe(.value, with: { (snapshot) in
-                let value = snapshot.value as? NSDictionary
-                if let actualValue = value {
-                    var postData = actualValue["Information"] as! String
-                    let lat = actualValue["Latitude"] as! Double
-                    let long = actualValue["Longitude"] as! Double
-                    
-                    //creates a popup alart window with info
-                    let ac = UIAlertController(title: buildingName, message: postData, preferredStyle: .alert)
-                    //Create ok button
-                    let okButtonAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-                        print("ok button pressed")
-                    }
-                    ac.addAction(okButtonAction)
-                    
-                    //Create route button
-                    let routeButtonAction = UIAlertAction(title: "Route", style: .default) { (action:UIAlertAction!) in
-                        print("route button pressed")
-                        self.routing(lat: lat, long: long, name: buildingName!) //call method to create route
-                    }
-                    ac.addAction(routeButtonAction)
-                    
-                    //present the pop-up
-                    self.present(ac, animated: true)
+            let value = snapshot.value as? NSDictionary
+            if let actualValue = value {
+                var postData = actualValue["Information"] as! String
+                let lat = actualValue["Latitude"] as! Double
+                let long = actualValue["Longitude"] as! Double
+                
+                //creates a popup alart window with info
+                let ac = UIAlertController(title: buildingName, message: postData, preferredStyle: .alert)
+                //Create ok button
+                let okButtonAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                    print("ok button pressed")
                 }
-            })
+                ac.addAction(okButtonAction)
+                
+                //Create route button
+                let routeButtonAction = UIAlertAction(title: "Route", style: .default) { (action:UIAlertAction!) in
+                    print("route button pressed")
+                    self.routing(lat: lat, long: long, name: buildingName!) //call method to create route
+                }
+                ac.addAction(routeButtonAction)
+                
+                //present the pop-up
+                self.present(ac, animated: true)
+            }
+        })
     }
     
     func routing(lat: Double, long: Double, name: String) {
-        removeBuildingPins()
-        
-        //get current location
-        let sourceLoc: CLLocationCoordinate2D = (manager.location?.coordinate)!
-        // !!!! What if the user is not sharing their location???
-        
-        //get destination location
-        let destLoc = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        
-        //Create pins to mark the start and end of the route
-        let sourcePin = MKPlacemark(coordinate: sourceLoc, addressDictionary: nil)
-        let destPin = MKPlacemark(coordinate: destLoc, addressDictionary: nil)
-     
-        //MKMapItems are used for routing, giving them information about the pins
-        let sourceMapItem = MKMapItem(placemark: sourcePin)
-        let destMapItem = MKMapItem(placemark: destPin)
-        
-        //annotations to give the names of the start and end location pins
-        let sourceAnnotation = MKPointAnnotation()
-        sourceAnnotation.title = "Current Location"
-        
-        if let location = sourcePin.location {
-            sourceAnnotation.coordinate = location.coordinate
-        }
-        
-        let destAnnotation = MKPointAnnotation()
-        destAnnotation.title = name
-        
-        if let location = destPin.location {
-            destAnnotation.coordinate = location.coordinate
-        }
-        
-        self.map.showAnnotations([sourceAnnotation,destAnnotation], animated: true ) //display on map
-        
-        //MKDirectionsRequest class is used to compute the route
-        let directionRequest = MKDirectionsRequest()
-        directionRequest.source = sourceMapItem
-        directionRequest.destination = destMapItem
-        directionRequest.requestsAlternateRoutes = true
-        directionRequest.transportType = .walking
-        
-        // Calculate the direction
-        let directions = MKDirections(request: directionRequest)
-        
-        directions.calculate {
-            (response, error) -> Void in
-            guard let response = response else {
-                if let error = error {
-                    print("Error: \(error)")
-                }
-                return
+        if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse) {
+            
+            self.isrouting = true;
+            removeBuildingPins()
+            
+            //get current location
+            let sourceLoc: CLLocationCoordinate2D = (manager.location?.coordinate)!
+            
+            //get destination location
+            let destLoc = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            
+            //Create pins to mark the start and end of the route
+            let sourcePin = MKPlacemark(coordinate: sourceLoc, addressDictionary: nil)
+            let destPin = MKPlacemark(coordinate: destLoc, addressDictionary: nil)
+            
+            //MKMapItems are used for routing, giving them information about the pins
+            let sourceMapItem = MKMapItem(placemark: sourcePin)
+            let destMapItem = MKMapItem(placemark: destPin)
+            
+            //annotations to give the names of the start and end location pins
+            let sourceAnnotation = MKPointAnnotation()
+            sourceAnnotation.title = "Current Location"
+            
+            if let location = sourcePin.location {
+                sourceAnnotation.coordinate = location.coordinate
             }
             
-            let route = response.routes[0]
-            self.polyline = route.polyline
-            self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
-            let rect = route.polyline.boundingMapRect //this should be a little bigger...
-            self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+            let destAnnotation = MKPointAnnotation()
+            destAnnotation.title = name
+            
+            if let location = destPin.location {
+                destAnnotation.coordinate = location.coordinate
+            }
+            
+            self.map.showAnnotations([sourceAnnotation,destAnnotation], animated: true ) //display on map
+            
+            //MKDirectionsRequest class is used to compute the route
+            let directionRequest = MKDirectionsRequest()
+            directionRequest.source = sourceMapItem
+            directionRequest.destination = destMapItem
+            directionRequest.requestsAlternateRoutes = true
+            directionRequest.transportType = .walking
+            
+            // Calculate the direction
+            let directions = MKDirections(request: directionRequest)
+            
+            directions.calculate {
+                (response, error) -> Void in
+                guard let response = response else {
+                    if let error = error {
+                        print("Error: \(error)")
+                    }
+                    return
+                }
+                
+                let route = response.routes[0]
+                self.polyline = route.polyline
+                self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
+                let rect = route.polyline.boundingMapRect //this should be a little bigger...
+                self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+            }
+            
+            //TODO - if the users reaches the destination, stop routing
+        } else {
+            //user is not sharing their location so give them a message that to use this feature they must share their loction
+            print("user tried to route but is not sharing their location")
+            let alertVC = UIAlertController(title: "Error", message: "Sorry. You have not given the app permission to use your location, so we can not route you from your location. To use this feature, go to settings and show your location.", preferredStyle: .alert)
+            
+            let alertActionOkay = UIAlertAction(title: "Okay", style: .default, handler: nil)
+            
+            alertVC.addAction(alertActionOkay)
+            self.present(alertVC, animated: true, completion: nil)
         }
     }
     
@@ -296,23 +312,24 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.map.remove(self.polyline)
         removeBuildingPins()
         loadBuildingPins()
+        self.isrouting = false; 
         //self.map.removeOverlays(self.route.polyline)
-
+        
     }
     
     //used if seguing to johanna's amenities view controller
     /*func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("    preparing for segue")
-        if (segue.identifier == "toTheMoon" )
-        {
-            //var amenities =segue.destination as! AmenitiesViewController
-            //amenities.viewDidLoad() = (sender as! MKAnnotationView).annotation!.title
-            print("   in segue if")
-            if let destinationVC = segue.destination as? AmenitiesViewController {
-                print("   trying to segue")
-                destinationVC.name = title
-            }
-        }
-        
-    }*/
+     print("    preparing for segue")
+     if (segue.identifier == "toTheMoon" )
+     {
+     //var amenities =segue.destination as! AmenitiesViewController
+     //amenities.viewDidLoad() = (sender as! MKAnnotationView).annotation!.title
+     print("   in segue if")
+     if let destinationVC = segue.destination as? AmenitiesViewController {
+     print("   trying to segue")
+     destinationVC.name = title
+     }
+     }
+     
+     }*/
 }
