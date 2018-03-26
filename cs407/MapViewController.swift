@@ -15,6 +15,7 @@ import FirebaseDatabase
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var map: MKMapView!
+    @IBOutlet weak var clearRouteButton: UIButton!
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
     var ref: DatabaseReference!
@@ -233,8 +234,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func routing(lat: Double, long: Double, name: String) {
         if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse) {
-            
+            //set global variable to true - there is a route
             self.isrouting = true;
+            
             removeBuildingPins()
             
             //get current location
@@ -294,6 +296,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
             }
             
+            //display the button to clear routes
+            self.clearRouteButton.isHidden = false;
+            
             //TODO - if the users reaches the destination, stop routing
         } else {
             //user is not sharing their location so give them a message that to use this feature they must share their loction
@@ -312,8 +317,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.map.remove(self.polyline)
         removeBuildingPins()
         loadBuildingPins()
-        self.isrouting = false; 
+        self.isrouting = false;
         //self.map.removeOverlays(self.route.polyline)
+        
+        //rehide the clear route button
+        self.clearRouteButton.isHidden = true;
+
         
     }
     
