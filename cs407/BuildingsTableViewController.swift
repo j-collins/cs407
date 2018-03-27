@@ -9,19 +9,23 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 class BuildingsTableViewController: UITableViewController {
 
     //MARK: Properties
     var buildings = [Building]()
     var firebaseReference : DatabaseReference!
+    //Add storage reference for Firebase file storage.
+    var storageReference : StorageReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //Define reference variable for firebase database.
         self.firebaseReference = Database.database().reference()
-        
+        //Initialize reference variable for firebase storage.
+        self.storageReference = Storage.storage().reference()
         
         self.loadBuildings()
         
@@ -118,23 +122,65 @@ class BuildingsTableViewController: UITableViewController {
     }
     
     private func loadBuildings() {
+        //Set storage reference to be building_data folder.
+        let buildingsRef = self.storageReference.child("building_data")
+        
+        //Get to Buildings in database. Get snapshot of buildings interpreted as Dictionary.
         firebaseReference?.child("Buildings").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             if let actualValue = value {
-                for (buildingName, _) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
-                    //print(otherStuff)
+                //For each key, value pair (buildingName, and all associated buildingInfo), sorted alphabetically.
+                for (buildingName, buildingInfoData) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
+                    
+                    //String : Any -> In database, "column" is a string, but can be mapped to string or int or other type.
+                    let buildingInfo = buildingInfoData as! [String : Any]
+                    
+                    //Set the pathway, called buildingImage, to the string stored in ImageThumb in database.
+                    if let buildingImage = buildingInfo["ImageThumb"] as? String {
+                        //Build on the buildingsRef (/building_data) and add buildingImage string to the path. Now, have a new reference to the image.
+                        let buildingsChildRef = buildingsRef.child(buildingImage)
+                        
+                        //I think this is all happening in the background. Images are being paired with the buildingNameString in the array as the download
+                        //completes.
+                        
+                        //TODO: Look for a cleaner way to do this?
+                        
+                        //Download the image (up to 5 MB).
+                        buildingsChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                            if let error = error {
+                                print("Error \(error)")
+                            } else {
+                                //Image was downloaded.
+        
+                                //Interpret the buildingName as a string.
+                                let buildingNameString = buildingName as! String
+
+                                //Get the index of the building (buildingNameString).
+                                if let i = self.buildings.index(where : { $0.name == buildingNameString }) {
+                                    //Go to that index in the buildings array, and set data (the image) as a UIImage.
+                                    self.buildings[i].photo = UIImage(data: data!)
+                                    //Reload.
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                    //Create a Building object with the buildingName (interpreted as a string) and the photo temporarily set to nil.
                     guard let building = Building(name: buildingName as! String, photo: nil) else {
                         fatalError("Unable to instantiate building!")
                     }
-                    print(buildingName)
+                    //Append the building to the list.
                     self.buildings.append(building)
+                    //Reload.
+                    self.tableView.reloadData()
                 }
-                self.tableView.reloadData()
+               
             }
         })
 
     }
 
+    /*
     private func loadDummyBuildings() {
         guard let building1 = Building(name: "Lawson", photo: nil) else {
             fatalError("Unable to instantiate building1")
@@ -149,5 +195,5 @@ class BuildingsTableViewController: UITableViewController {
         buildings += [building1, building2, building3]
         
     }
-
+    */
 }
