@@ -10,6 +10,7 @@
 		04A1DE62203B853A006D4C4C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A1DE61203B853A006D4C4C /* CoreLocation.framework */; };
 		04A1DE63203B8550006D4C4C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A1DE61203B853A006D4C4C /* CoreLocation.framework */; };
 		04A1DE64203B8558006D4C4C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A1DE61203B853A006D4C4C /* CoreLocation.framework */; };
+		1E5C9DFC206B07F600E884E8 /* BuildingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5C9DFB206B07F600E884E8 /* BuildingCollectionViewCell.swift */; };
 		1EB22DFA203E4AD2006D8D82 /* AmenitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB22DF9203E4AD2006D8D82 /* AmenitiesViewController.swift */; };
 		1EB22DFC203E5218006D8D82 /* BuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB22DFB203E5218006D8D82 /* BuildingTableViewCell.swift */; };
 		1EB22DFE203E53A4006D8D82 /* BuildingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB22DFD203E53A4006D8D82 /* BuildingsTableViewController.swift */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		04A1DE61203B853A006D4C4C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1E21D3AD42F685F5EA818E35 /* Pods-cs407.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407.release.xcconfig"; path = "Pods/Target Support Files/Pods-cs407/Pods-cs407.release.xcconfig"; sourceTree = "<group>"; };
+		1E5C9DFB206B07F600E884E8 /* BuildingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingCollectionViewCell.swift; sourceTree = "<group>"; };
 		1EB22DF9203E4AD2006D8D82 /* AmenitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesViewController.swift; sourceTree = "<group>"; };
 		1EB22DFB203E5218006D8D82 /* BuildingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingTableViewCell.swift; sourceTree = "<group>"; };
 		1EB22DFD203E53A4006D8D82 /* BuildingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsTableViewController.swift; sourceTree = "<group>"; };
@@ -163,14 +165,15 @@
 				8D662BFF2035327700238C6F /* CampusMapOverlay.swift */,
 				8D662BFD203531FD00238C6F /* Campus.swift */,
 				1EB22DF9203E4AD2006D8D82 /* AmenitiesViewController.swift */,
+				1EB22DFF203E53FE006D8D82 /* Building.swift */,
+				1EB22DFD203E53A4006D8D82 /* BuildingsTableViewController.swift */,
+				1EB22DFB203E5218006D8D82 /* BuildingTableViewCell.swift */,
+				1E5C9DFB206B07F600E884E8 /* BuildingCollectionViewCell.swift */,
 				8DED20C4203E65A900983C3E /* Buidlings.swift */,
 				8D662C03203537F300238C6F /* Campus.plist */,
 				8D71130420378B9300D7C5AC /* GoogleService-Info.plist */,
 				1EBEFEB8202141F30079B994 /* Info.plist */,
 				1EBEFEAD202141F30079B994 /* Main.storyboard */,
-				1EB22DFD203E53A4006D8D82 /* BuildingsTableViewController.swift */,
-				1EB22DFF203E53FE006D8D82 /* Building.swift */,
-				1EB22DFB203E5218006D8D82 /* BuildingTableViewCell.swift */,
 				1EBEFEB5202141F30079B994 /* LaunchScreen.storyboard */,
 				1EBEFEB3202141F30079B994 /* Assets.xcassets */,
 				1EBEFEB0202141F30079B994 /* cs407.xcdatamodeld */,
@@ -537,6 +540,7 @@
 				1EBEFEB2202141F30079B994 /* cs407.xcdatamodeld in Sources */,
 				8DA193EF202E69C500123BAE /* MapViewController.swift in Sources */,
 				1EB22DFE203E53A4006D8D82 /* BuildingsTableViewController.swift in Sources */,
+				1E5C9DFC206B07F600E884E8 /* BuildingCollectionViewCell.swift in Sources */,
 				1EB22DFC203E5218006D8D82 /* BuildingTableViewCell.swift in Sources */,
 				555C9421203CBAB800359C84 /* LoginViewController.swift in Sources */,
 				8D662C002035327700238C6F /* CampusMapOverlay.swift in Sources */,

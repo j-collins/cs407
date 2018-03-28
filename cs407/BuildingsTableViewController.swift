@@ -15,16 +15,22 @@ class BuildingsTableViewController: UITableViewController {
 
     //MARK: Properties
     var buildings = [Building]()
+    
+    //Add database reference.
     var firebaseReference : DatabaseReference!
+    
     //Add storage reference for Firebase file storage.
+    //Citation: https://code.tutsplus.com/tutorials/get-started-with-firebase-storage-for-ios--cms-30203
+    
     var storageReference : StorageReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //Define reference variable for firebase database.
+        //Initialize reference variable for Firebase database.
         self.firebaseReference = Database.database().reference()
-        //Initialize reference variable for firebase storage.
+        
+        //Initialize reference variable for Firebase storage.
         self.storageReference = Storage.storage().reference()
         
         self.loadBuildings()
@@ -41,7 +47,7 @@ class BuildingsTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
+    // MARK: Table View Data Source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -51,7 +57,6 @@ class BuildingsTableViewController: UITableViewController {
         return buildings.count
     }
 
-   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //Table view cells are reused and should be dequeued using a cell identifier.
@@ -107,9 +112,9 @@ class BuildingsTableViewController: UITableViewController {
     */
 
     
-    // MARK: - Navigation
+    // MARK: Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // In a storyboard-based application, you will often want to do a little preparation before navigation.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -122,20 +127,24 @@ class BuildingsTableViewController: UITableViewController {
     }
     
     private func loadBuildings() {
+        
         //Set storage reference to be building_data folder.
         let buildingsRef = self.storageReference.child("building_data")
         
         //Get to Buildings in database. Get snapshot of buildings interpreted as Dictionary.
         firebaseReference?.child("Buildings").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
+           
             if let actualValue = value {
+                
                 //For each key, value pair (buildingName, and all associated buildingInfo), sorted alphabetically.
                 for (buildingName, buildingInfoData) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
                     
-                    //String : Any -> In database, "column" is a string, but can be mapped to string or int or other type.
+                    //String : Any -> In database Buildings table, the first value (column name) is a string that can be mapped to any other type.
+                    //https://stackoverflow.com/questions/42709132/retrieve-firebase-dictionary-data-in-swift?rq=1
                     let buildingInfo = buildingInfoData as! [String : Any]
                     
-                    //Set the pathway, called buildingImage, to the string stored in ImageThumb in database.
+                    //Set the pathway, called buildingImage, to the string stored in ImageThumb column in database.
                     if let buildingImage = buildingInfo["ImageThumb"] as? String {
                         //Build on the buildingsRef (/building_data) and add buildingImage string to the path. Now, have a new reference to the image.
                         let buildingsChildRef = buildingsRef.child(buildingImage)
@@ -144,6 +153,9 @@ class BuildingsTableViewController: UITableViewController {
                         //completes.
                         
                         //TODO: Look for a cleaner way to do this?
+                        
+                        //Citation: Downloading Image
+                        //https://code.tutsplus.com/tutorials/get-started-with-firebase-storage-for-ios--cms-30203
                         
                         //Download the image (up to 5 MB).
                         buildingsChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
@@ -155,22 +167,30 @@ class BuildingsTableViewController: UITableViewController {
                                 //Interpret the buildingName as a string.
                                 let buildingNameString = buildingName as! String
 
+                                //Citation: Getting Index
+                                //https://stackoverflow.com/questions/28727845/find-an-object-in-array
                                 //Get the index of the building (buildingNameString).
                                 if let i = self.buildings.index(where : { $0.name == buildingNameString }) {
+                                    
                                     //Go to that index in the buildings array, and set data (the image) as a UIImage.
+                                    //For Debugging: https://stackoverflow.com/questions/2780793/xcode-debugging-displaying-images
                                     self.buildings[i].photo = UIImage(data: data!)
+                                    
                                     //Reload.
                                     self.tableView.reloadData()
                                 }
                             }
                         }
                     }
+                    
                     //Create a Building object with the buildingName (interpreted as a string) and the photo temporarily set to nil.
                     guard let building = Building(name: buildingName as! String, photo: nil) else {
                         fatalError("Unable to instantiate building!")
                     }
+                    
                     //Append the building to the list.
                     self.buildings.append(building)
+                    
                     //Reload.
                     self.tableView.reloadData()
                 }
@@ -181,7 +201,10 @@ class BuildingsTableViewController: UITableViewController {
     }
 
     /*
-    private func loadDummyBuildings() {
+     
+    //This was the hardcoded version.
+    
+     private func loadDummyBuildings() {
         guard let building1 = Building(name: "Lawson", photo: nil) else {
             fatalError("Unable to instantiate building1")
         }
@@ -195,5 +218,6 @@ class BuildingsTableViewController: UITableViewController {
         buildings += [building1, building2, building3]
         
     }
+     
     */
 }
