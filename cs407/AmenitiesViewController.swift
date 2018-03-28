@@ -72,8 +72,6 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
         self.amenitiesPageControl.currentPage = Int(round(x_offset/average_width))
     }
     
-    
-    
     //Citation: Scroll View on Amenities Page
     //https://spin.atomicobject.com/2014/03/05/uiscrollview-autolayout-ios/
     
@@ -86,6 +84,7 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
             print ("Error signing out: %@", signOutError)
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,7 +100,6 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
         //If only one image, don't show the page control.
         self.amenitiesPageControl.hidesForSinglePage = true
         
-        
         //Set the name of the building.
         buildingNameLabel.text = name
         
@@ -112,16 +110,18 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
             if let actualValue = value {
                 //self.amenitiesTextView.text = actualValue["Information"] as! String
                 if let amenitiesInfo = actualValue["Amenities"] as? NSDictionary {
+                    
                     var amenitiesString : String
                     amenitiesString = ""
+                    
                     for (amenityKey, amenityString) in amenitiesInfo {
                         amenitiesString += amenityKey as! String
                         amenitiesString += "\n"
                         amenitiesString += amenityString as! String
                         amenitiesString += "\n\n"
                     }
-                    self.amenitiesTextView.text = amenitiesString
                     
+                    self.amenitiesTextView.text = amenitiesString
                     
                 }
                 
@@ -141,6 +141,7 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
                                 
                                 //Collection view needs to reload.
                                 self.amenitiesCollectionView.reloadData()
+                                
                             }
                         }
                     }
@@ -149,12 +150,10 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
         })
     }
 
-    
+    //This is for you, Kazi. Currently just prints to screen. This is where logic will go for Favorites Button.
     @IBAction func FavoritesButtonPress(_ sender: Any) {
         print("Favorites button pressed.")
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
