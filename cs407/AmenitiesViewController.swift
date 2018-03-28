@@ -77,6 +77,15 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     //Citation: Scroll View on Amenities Page
     //https://spin.atomicobject.com/2014/03/05/uiscrollview-autolayout-ios/
     
+    @IBAction func LogOutAction(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+            self.present(vc!, animated: true, completion: nil)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
