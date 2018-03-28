@@ -153,6 +153,21 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     //This is for you, Kazi. Currently just prints to screen. This is where logic will go for Favorites Button.
     @IBAction func FavoritesButtonPress(_ sender: Any) {
         print("Favorites button pressed.")
+        
+        /*
+         https://stackoverflow.com/questions/37405149/how-do-i-check-if-a-firebase-database-value-exists
+         firebaseReference?.child("Favorites").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let user = Auth.auth().currentUser
+            
+            if snapshot.hasChild((user?.uid)!){
+                //this exists
+            }
+            else{
+                self.firebaseReference?.child("Favorites").child((user?.uid)!)
+            }
+        })*/
+        
     }
     
     override func didReceiveMemoryWarning() {
