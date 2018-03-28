@@ -154,6 +154,39 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBAction func FavoritesButtonPress(_ sender: Any) {
         print("Favorites button pressed.")
         
+        //get the current user
+        let user = Auth.auth().currentUser
+        print("current user is " + (user?.uid)!)
+        
+        firebaseReference?.child("users").child((user?.uid)!).observeSingleEvent(of: .value, with: {
+            (snapshot) in
+            
+            /*if snapshot.hasChild("Favorites"){
+                print("user already has favotires in the tree")
+            }
+            else{
+                self.firebaseReference?.child("users").child((user?.uid)!).child("Favorites")
+                print("favorites has just been added to the user")
+            } */
+            print("The building is " + self.name!)
+            
+            //check if the user has this building as its child
+            
+            if snapshot.hasChild(self.name!){
+                
+                //why does it never enter here?
+                print("this building exists already for the user")
+            }
+            else{
+                //if the user does not have this building as its child then add the building as its child in the database
+                self.firebaseReference?.child("users").child((user?.uid)!).child(self.name!)
+                print("this building has just been added")
+            }
+            
+            //self.firebaseReference?.child("users").child((user?.uid)!).child("Favorites").child(self.name!)
+            //print("building has just been added to the favorites of the user")
+        })
+        
         /*
          https://stackoverflow.com/questions/37405149/how-do-i-check-if-a-firebase-database-value-exists
          firebaseReference?.child("Favorites").observeSingleEvent(of: .value, with: { (snapshot) in
