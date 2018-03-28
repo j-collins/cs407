@@ -8,6 +8,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
 
 class HomeViewController: UIViewController {
 
@@ -16,6 +20,16 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    @IBAction func LogOutAction(_ sender: UIButton!) {
+        do {
+            try Auth.auth().signOut()
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+            self.present(vc!, animated: true, completion: nil)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
