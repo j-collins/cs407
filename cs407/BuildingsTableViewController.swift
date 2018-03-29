@@ -14,6 +14,8 @@ import FirebaseStorage
 class BuildingsTableViewController: UITableViewController {
 
     //MARK: Properties
+    
+    //Array of building objects.
     var buildings = [Building]()
     
     //Add database reference.
@@ -21,9 +23,9 @@ class BuildingsTableViewController: UITableViewController {
     
     //Add storage reference for Firebase file storage.
     //Citation: https://code.tutsplus.com/tutorials/get-started-with-firebase-storage-for-ios--cms-30203
-    
     var storageReference : StorageReference!
     
+    //Logout button functionality.
     @IBAction func LogOutAction(_ sender: Any) {
         do {
             try Auth.auth().signOut()
@@ -33,6 +35,8 @@ class BuildingsTableViewController: UITableViewController {
             print ("Error signing out: %@", signOutError)
         }
     }
+    
+    //viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,6 +46,7 @@ class BuildingsTableViewController: UITableViewController {
         //Initialize reference variable for Firebase storage.
         self.storageReference = Storage.storage().reference()
         
+        //The loadBuildings() function is responsible for loading the list of buildings and their thumbnail image on the Buildings page.
         self.loadBuildings()
         
         // Uncomment the following line to preserve selection between presentations
@@ -51,6 +56,7 @@ class BuildingsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    //didReceiveMemoryWarning()
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -58,14 +64,18 @@ class BuildingsTableViewController: UITableViewController {
 
     // MARK: Table View Data Source
 
+    //numberOfSections()
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
+    //tableView()
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //The count of all the buildings in the array.
         return buildings.count
     }
 
+    //tableView()
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //Table view cells are reused and should be dequeued using a cell identifier.
@@ -124,10 +134,12 @@ class BuildingsTableViewController: UITableViewController {
     // MARK: Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation.
+    //prepare()
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
+        //This passes the building name to the new Amenities View so that it will display when you navigate.
         if let destinationViewController = segue.destination as? AmenitiesViewController {
             if let cell = sender as? BuildingTableViewCell  {
                 destinationViewController.name = cell.buildingNameLabel.text
@@ -135,31 +147,34 @@ class BuildingsTableViewController: UITableViewController {
         }
     }
     
+    //loadBuildings()
     private func loadBuildings() {
         
-        //Set storage reference to be building_data folder.
+        //Set storage reference to be "building_data" folder in storage.
         let buildingsRef = self.storageReference.child("building_data")
         
-        //Get to Buildings in database. Get snapshot of buildings interpreted as Dictionary.
+        //Get to Buildings node in database. Get snapshot of Buildings interpreted as Dictionary (key - building name, value - everything else).
         firebaseReference?.child("Buildings").observeSingleEvent(of: .value, with: { (snapshot) in
+            
             let value = snapshot.value as? NSDictionary
            
             if let actualValue = value {
                 
-                //For each key, value pair (buildingName, and all associated buildingInfo), sorted alphabetically.
+                //For each key, value pair (buildingName, and all associated buildingInfoData), sort alphabetically.
                 for (buildingName, buildingInfoData) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
                     
-                    //String : Any -> In database Buildings table, the first value (column name) is a string that can be mapped to any other type.
+                    //String : Any -> In database Buildings table, the first value is a string that can be mapped to any other type.
                     //https://stackoverflow.com/questions/42709132/retrieve-firebase-dictionary-data-in-swift?rq=1
                     let buildingInfo = buildingInfoData as! [String : Any]
                     
                     //Set the pathway, called buildingImage, to the string stored in ImageThumb column in database.
                     if let buildingImage = buildingInfo["ImageThumb"] as? String {
+                        
                         //Build on the buildingsRef (/building_data) and add buildingImage string to the path. Now, have a new reference to the image.
                         let buildingsChildRef = buildingsRef.child(buildingImage)
                         
-                        //I think this is all happening in the background. Images are being paired with the buildingNameString in the array as the download
-                        //completes.
+                        //I think this is all happening in the background. Images are being paired with the buildingNameString in the array as the downloads
+                        //complete.
                         
                         //TODO: Look for a cleaner way to do this?
                         

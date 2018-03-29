@@ -12,12 +12,13 @@ class Building {
     
     //MARK: Properties
     
+    //The name of the building and a photo, i.e. thumbnail image of exterior.
     var name : String
     var photo: UIImage?
     
     //MARK: Initialization
     init?(name: String, photo: UIImage?) {
-        //Initialization shoiuld fail if there is no name.
+        //Initialization should fail if there is no name.
         if name.isEmpty {
             return nil
         }
@@ -25,5 +26,6 @@ class Building {
         //Initialize stored properties.
         self.name = name
         self.photo = photo
+        
     }
 }
