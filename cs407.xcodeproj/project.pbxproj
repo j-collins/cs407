@@ -61,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		043CB872206C323B00A8EA43 /* LWSNLocationStatic.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LWSNLocationStatic.gpx; path = cs407/locationSimulations/LWSNLocationStatic.gpx; sourceTree = "<group>"; };
+		043CB873206C32CB00A8EA43 /* LWSNtoCL50Dynamic.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LWSNtoCL50Dynamic.gpx; path = cs407/locationSimulations/LWSNtoCL50Dynamic.gpx; sourceTree = "<group>"; };
 		04A1DE61203B853A006D4C4C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1E21D3AD42F685F5EA818E35 /* Pods-cs407.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407.release.xcconfig"; path = "Pods/Target Support Files/Pods-cs407/Pods-cs407.release.xcconfig"; sourceTree = "<group>"; };
 		1E5C9DFB206B07F600E884E8 /* BuildingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -140,6 +142,8 @@
 		1EBEFE9D202141F30079B994 = {
 			isa = PBXGroup;
 			children = (
+				043CB873206C32CB00A8EA43 /* LWSNtoCL50Dynamic.gpx */,
+				043CB872206C323B00A8EA43 /* LWSNLocationStatic.gpx */,
 				1EBEFEA8202141F30079B994 /* cs407 */,
 				1EBEFEC0202141F30079B994 /* cs407Tests */,
 				1EBEFECB202141F30079B994 /* cs407UITests */,

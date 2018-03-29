@@ -200,6 +200,18 @@
                                     <action selector="removeRoutePolylines:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="6bU-yQ-Giu"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZNO-CX-fOs">
+                                <rect key="frame" x="250" y="509" width="55" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.18227892981958407" green="0.79497247409326421" blue="0.17357672314587722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Go!">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onGoButtonClick:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="K7j-R5-ps2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -216,6 +228,7 @@
                     <navigationItem key="navigationItem" id="vF6-wK-ePE"/>
                     <connections>
                         <outlet property="clearRouteButton" destination="g8e-FT-Wgw" id="fBR-B0-5SR"/>
+                        <outlet property="goButton" destination="ZNO-CX-fOs" id="Kfc-mv-iGD"/>
                         <outlet property="map" destination="x0i-ze-6gr" id="r5d-g3-7cN"/>
                     </connections>
                 </viewController>
@@ -783,6 +796,6 @@
         <segue reference="Jui-nY-SYg"/>
         <segue reference="s9d-5w-YsD"/>
         <segue reference="mPg-1o-p8q"/>
-        <segue reference="Pbp-Ky-sqq"/>
+        <segue reference="wCx-Xt-L6H"/>
     </inferredMetricsTieBreakers>
 </document>

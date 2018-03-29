@@ -16,6 +16,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var clearRouteButton: UIButton!
+    @IBOutlet weak var goButton: UIButton!
+    
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
     var ref: DatabaseReference!
@@ -25,6 +27,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //var response: MKDirectionsResponse = nil
     var polyline: MKPolyline = MKPolyline()
     var isrouting = false;
+    var mostCurrentUserLatitude = 0.0;
+    var mostCurrentUserLongitude = 0.0;
+    var destinationLatitude = 0.0;
+    var destinationLongitude = 0.0;
+    var destinationBuilding = "";
     
     @IBAction func logoutAction1(_ sender: Any) {
         do {
@@ -153,6 +160,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     //this function is for updating the users location - it is called every time user changes position
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("in location Manager" )
         let location = locations[0] //we want the first element because it is the most recent element of the user
         //zoom in the map on that location - span is how much we are zoomed in
         let span:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
@@ -165,6 +173,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //shows blue dot
         self.map.showsUserLocation = true;
         
+        //this is so that the location button still works after clicking it once.
+        manager.stopUpdatingLocation()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -175,7 +186,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     //this function is called every time self.map.addAnnotation(building) is called
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        print(" * * addind annotation")
+        //print(" * * addind annotation")
         guard let annotation = annotation as? Buildings else { return nil }
         let identifier = "marker"
         var view: MKMarkerAnnotationView
@@ -231,76 +242,153 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
         })
     }
-    
+    //this function is called for the first time when a user tries clicks on a building and says route.
+    //this function is called continously after the user presses "Go"
     func routing(lat: Double, long: Double, name: String) {
         if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse) {
-            //set global variable to true - there is a route
-            self.isrouting = true;
-            
-            removeBuildingPins()
-            
-            //get current location
-            let sourceLoc: CLLocationCoordinate2D = (manager.location?.coordinate)!
-            
-            //get destination location
-            let destLoc = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            
-            //Create pins to mark the start and end of the route
-            let sourcePin = MKPlacemark(coordinate: sourceLoc, addressDictionary: nil)
-            let destPin = MKPlacemark(coordinate: destLoc, addressDictionary: nil)
-            
-            //MKMapItems are used for routing, giving them information about the pins
-            let sourceMapItem = MKMapItem(placemark: sourcePin)
-            let destMapItem = MKMapItem(placemark: destPin)
-            
-            //annotations to give the names of the start and end location pins
-            let sourceAnnotation = MKPointAnnotation()
-            sourceAnnotation.title = "Current Location"
-            
-            if let location = sourcePin.location {
-                sourceAnnotation.coordinate = location.coordinate
-            }
-            
-            let destAnnotation = MKPointAnnotation()
-            destAnnotation.title = name
-            
-            if let location = destPin.location {
-                destAnnotation.coordinate = location.coordinate
-            }
-            
-            self.map.showAnnotations([sourceAnnotation,destAnnotation], animated: true ) //display on map
-            
-            //MKDirectionsRequest class is used to compute the route
-            let directionRequest = MKDirectionsRequest()
-            directionRequest.source = sourceMapItem
-            directionRequest.destination = destMapItem
-            directionRequest.requestsAlternateRoutes = true
-            directionRequest.transportType = .walking
-            
-            // Calculate the direction
-            let directions = MKDirections(request: directionRequest)
-            
-            directions.calculate {
-                (response, error) -> Void in
-                guard let response = response else {
-                    if let error = error {
-                        print("Error: \(error)")
-                    }
-                    return
+            //this is the first time showing the user the route
+            if(self.isrouting == false){
+                //set the global variables to where the user wants to go
+                self.destinationLatitude = lat;
+                self.destinationLongitude = long;
+                self.destinationBuilding = name;
+                //set global variable to true - there is a route
+                self.isrouting = true;
+                
+                removeBuildingPins()
+                
+                //get current location
+                let sourceLoc: CLLocationCoordinate2D = (manager.location?.coordinate)!
+                
+                //get destination location
+                let destLoc = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                //Create pins to mark the start and end of the route
+                let sourcePin = MKPlacemark(coordinate: sourceLoc, addressDictionary: nil)
+                let destPin = MKPlacemark(coordinate: destLoc, addressDictionary: nil)
+                
+                //MKMapItems are used for routing, giving them information about the pins
+                let sourceMapItem = MKMapItem(placemark: sourcePin)
+                let destMapItem = MKMapItem(placemark: destPin)
+                
+                //annotations to give the names of the start and end location pins
+                let sourceAnnotation = MKPointAnnotation()
+                sourceAnnotation.title = "Current Location"
+                
+                if let location = sourcePin.location {
+                    sourceAnnotation.coordinate = location.coordinate
                 }
                 
-                let route = response.routes[0]
-                self.polyline = route.polyline
-                self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
-                let rect = route.polyline.boundingMapRect //this should be a little bigger...
-                self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
-                self.getSteps(route: route)
+                let destAnnotation = MKPointAnnotation()
+                destAnnotation.title = name
+                
+                if let location = destPin.location {
+                    destAnnotation.coordinate = location.coordinate
+                }
+                
+                self.map.showAnnotations([sourceAnnotation,destAnnotation], animated: true ) //display on map
+                
+                //MKDirectionsRequest class is used to compute the route
+                let directionRequest = MKDirectionsRequest()
+                directionRequest.source = sourceMapItem
+                directionRequest.destination = destMapItem
+                directionRequest.requestsAlternateRoutes = true
+                directionRequest.transportType = .walking
+                
+                // Calculate the direction
+                let directions = MKDirections(request: directionRequest)
+                
+                directions.calculate {
+                    (response, error) -> Void in
+                    guard let response = response else {
+                        if let error = error {
+                            print("Error: \(error)")
+                        }
+                        return
+                    }
+                    
+                    let route = response.routes[0]
+                    self.polyline = route.polyline
+                    self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
+                    let rect = route.polyline.boundingMapRect //this should be a little bigger...
+                    self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+                    self.getSteps(route: route)
+                }
+                
+                //display the button to clear routes
+                self.clearRouteButton.isHidden = false;
+                //display the button to "go" in destination
+                self.goButton.isHidden = false;
+                
+                //TODO - if the users reaches the destination, stop routing
+                
+            }
+            // the user is already in the middle of routing, we just need to update their route.
+            else if(self.isrouting == true){
+                print("updating route....")
+                //removeBuildingPins()
+                
+                //get current location
+                let sourceLoc: CLLocationCoordinate2D = (manager.location?.coordinate)!
+                
+                //get destination location
+                let destLoc = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                //Create pins to mark the start and end of the route
+                let sourcePin = MKPlacemark(coordinate: sourceLoc, addressDictionary: nil)
+                let destPin = MKPlacemark(coordinate: destLoc, addressDictionary: nil)
+                
+                //MKMapItems are used for routing, giving them information about the pins
+                let sourceMapItem = MKMapItem(placemark: sourcePin)
+                let destMapItem = MKMapItem(placemark: destPin)
+                
+                //annotations to give the names of the start and end location pins
+                let sourceAnnotation = MKPointAnnotation()
+                sourceAnnotation.title = "Current Location"
+                
+                if let location = sourcePin.location {
+                    sourceAnnotation.coordinate = location.coordinate
+                }
+                
+                let destAnnotation = MKPointAnnotation()
+                destAnnotation.title = name
+                
+                if let location = destPin.location {
+                    destAnnotation.coordinate = location.coordinate
+                }
+                
+                self.map.showAnnotations([sourceAnnotation,destAnnotation], animated: true ) //display on map
+                
+                //MKDirectionsRequest class is used to compute the route
+                let directionRequest = MKDirectionsRequest()
+                directionRequest.source = sourceMapItem
+                directionRequest.destination = destMapItem
+                directionRequest.requestsAlternateRoutes = true
+                directionRequest.transportType = .walking
+                
+                // Calculate the direction
+                let directions = MKDirections(request: directionRequest)
+                
+                directions.calculate {
+                    (response, error) -> Void in
+                    guard let response = response else {
+                        if let error = error {
+                            print("Error: \(error)")
+                        }
+                        return
+                    }
+                    
+                    let route = response.routes[0]
+                    self.polyline = route.polyline
+                    self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
+                    let rect = route.polyline.boundingMapRect //this should be a little bigger...
+                    self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+                    //self.getSteps(route: route)
+                }
+                
             }
             
-            //display the button to clear routes
-            self.clearRouteButton.isHidden = false;
             
-            //TODO - if the users reaches the destination, stop routing
         } else {
             //user is not sharing their location so give them a message that to use this feature they must share their loction
             print("user tried to route but is not sharing their location")
@@ -332,7 +420,29 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.present(alertVC, animated: true, completion: nil)
     }
     
+    @IBAction func onGoButtonClick(_ sender: Any) {
+        //remove Go button
+        self.goButton.isHidden = true;
+        //change the words of "Clear Route" to be "Cancel Route"
+        self.clearRouteButton.setTitle( "Cancel Route" , for: .normal );
+        
+        //while the user is not at the destination, keep recalcuating the route
+        var i = 0; // just temporary holder
+        while( i < 1000){
+            self.map.remove(self.polyline)
+            self.routing(lat: self.destinationLatitude, long: self.destinationLongitude, name: self.destinationBuilding);
+            i = i + 1;
+        }
+        print("finished loop")
+        //manager.startUpdatingLocation()
+
+        
+
+        
+    }
+    //when this button is clicked it could be from the user canceling the route or clearing the route, either way it does the same thing.
     @IBAction func removeRoutePolylines(_ sender: Any) {
+        print("pressed remove route button")
         //let allRoutes = self.map.
         self.map.remove(self.polyline)
         removeBuildingPins()
@@ -342,6 +452,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         //rehide the clear route button
         self.clearRouteButton.isHidden = true;
+        //rehide the go button
+        self.goButton.isHidden = true;
+        //make sure that the next time clear route button is displayed the text will be clear route
+        self.clearRouteButton.setTitle("Clear", for:.normal);
 
         
     }
