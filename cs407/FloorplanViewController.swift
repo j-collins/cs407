@@ -1,8 +1,8 @@
 //
-//  AmenitiesViewController.swift
+//  FloorplanViewController.swift
 //  cs407
 //
-//  Created by Johanna Collins on 2/21/18.
+//  Created by Johanna Collins on 3/28/18.
 //  Copyright © 2018 CS407Group. All rights reserved.
 //
 
@@ -11,56 +11,27 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-//Extension to bold Amenities Page sections.
-//https://stackoverflow.com/questions/28496093/making-text-bold-using-attributed-string-in-swift
-extension NSMutableAttributedString {
-    @discardableResult func bold(_ text: String) -> NSMutableAttributedString {
-        let attrs: [NSAttributedStringKey: Any] = [.font: UIFont.boldSystemFont(ofSize: 18)]
-        let boldString = NSMutableAttributedString(string:text, attributes: attrs)
-        append(boldString)
-        
-        return self
-    }
-    
-    @discardableResult func normal(_ text: String) -> NSMutableAttributedString {
-        let attrs: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 16.0)]
-        let normal = NSAttributedString(string: text, attributes: attrs)
-        append(normal)
-        
-        return self
-    }
-}
+class FloorplanViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-//TODO: FlowLayout from Git Repo that resize photo to span entire width of screen.
-class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
-    
     //MARK: Properties
+    @IBOutlet weak var buildingNameLabel: UILabel!
+    @IBOutlet weak var floorplanCollectionView: UICollectionView!
+    @IBOutlet weak var floorplanPageControl: UIPageControl!
     
     //Database reference.
     var firebaseReference : DatabaseReference!
     var storageReference : StorageReference!
     
-    @IBOutlet weak var buildingNameLabel: UILabel!
-    @IBOutlet weak var amenitiesLabel: UILabel!
-    @IBOutlet weak var amenitiesTextView: UITextView!
-    @IBOutlet weak var amenitiesCollectionView: UICollectionView!
-    
-    //Paging help:
-    //https://stackoverflow.com/questions/47745936/how-to-connect-uipagecontrol-to-uicollectionview-swift?rq=1
-    //https://stackoverflow.com/questions/40975302/how-to-add-pagecontrol-inside-uicollectionview-image-scrolling/40982168
-    @IBOutlet weak var amenitiesPageControl: UIPageControl!
-    
     var name : String? = "Default"
     
-    //Array of building images for the collection view.
-    //FIX. Question mark is used because may be nil or image.
-    var buildingImages = [UIImage?]()
+    //Array of floorplan images for the collection view.
+    var floorplanImages = [UIImage?]()
     
     //FIX button added these.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //https://stackoverflow.com/questions/47745936/how-to-connect-uipagecontrol-to-uicollectionview-swift?rq=1
-        self.amenitiesPageControl.numberOfPages = buildingImages.count
-        return buildingImages.count
+        self.floorplanPageControl.numberOfPages = floorplanImages.count
+        return floorplanImages.count
     }
     
     //Update image in cell.
@@ -74,12 +45,12 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
             fatalError("The dequeued cell is not an instance of BuildingCollectionViewCell.")
         }
         
-        //Finds the image in the buildingImages array and sets the cell to display that image.
-        //If this assignment takes place, the buildingImages[indexPath.row] was not nil.
-        //If image is nil, don't try to show it or it will fail.
-        if let image = buildingImages[indexPath.row] {
+        //Find the image in the floorplanImages array and set the cell to display that image.
+        //If this assignment takes place, the floorplanImages[indexPath.row] was not nil.
+        if let image = floorplanImages[indexPath.row] {
             cell.displayContent(image: image)
         }
+        
         //Return cell to display.
         return cell
     }
@@ -90,32 +61,19 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //https://stackoverflow.com/questions/40975302/how-to-add-pagecontrol-inside-uicollectionview-image-scrolling/40982168
         let x_offset = scrollView.contentOffset.x
-        let average_width = scrollView.contentSize.width/CGFloat(buildingImages.count)
+        let average_width = scrollView.contentSize.width/CGFloat(floorplanImages.count)
         //print(x_offset)
         //print(average_width)
         //print(x_offset/average_width)
-        self.amenitiesPageControl.currentPage = Int(round(x_offset/average_width))
+        self.floorplanPageControl.currentPage = Int(round(x_offset/average_width))
     }
-    
-    @IBAction func LogOutAction(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
-            self.present(vc!, animated: true, completion: nil)
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-    }
-    
-    //Citation: Scroll View on Amenities Page
-    //https://spin.atomicobject.com/2014/03/05/uiscrollview-autolayout-ios/
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //Initialize reference variable for Firebase database.
         self.firebaseReference = Database.database().reference()
-
+        
         //Initialize reference variable for Firebase storage.
         self.storageReference = Storage.storage().reference()
         
@@ -123,58 +81,40 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
         let buildingsRef = self.storageReference.child("building_data")
         
         //If only one image, don't show the page control.
-        self.amenitiesPageControl.hidesForSinglePage = true
+        self.floorplanPageControl.hidesForSinglePage = true
         
         //Set the name of the building.
         buildingNameLabel.text = name
-        
         
         //Get snapshot. Dictionary (key, value) is (building name, information associated with building).
         //Set the Amenities page text as the "Information" value, interpreted as a String, from database.
         self.firebaseReference?.child("Buildings").child(name!).observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             if let actualValue = value {
-                //self.amenitiesTextView.text = actualValue["Information"] as! String
-                if let amenitiesInfo = actualValue["Amenities"] as? NSDictionary {
-                    
-                    //Display the amenities string with formatting.
-                    let amenitiesString = NSMutableAttributedString()
-                    for (amenityKey, amenityString) in amenitiesInfo {
-                        amenitiesString.bold(amenityKey as! String)
-                        amenitiesString.normal("\n")
-                        amenitiesString.normal(amenityString as! String)
-                        amenitiesString.normal("\n\n")
-                    }
-                    self.amenitiesTextView.attributedText = amenitiesString
-                    
-                }
-                
                 //Citation: Downloading Image
                 //https://code.tutsplus.com/tutorials/get-started-with-firebase-storage-for-ios--cms-30203
                 
                 //Download the images from Firebase.
-                if let buildingImageArrayTemp = actualValue["Images"] as? NSArray {
-                    //Preallocate buildingImages with space for the total number of images going to be downloaded.
+                if let floorplanImageArray = actualValue["Floorplans"] as? NSArray {
+                    //Preallocate buildingImages with space for the total number of images.
                     //https://stackoverflow.com/questions/41812385/swift-3-expression-type-uiimage-is-ambiguous-without-more-context?rq=1
-                    //Fill the array (at top of class) with nil images, as many as the temp count from storage.
-                    self.buildingImages = [UIImage?](repeating: nil, count: buildingImageArrayTemp.count)
+                    self.floorplanImages = [UIImage?](repeating: nil, count: floorplanImageArray.count)
                     //For each array index and imageName at that index...
                     //https://stackoverflow.com/questions/24028421/swift-for-loop-for-index-element-in-array
-                    for (index, imageName) in buildingImageArrayTemp.enumerated() {
-                        let buildingsChildRef = buildingsRef.child(imageName as! String)
-                        buildingsChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                    for (index, imageName) in floorplanImageArray.enumerated() {
+                        let floorplanChildRef = buildingsRef.child(imageName as! String)
+                        floorplanChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
                             if let error = error {
                                 print("Error \(error)")
                             } else {
-                                //Download was successful.
                                 //Update the image at this index in the array.
                                 if let image = UIImage(data: data!) {
-                                    self.buildingImages[index] = image
+                                    self.floorplanImages[index] = image
                                 }
-                                //Collection view needs to reload.
-                                self.amenitiesCollectionView.reloadData()
                                 
-                                //buildingImageArrayTemp is the string names of images. buildingImages are the downloaded images.
+                                //Collection view needs to reload.
+                                self.floorplanCollectionView.reloadData()
+                                
                             }
                         }
                     }
@@ -182,27 +122,17 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
             }
         })
     }
-
-    //This is for you, Kazi. Currently just prints to screen. This is where logic will go for Favorites Button.
-    @IBAction func FavoritesButtonPress(_ sender: Any) {
-        print("Favorites button pressed.")
-    }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     //https://stackoverflow.com/questions/43165636/uicollectionviewdelegateflowlayout-edge-insets-not-getting-recognized-by-sizefor
     //Controls the spacing and width of the images in the collection view.
-    //This code was provided online to make the image span the full width of the phone.
     fileprivate let cellsPerRow: CGFloat = 1.0
     fileprivate let margin: CGFloat = 10.0
     fileprivate let topMargin: CGFloat = 2.0
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let flowLayout = customize(collectionViewLayout, margin: margin)
         let itemWidth = cellWidth(collectionView, layout: flowLayout, cellsPerRow: cellsPerRow)
-        return CGSize(width: itemWidth, height: 200)
+        return CGSize(width: itemWidth, height: self.floorplanCollectionView.frame.height)
     }
     
     /*
@@ -230,19 +160,26 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
         let itemWidth = (collectionView.bounds.size.width - marginsAndInsets) / cellsPerRow
         return itemWidth
     }
-
-    // MARK: Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation.
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        //Pass the name of the building to the Floorplan page. 
-        if let destinationViewController = segue.destination as? FloorplanViewController {
+        //Going back to the Amenities page, must set and pass name.
+        if let destinationViewController = segue.destination as? AmenitiesViewController {
             destinationViewController.name = self.name
         }
     }
  
-
 }

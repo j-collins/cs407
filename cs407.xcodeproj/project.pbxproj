@@ -23,6 +23,7 @@
 		1EBEFEB7202141F30079B994 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EBEFEB5202141F30079B994 /* LaunchScreen.storyboard */; };
 		1EBEFEC2202141F30079B994 /* cs407Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEFEC1202141F30079B994 /* cs407Tests.swift */; };
 		1EBEFECD202141F30079B994 /* cs407UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEFECC202141F30079B994 /* cs407UITests.swift */; };
+		1EC2E088206C560D006E5A50 /* FloorplanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC2E087206C560D006E5A50 /* FloorplanViewController.swift */; };
 		4B73819FB59003D929B13630 /* Pods_cs407UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EE9C8B9554684015DD09D9A /* Pods_cs407UITests.framework */; };
 		555C9421203CBAB800359C84 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C9420203CBAB800359C84 /* LoginViewController.swift */; };
 		555C9423203CBAC700359C84 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C9422203CBAC700359C84 /* SignUpViewController.swift */; };
@@ -80,6 +81,7 @@
 		1EBEFEC8202141F30079B994 /* cs407UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cs407UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EBEFECC202141F30079B994 /* cs407UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cs407UITests.swift; sourceTree = "<group>"; };
 		1EBEFECE202141F30079B994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1EC2E087206C560D006E5A50 /* FloorplanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorplanViewController.swift; sourceTree = "<group>"; };
 		2222009AE20EF4540FDCBB18 /* Pods_cs407.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cs407.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24BE2FEA74D481D12D0A9FD1 /* Pods-cs407UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cs407UITests/Pods-cs407UITests.release.xcconfig"; sourceTree = "<group>"; };
 		555C9420203CBAB800359C84 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				1EB22DFB203E5218006D8D82 /* BuildingTableViewCell.swift */,
 				1E5C9DFB206B07F600E884E8 /* BuildingCollectionViewCell.swift */,
 				8DED20C4203E65A900983C3E /* Buidlings.swift */,
+				1EC2E087206C560D006E5A50 /* FloorplanViewController.swift */,
 				8D662C03203537F300238C6F /* Campus.plist */,
 				8D71130420378B9300D7C5AC /* GoogleService-Info.plist */,
 				1EBEFEB8202141F30079B994 /* Info.plist */,
@@ -549,6 +552,7 @@
 				8D662C002035327700238C6F /* CampusMapOverlay.swift in Sources */,
 				555C9423203CBAC700359C84 /* SignUpViewController.swift in Sources */,
 				55643BB6206B43EF0095F128 /* ResetPasswordViewController.swift in Sources */,
+				1EC2E088206C560D006E5A50 /* FloorplanViewController.swift in Sources */,
 				8D662C02203532D600238C6F /* CampusMapOverlayView.swift in Sources */,
 				8D662BFE203531FD00238C6F /* Campus.swift in Sources */,
 			);
