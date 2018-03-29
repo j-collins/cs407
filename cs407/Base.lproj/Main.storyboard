@@ -200,6 +200,18 @@
                                     <action selector="removeRoutePolylines:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="6bU-yQ-Giu"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZNO-CX-fOs">
+                                <rect key="frame" x="250" y="509" width="55" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.18227892981958407" green="0.79497247409326421" blue="0.17357672314587722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Go!">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onGoButtonClick:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="K7j-R5-ps2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -216,6 +228,7 @@
                     <navigationItem key="navigationItem" id="vF6-wK-ePE"/>
                     <connections>
                         <outlet property="clearRouteButton" destination="g8e-FT-Wgw" id="fBR-B0-5SR"/>
+                        <outlet property="goButton" destination="ZNO-CX-fOs" id="Kfc-mv-iGD"/>
                         <outlet property="map" destination="x0i-ze-6gr" id="r5d-g3-7cN"/>
                     </connections>
                 </viewController>
@@ -317,6 +330,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrT-EQ-aEG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="518" y="1075"/>
+        </scene>
+        <!--Favorites Table View Controller-->
+        <scene sceneID="AJe-KM-Duo">
+            <objects>
+                <tableViewController id="CtA-uz-J8P" customClass="FavoritesTableViewController" customModule="cs407" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QYa-Xh-i3o">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="BV6-qJ-4L8">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="BoilerFind" id="nzn-4Y-0DK" colorLabel="IBBuiltInLabel-Orange">
+                                    <barButtonItem key="leftBarButtonItem" title="Back" id="ROX-PF-gwA"/>
+                                    <barButtonItem key="rightBarButtonItem" title="Logout" id="7KV-kt-MXM"/>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoritesTableViewCell" rowHeight="90" id="i6d-kA-OYC" customClass="FavoritesTableViewCell" customModule="cs407" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="320" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i6d-kA-OYC" id="hha-ax-eKQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Grc-Yt-EPI">
+                                            <rect key="frame" x="0.0" y="-1" width="105" height="90"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RsD-Jy-l6t">
+                                            <rect key="frame" x="113" y="34" width="181" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="favoritesImageView" destination="Grc-Yt-EPI" id="EzS-g0-cC7"/>
+                                    <outlet property="favoritesNameLabel" destination="RsD-Jy-l6t" id="Sjs-8F-66N"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="CtA-uz-J8P" id="4pU-wk-Yij"/>
+                            <outlet property="delegate" destination="CtA-uz-J8P" id="kRn-Gx-vQj"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wny-CZ-kUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="517.5" y="1897.1830985915494"/>
         </scene>
         <!--Amenities View Controller-->
         <scene sceneID="Bbk-6v-kvb">
@@ -869,6 +937,6 @@
         <segue reference="s9d-5w-YsD"/>
         <segue reference="YKS-5q-Qh7"/>
         <segue reference="mPg-1o-p8q"/>
-        <segue reference="Pbp-Ky-sqq"/>
+        <segue reference="wCx-Xt-L6H"/>
     </inferredMetricsTieBreakers>
 </document>
