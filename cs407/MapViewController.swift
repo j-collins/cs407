@@ -23,7 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var ref: DatabaseReference!
     var databaseHandle : DatabaseHandle?
     var buildings = [Building]()
-    var buildingNames: [String] = ["ClassOf1950", "Lawson", "Lilly Hall of Life Sciences", "MSEE", "Neil Armstrong Hall of Engineering"] //List of all buildings in Database
+    var buildingNames: [String] = ["ClassOf1950", "Cordova Recreational Sports Center", "Electrical Engineering", "Elliott Hall of Music", "Forney Hall Of Chemical Engineering", "Hicks", "Krach Leadership Center", "Krannert", "Lawson", "MSEE", "Marriott Hall", "Mechanical Engineering", "Neil Armstrong Hall of Engineering", "Physics", "Purdue Memorial Union", "Rawls", "Seng Liang Wang Hall", "Stewart Center", "Thomas and Harvey Wilmeth Active Learning Center", "Wetherill Laboratory of Chemistry"] //List of all buildings in Database
     //var response: MKDirectionsResponse = nil
     var polyline: MKPolyline = MKPolyline()
     var isrouting = false;
@@ -407,7 +407,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         } else {
             //user is not sharing their location so give them a message that to use this feature they must share their loction
             print("user tried to route but is not sharing their location")
-            let alertVC = UIAlertController(title: "Error", message: "Sorry. You have not given the app permission to use your location, so we can not route you from your location. To use this feature, go to settings and show your location.", preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "Error", message: "Sorry. You have not given BoilerFind permission to use your location, so we can not route you from your location. To use this feature, go to settings and show your location.", preferredStyle: .alert)
             
             let alertActionOkay = UIAlertAction(title: "Okay", style: .default, handler: nil)
             
