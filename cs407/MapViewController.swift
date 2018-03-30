@@ -357,22 +357,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 let sourceMapItem = MKMapItem(placemark: sourcePin)
                 let destMapItem = MKMapItem(placemark: destPin)
                 
-                //annotations to give the names of the start and end location pins
-                let sourceAnnotation = MKPointAnnotation()
-                sourceAnnotation.title = "Current Location"
-                
-                if let location = sourcePin.location {
-                    sourceAnnotation.coordinate = location.coordinate
-                }
-                
-                let destAnnotation = MKPointAnnotation()
-                destAnnotation.title = name
-                
-                if let location = destPin.location {
-                    destAnnotation.coordinate = location.coordinate
-                }
-                
-                self.map.showAnnotations([sourceAnnotation,destAnnotation], animated: true ) //display on map
                 
                 //MKDirectionsRequest class is used to compute the route
                 let directionRequest = MKDirectionsRequest()
@@ -396,9 +380,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     let route = response.routes[0]
                     self.polyline = route.polyline
                     self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
-                    let rect = route.polyline.boundingMapRect //this should be a little bigger...
-                    self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
-                    //self.getSteps(route: route)
                 }
                 
             }
@@ -451,12 +432,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //when this button is clicked it could be from the user canceling the route or clearing the route, either way it does the same thing.
     @IBAction func removeRoutePolylines(_ sender: Any) {
         print("pressed remove route button")
-        //let allRoutes = self.map.
+        manager.stopUpdatingLocation()
         self.map.remove(self.polyline)
         removeBuildingPins()
         loadBuildingPins()
         self.isrouting = false;
-        //self.map.removeOverlays(self.route.polyline)
         
         //rehide the clear route button
         self.clearRouteButton.isHidden = true;
@@ -464,7 +444,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.goButton.isHidden = true;
         //make sure that the next time clear route button is displayed the text will be clear route
         self.clearRouteButton.setTitle("Clear", for:.normal);
-
         
     }
     
