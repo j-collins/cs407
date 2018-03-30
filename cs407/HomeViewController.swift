@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    @IBAction func LogoutAct1(_ sender: Any) {
+    @IBAction func Actoglogout(_ sender: Any) {
         do {
             try Auth.auth().signOut()
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
