@@ -24,9 +24,9 @@ class FavoritesTableViewController: UITableViewController {
     //Add storage reference for Firebase file storage.
     //Citation: https://code.tutsplus.com/tutorials/get-started-with-firebase-storage-for-ios--cms-30203
     var storageReference : StorageReference!
-    
+  
     //Logout button functionality.
-    @IBAction func LogOutAction(_ sender: Any) {
+    @IBAction func LogoutAction(_ sender: Any) {
         do {
             try Auth.auth().signOut()
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
@@ -35,6 +35,7 @@ class FavoritesTableViewController: UITableViewController {
             print ("Error signing out: %@", signOutError)
         }
     }
+   
     
     //viewDidLoad()
     override func viewDidLoad() {
