@@ -218,7 +218,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         test.observe(.value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             if let actualValue = value {
-                var postData = actualValue["Information"] as! String
+                var postData: String!
+                if let amenities = actualValue["Amenities"] as? NSDictionary {
+                    postData = amenities["General Information"] as! String
+                }
+                //var postData = actualValue["Information"] as! String
+                
                 let lat = actualValue["Latitude"] as! Double
                 let long = actualValue["Longitude"] as! Double
                 
