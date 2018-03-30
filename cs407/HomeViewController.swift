@@ -15,12 +15,13 @@ import FirebaseDatabase
 
 class HomeViewController: UIViewController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-    @IBAction func LogOutAction(_ sender: UIButton!) {
+    
+    @IBAction func Actoglogout(_ sender: Any) {
         do {
             try Auth.auth().signOut()
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
@@ -29,6 +30,11 @@ class HomeViewController: UIViewController {
             print ("Error signing out: %@", signOutError)
         }
     }
+    /* {
+     
+    }*/
+   
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

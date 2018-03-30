@@ -23,7 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var ref: DatabaseReference!
     var databaseHandle : DatabaseHandle?
     var buildings = [Building]()
-    var buildingNames: [String] = ["ClassOf1950", "Lawson", "Lilly Hall of Life Sciences", "MSEE", "Neil Armstrong Hall of Engineering"] //List of all buildings in Database
+    var buildingNames: [String] = ["ClassOf1950", "Cordova Recreational Sports Center", "Electrical Engineering", "Elliott Hall of Music", "Forney Hall Of Chemical Engineering", "Hicks", "Krach Leadership Center", "Krannert", "Lawson", "MSEE", "Marriott Hall", "Mechanical Engineering", "Neil Armstrong Hall of Engineering", "Physics", "Purdue Memorial Union", "Rawls", "Seng Liang Wang Hall", "Stewart Center", "Thomas and Harvey Wilmeth Active Learning Center", "Wetherill Laboratory of Chemistry"] //List of all buildings in Database
     //var response: MKDirectionsResponse = nil
     var polyline: MKPolyline = MKPolyline()
     var isrouting = false;
@@ -161,6 +161,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //this function is for updating the users location - it is called every time user changes position
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("in location Manager" )
+        //if it goes into the if the user is in the middle of routing, else they are just pressing the current location button
+        if(isrouting == true){
+            self.map.remove(self.polyline)
+            self.routing(lat: self.destinationLatitude, long: self.destinationLongitude, name: self.destinationBuilding);
+            
+            //Todo - if user is close to destination, stop routing and call the stop updating location function
+            
+        }
+        else{
         let location = locations[0] //we want the first element because it is the most recent element of the user
         //zoom in the map on that location - span is how much we are zoomed in
         let span:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
@@ -175,6 +184,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         //this is so that the location button still works after clicking it once.
         manager.stopUpdatingLocation()
+        }
         
     }
     
@@ -397,7 +407,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         } else {
             //user is not sharing their location so give them a message that to use this feature they must share their loction
             print("user tried to route but is not sharing their location")
-            let alertVC = UIAlertController(title: "Error", message: "Sorry. You have not given the app permission to use your location, so we can not route you from your location. To use this feature, go to settings and show your location.", preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "Error", message: "Sorry. You have not given BoilerFind permission to use your location, so we can not route you from your location. To use this feature, go to settings and show your location.", preferredStyle: .alert)
             
             let alertActionOkay = UIAlertAction(title: "Okay", style: .default, handler: nil)
             
@@ -431,16 +441,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //change the words of "Clear Route" to be "Cancel Route"
         self.clearRouteButton.setTitle( "Cancel Route" , for: .normal );
         
-        //while the user is not at the destination, keep recalcuating the route
-        var i = 0; // just temporary holder
-        while( i < 1000){
-            self.map.remove(self.polyline)
-            self.routing(lat: self.destinationLatitude, long: self.destinationLongitude, name: self.destinationBuilding);
-            i = i + 1;
-        }
+        //while the user is not at the destination or has not pressed cancel, update keep recalcuating the route in the didupdatelocations function
+        manager.startUpdatingLocation()
         print("finished loop")
-        //manager.startUpdatingLocation()
-
         
 
         
