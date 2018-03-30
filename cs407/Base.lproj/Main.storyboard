@@ -73,14 +73,6 @@
                                     <segue destination="2iN-lF-75g" kind="presentation" id="ofJ-GK-dR4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favorites" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTI-Ds-qPE">
-                                <rect key="frame" x="212" y="171" width="90" height="90"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.89740425349999997" green="0.91317194700000004" blue="0.95049613710000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVS-9e-yph">
                                 <rect key="frame" x="114" y="367" width="90" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -129,6 +121,18 @@
                                 <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTp-J8-JPL">
+                                <rect key="frame" x="212" y="171" width="90" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.89740425349999997" green="0.91317194700000004" blue="0.95049613710000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Favorites">
+                                    <color key="titleColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="CtA-uz-J8P" kind="show" id="awb-oi-RLi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="TJO-Sw-nwx"/>
@@ -344,7 +348,11 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="BoilerFind" id="nzn-4Y-0DK" colorLabel="IBBuiltInLabel-Orange">
-                                    <barButtonItem key="leftBarButtonItem" title="Back" id="ROX-PF-gwA"/>
+                                    <barButtonItem key="leftBarButtonItem" title="Back" id="ROX-PF-gwA">
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="Aby-NI-i80"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" title="Logout" id="7KV-kt-MXM"/>
                                 </navigationItem>
                             </items>
@@ -373,6 +381,7 @@
                                 <connections>
                                     <outlet property="favoritesImageView" destination="Grc-Yt-EPI" id="EzS-g0-cC7"/>
                                     <outlet property="favoritesNameLabel" destination="RsD-Jy-l6t" id="Sjs-8F-66N"/>
+                                    <segue destination="TQL-M5-1pU" kind="show" id="ijH-p9-hzq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -416,8 +425,8 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MM0-3N-JLd">
-                                <rect key="frame" x="10" y="528" width="62" height="30"/>
-                                <state key="normal" title="Favorites"/>
+                                <rect key="frame" x="10" y="528" width="61" height="30"/>
+                                <state key="normal" title="Like This"/>
                                 <connections>
                                     <action selector="FavoritesButtonPress:" destination="TQL-M5-1pU" eventType="touchUpInside" id="eUs-af-tqm"/>
                                 </connections>
@@ -494,7 +503,7 @@
                                                 </connections>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cc5-9p-SrH">
-                                                <rect key="frame" x="10" y="249" width="105.5" height="28"/>
+                                                <rect key="frame" x="10" y="249" width="106" height="28"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Amenities">
                                                         <attributes>
@@ -533,6 +542,13 @@
                                     <constraint firstItem="fF5-GV-NnJ" firstAttribute="top" secondItem="upS-uj-Ljr" secondAttribute="top" id="wZR-Lq-47N"/>
                                 </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aD-MH-IZg">
+                                <rect key="frame" x="129" y="528" width="62" height="30"/>
+                                <state key="normal" title="Favorites"/>
+                                <connections>
+                                    <segue destination="CtA-uz-J8P" kind="show" id="YI4-41-epD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -542,11 +558,13 @@
                             <constraint firstItem="CzE-GJ-eUR" firstAttribute="bottom" secondItem="MM0-3N-JLd" secondAttribute="bottom" constant="10" id="AaU-Xr-J14"/>
                             <constraint firstItem="CzE-GJ-eUR" firstAttribute="bottom" secondItem="W9l-At-Act" secondAttribute="bottom" constant="10" id="HAb-p7-XiM"/>
                             <constraint firstItem="tJ5-Z7-ErN" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" id="ILk-Ko-gA3"/>
+                            <constraint firstItem="9aD-MH-IZg" firstAttribute="baseline" secondItem="MM0-3N-JLd" secondAttribute="baseline" id="K7b-dt-GKv"/>
                             <constraint firstItem="upS-uj-Ljr" firstAttribute="top" secondItem="tJ5-Z7-ErN" secondAttribute="bottom" id="PVz-gp-7WD"/>
                             <constraint firstItem="CzE-GJ-eUR" firstAttribute="trailing" secondItem="W9l-At-Act" secondAttribute="trailing" constant="10" id="TMd-yv-RJf"/>
                             <constraint firstItem="upS-uj-Ljr" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" id="Wao-j2-Uqt"/>
                             <constraint firstItem="MM0-3N-JLd" firstAttribute="top" secondItem="upS-uj-Ljr" secondAttribute="bottom" id="fCj-xz-NM6"/>
                             <constraint firstItem="MM0-3N-JLd" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" constant="10" id="raS-iF-d8m"/>
+                            <constraint firstItem="9aD-MH-IZg" firstAttribute="centerX" secondItem="upS-uj-Ljr" secondAttribute="centerX" id="sPR-cR-UT2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CzE-GJ-eUR"/>
                     </view>
@@ -933,11 +951,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Kra-hW-GRZ"/>
         <segue reference="Jui-nY-SYg"/>
         <segue reference="s9d-5w-YsD"/>
-        <segue reference="YKS-5q-Qh7"/>
+        <segue reference="ijH-p9-hzq"/>
+        <segue reference="YI4-41-epD"/>
         <segue reference="mPg-1o-p8q"/>
-        <segue reference="wCx-Xt-L6H"/>
+        <segue reference="Aby-NI-i80"/>
     </inferredMetricsTieBreakers>
 </document>

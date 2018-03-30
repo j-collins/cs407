@@ -85,7 +85,7 @@ class BuildingsTableViewController: UITableViewController {
             fatalError("The dequeued cell is not an instance of BuildingTableViewCell.")
         }
 
-        //Fetches the appropriate building for the data source layout.
+        //Fetch the appropriate building for the data source layout.
         let building = buildings[indexPath.row]
         
         cell.buildingNameLabel.text = building.name
