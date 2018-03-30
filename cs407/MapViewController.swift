@@ -161,6 +161,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //this function is for updating the users location - it is called every time user changes position
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("in location Manager" )
+        //if it goes into the if the user is in the middle of routing, else they are just pressing the current location button
+        if(isrouting == true){
+            self.map.remove(self.polyline)
+            self.routing(lat: self.destinationLatitude, long: self.destinationLongitude, name: self.destinationBuilding);
+            
+            //Todo - if user is close to destination, stop routing and call the stop updating location function
+            
+        }
+        else{
         let location = locations[0] //we want the first element because it is the most recent element of the user
         //zoom in the map on that location - span is how much we are zoomed in
         let span:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
@@ -175,6 +184,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         //this is so that the location button still works after clicking it once.
         manager.stopUpdatingLocation()
+        }
         
     }
     
@@ -431,16 +441,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //change the words of "Clear Route" to be "Cancel Route"
         self.clearRouteButton.setTitle( "Cancel Route" , for: .normal );
         
-        //while the user is not at the destination, keep recalcuating the route
-        var i = 0; // just temporary holder
-        while( i < 1000){
-            self.map.remove(self.polyline)
-            self.routing(lat: self.destinationLatitude, long: self.destinationLongitude, name: self.destinationBuilding);
-            i = i + 1;
-        }
+        //while the user is not at the destination or has not pressed cancel, update keep recalcuating the route in the didupdatelocations function
+        manager.startUpdatingLocation()
         print("finished loop")
-        //manager.startUpdatingLocation()
-
         
 
         
