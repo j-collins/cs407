@@ -852,7 +852,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Logout" id="HnP-IV-7Uh">
                                             <connections>
-                                                <action selector="LogOutAction:" destination="PIz-PT-NVD" id="hsc-Lp-SiD"/>
+                                                <action selector="LogoutAction:" destination="PIz-PT-NVD" id="GZo-NU-Fpd"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -966,7 +966,7 @@
         <segue reference="yUy-FF-OhG"/>
         <segue reference="HyO-3f-If3"/>
         <segue reference="s9d-5w-YsD"/>
-        <segue reference="ijH-p9-hzq"/>
+        <segue reference="YKS-5q-Qh7"/>
         <segue reference="YI4-41-epD"/>
         <segue reference="ofJ-GK-dR4"/>
         <segue reference="Aby-NI-i80"/>

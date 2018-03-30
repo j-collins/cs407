@@ -19,6 +19,16 @@ class FloorplanViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var buildingNameLabel: UILabel!
     @IBOutlet weak var floorplanCollectionView: UICollectionView!
     @IBOutlet weak var floorplanPageControl: UIPageControl!
+  
+    @IBAction func LogoutAction(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+            self.present(vc!, animated: true, completion: nil)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
     
     //Database reference.
     var firebaseReference : DatabaseReference!
