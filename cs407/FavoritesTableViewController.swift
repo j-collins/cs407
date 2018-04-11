@@ -49,7 +49,35 @@ class FavoritesTableViewController: UITableViewController {
         
         //The loadBuildings() function is responsible for loading the list of buildings and their thumbnail image on the Buildings page.
         self.loadBuildings()
+       
+        //allows editting for delete functionality
+        tableView.allowsMultipleSelectionDuringEditing = true
 
+    }
+    //delete functionality to edit the row at this index
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    //code which deletes from the table and the firebase
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        //print(indexPath.row)
+        //get the current user
+        let user = Auth.auth().currentUser
+        
+        //get the current building at this index
+        let currentBuilding = self.favoriteBuildings[indexPath.row]
+        
+        firebaseReference?.child("Favorites").child((user?.uid)!).child(currentBuilding.name).removeValue(completionBlock: { (error, ref) in
+            
+            if error != nil {
+                print("Failed to delete building: ", error!)
+                return
+            }
+            
+            self.favoriteBuildings.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        })
     }
 
     //didReceiveMemoryWarning()
