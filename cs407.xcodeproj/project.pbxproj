@@ -28,6 +28,8 @@
 		555C9421203CBAB800359C84 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C9420203CBAB800359C84 /* LoginViewController.swift */; };
 		555C9423203CBAC700359C84 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C9422203CBAC700359C84 /* SignUpViewController.swift */; };
 		55643BB6206B43EF0095F128 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55643BB5206B43EF0095F128 /* ResetPasswordViewController.swift */; };
+		556BC64B2080485F00C54BDD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556BC64A2080485F00C54BDD /* ProfileViewController.swift */; };
+		556BC64D2080487C00C54BDD /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556BC64C2080487C00C54BDD /* EditProfileViewController.swift */; };
 		6D3E443303B258273908A050 /* Pods_cs407Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C19C1D2B78A517ADF1C6D692 /* Pods_cs407Tests.framework */; };
 		8D5E13F6205DC8FB008E23A1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D5E13F5205DC8FB008E23A1 /* MapKit.framework */; };
 		8D662BFE203531FD00238C6F /* Campus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D662BFD203531FD00238C6F /* Campus.swift */; };
@@ -91,6 +93,8 @@
 		555C9420203CBAB800359C84 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		555C9422203CBAC700359C84 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		55643BB5206B43EF0095F128 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		556BC64A2080485F00C54BDD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		556BC64C2080487C00C54BDD /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		556F3BB8496E8A32CE691576 /* Pods-cs407UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cs407UITests/Pods-cs407UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C2C5E026CC74CA6B2F4B53A /* Pods-cs407Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cs407Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cs407Tests/Pods-cs407Tests.release.xcconfig"; sourceTree = "<group>"; };
 		5EE9C8B9554684015DD09D9A /* Pods_cs407UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cs407UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +194,8 @@
 				8D71130420378B9300D7C5AC /* GoogleService-Info.plist */,
 				1EBEFEB8202141F30079B994 /* Info.plist */,
 				1EBEFEAD202141F30079B994 /* Main.storyboard */,
+				556BC64A2080485F00C54BDD /* ProfileViewController.swift */,
+				556BC64C2080487C00C54BDD /* EditProfileViewController.swift */,
 				1EBEFEB5202141F30079B994 /* LaunchScreen.storyboard */,
 				1EBEFEB3202141F30079B994 /* Assets.xcassets */,
 				1EBEFEB0202141F30079B994 /* cs407.xcdatamodeld */,
@@ -550,6 +556,7 @@
 			files = (
 				1EB22DFA203E4AD2006D8D82 /* AmenitiesViewController.swift in Sources */,
 				1EB22E00203E53FE006D8D82 /* Building.swift in Sources */,
+				556BC64B2080485F00C54BDD /* ProfileViewController.swift in Sources */,
 				1EBEFEAC202141F30079B994 /* HomeViewController.swift in Sources */,
 				DA9CFC39206C384D00886C7E /* FavoritesTableViewController.swift in Sources */,
 				8DED20C5203E65A900983C3E /* Buidlings.swift in Sources */,
@@ -567,6 +574,7 @@
 				DA9CFC37206C33C800886C7E /* FavoritesTableViewCell.swift in Sources */,
 				8D662C02203532D600238C6F /* CampusMapOverlayView.swift in Sources */,
 				8D662BFE203531FD00238C6F /* Campus.swift in Sources */,
+				556BC64D2080487C00C54BDD /* EditProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
