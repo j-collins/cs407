@@ -259,7 +259,7 @@
         <!--Profile View Controller-->
         <scene sceneID="vk7-FJ-bIR">
             <objects>
-                <viewController id="0vg-55-bUr" userLabel="Profile View Controller" customClass="ProfileViewController" customModule="cs407" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Profile" id="0vg-55-bUr" userLabel="Profile View Controller" customClass="ProfileViewController" customModule="cs407" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KKH-yn-vbF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -424,11 +424,17 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="ActUpdateName:" destination="Xth-OV-JPC" eventType="touchUpInside" id="XdG-SC-e4w"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mp6-mS-BTY"/>
                     </view>
+                    <connections>
+                        <outlet property="NameTextField" destination="6cg-aB-0CD" id="gAO-fQ-sbr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kHt-Gt-wLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1152,14 +1158,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="97b-ZU-mIg"/>
         <segue reference="yUy-FF-OhG"/>
         <segue reference="HyO-3f-If3"/>
         <segue reference="s9d-5w-YsD"/>
         <segue reference="YKS-5q-Qh7"/>
         <segue reference="awb-oi-RLi"/>
         <segue reference="ofJ-GK-dR4"/>
-        <segue reference="feQ-H0-GNA"/>
-        <segue reference="wCx-Xt-L6H"/>
+        <segue reference="vwK-CH-r5q"/>
+        <segue reference="gS6-LS-NJ5"/>
     </inferredMetricsTieBreakers>
 </document>

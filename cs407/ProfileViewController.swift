@@ -17,11 +17,28 @@ class ProfileViewController: UIViewController {
     @IBOutlet var LabelPassword: UILabel!
     @IBOutlet var LabelName: UILabel!
     let user = Auth.auth().currentUser?.email
+    
+  let ref = Database.database().reference().root
+  let userid = Auth.auth().currentUser
+   
     //LabelEmail.text = user
     override func viewDidLoad() {
         super.viewDidLoad()
         self.LabelEmail.text = user;
         self.LabelPassword.text = "********"
+        let userID = Auth.auth().currentUser?.uid
+        ref.child("UserName").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? String
+            self.LabelName.text = value
+           // let username = value?["username"] as? String ?? ""
+            //let user = User(username: username)
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+         //ref?.child("UserName").child((userid?.uid)!).child
     }
  
     @IBAction func LogoutAction(_ sender: Any) {
