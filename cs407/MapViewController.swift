@@ -244,6 +244,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     print("ok button pressed")
                 }
                 ac.addAction(okButtonAction)
+
                 
                 //Create route button
                 let routeButtonAction = UIAlertAction(title: "Route", style: .default) { (action:UIAlertAction!) in
@@ -251,6 +252,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     self.routing(lat: lat, long: long, name: buildingName!) //call method to create route
                 }
                 ac.addAction(routeButtonAction)
+                
+                //create get more info button
+                //you set the global variable so you can use it to segue to the full amenities page in the prepare function
+                self.destinationBuilding = buildingName!;
+
+                let getMoreInfoAction = UIAlertAction(title: "More Info", style: .default, handler: {action in self.performSegue(withIdentifier: "moreBuildingInfo", sender: self)})
+                ac.addAction(getMoreInfoAction)
+                
+                
                 
                 //present the pop-up
                 self.present(ac, animated: true)
@@ -447,6 +457,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //make sure that the next time clear route button is displayed the text will be clear route
         self.clearRouteButton.setTitle("Clear", for:.normal);
         
+    }
+    
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation.
+    //prepare()
+    //this is called when the "get more info" button in the popup is clicked.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        //This passes the building name to the new Amenities View so that it will display when you navigate.
+        if let destinationViewController = segue.destination as? AmenitiesViewController {
+                destinationViewController.name = self.destinationBuilding
+        }
     }
     
     //used if seguing to johanna's amenities view controller

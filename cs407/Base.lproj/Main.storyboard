@@ -250,6 +250,7 @@
                         <outlet property="clearRouteButton" destination="g8e-FT-Wgw" id="fBR-B0-5SR"/>
                         <outlet property="goButton" destination="ZNO-CX-fOs" id="Kfc-mv-iGD"/>
                         <outlet property="map" destination="x0i-ze-6gr" id="r5d-g3-7cN"/>
+                        <segue destination="TQL-M5-1pU" kind="show" identifier="moreBuildingInfo" id="jRO-AI-WSR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQC-mX-MCu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1161,10 +1162,10 @@
         <segue reference="yUy-FF-OhG"/>
         <segue reference="HyO-3f-If3"/>
         <segue reference="s9d-5w-YsD"/>
-        <segue reference="YKS-5q-Qh7"/>
+        <segue reference="jRO-AI-WSR"/>
         <segue reference="awb-oi-RLi"/>
         <segue reference="ofJ-GK-dR4"/>
         <segue reference="vwK-CH-r5q"/>
-        <segue reference="gS6-LS-NJ5"/>
+        <segue reference="wCx-Xt-L6H"/>
     </inferredMetricsTieBreakers>
 </document>
