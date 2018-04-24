@@ -407,8 +407,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             directionsString = directionsString + "\n"
             i = i + 1
         }
+        directionsString = directionsString + "\nDistance: " + String(route.distance) + " m"
+        directionsString = directionsString + "\nExpected Travel Time: " + String(format:"%.2f", (route.expectedTravelTime / 60 )) + " min."
         
-        let alertVC = UIAlertController(title: "Directions", message: directionsString, preferredStyle: .alert)
+        let alertVC = UIAlertController(title: "Route Info: ", message: directionsString, preferredStyle: .alert)
         
         let alertActionOkay = UIAlertAction(title: "Okay", style: .default, handler: nil)
         
