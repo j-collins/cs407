@@ -189,11 +189,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="x0i-ze-6gr">
-                                <rect key="frame" x="0.0" y="108" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqT-07-xpC">
-                                <rect key="frame" x="16" y="76" width="104" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqT-07-xpC">
+                                <rect key="frame" x="10" y="74" width="100" height="33"/>
                                 <color key="backgroundColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <state key="normal" title="My Location">
@@ -203,9 +202,8 @@
                                     <action selector="getCurrentLocButton:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="fyE-pP-nEl"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8e-FT-Wgw">
-                                <rect key="frame" x="194" y="76" width="111" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8e-FT-Wgw">
+                                <rect key="frame" x="266" y="74" width="44" height="33"/>
                                 <color key="backgroundColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <state key="normal" title="Clear">
@@ -215,10 +213,12 @@
                                     <action selector="removeRoutePolylines:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="6bU-yQ-Giu"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZNO-CX-fOs">
-                                <rect key="frame" x="250" y="509" width="55" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZNO-CX-fOs">
+                                <rect key="frame" x="277" y="519" width="33" height="39"/>
                                 <color key="backgroundColor" red="0.18227892981958407" green="0.79497247409326421" blue="0.17357672314587722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="O6s-L2-qDU"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Go!">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -230,10 +230,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="x0i-ze-6gr" firstAttribute="bottom" secondItem="QZF-rf-7rF" secondAttribute="bottom" id="83x-6V-zzi"/>
-                            <constraint firstItem="x0i-ze-6gr" firstAttribute="trailing" secondItem="QZF-rf-7rF" secondAttribute="trailing" id="FP5-r2-PbM"/>
-                            <constraint firstItem="x0i-ze-6gr" firstAttribute="top" secondItem="QZF-rf-7rF" secondAttribute="top" constant="44" id="Q1L-h8-XcJ"/>
-                            <constraint firstItem="x0i-ze-6gr" firstAttribute="leading" secondItem="QZF-rf-7rF" secondAttribute="leading" id="UHD-9R-qGW"/>
+                            <constraint firstItem="x0i-ze-6gr" firstAttribute="leading" secondItem="QZF-rf-7rF" secondAttribute="leading" id="KZ8-DE-mxM"/>
+                            <constraint firstItem="QZF-rf-7rF" firstAttribute="bottom" secondItem="ZNO-CX-fOs" secondAttribute="bottom" constant="10" id="TKh-5a-SU1"/>
+                            <constraint firstItem="QZF-rf-7rF" firstAttribute="trailing" secondItem="g8e-FT-Wgw" secondAttribute="trailing" constant="10" id="XSk-cP-M7r"/>
+                            <constraint firstItem="g8e-FT-Wgw" firstAttribute="top" secondItem="QZF-rf-7rF" secondAttribute="top" constant="10" id="eCc-2Z-Y82"/>
+                            <constraint firstItem="x0i-ze-6gr" firstAttribute="top" secondItem="QZF-rf-7rF" secondAttribute="top" id="fLS-SH-ULn"/>
+                            <constraint firstItem="IqT-07-xpC" firstAttribute="leading" secondItem="QZF-rf-7rF" secondAttribute="leading" constant="10" id="gFm-35-esv"/>
+                            <constraint firstItem="x0i-ze-6gr" firstAttribute="bottom" secondItem="QZF-rf-7rF" secondAttribute="bottom" id="guG-ds-jb9"/>
+                            <constraint firstItem="x0i-ze-6gr" firstAttribute="trailing" secondItem="QZF-rf-7rF" secondAttribute="trailing" id="h2t-j5-MNo"/>
+                            <constraint firstItem="IqT-07-xpC" firstAttribute="top" secondItem="QZF-rf-7rF" secondAttribute="top" constant="10" id="l8q-nZ-mQE"/>
+                            <constraint firstItem="QZF-rf-7rF" firstAttribute="trailing" secondItem="ZNO-CX-fOs" secondAttribute="trailing" constant="10" id="rTb-G4-Aod"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QZF-rf-7rF"/>
                     </view>
@@ -549,21 +555,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MM0-3N-JLd">
-                                <rect key="frame" x="10" y="484" width="61" height="30"/>
+                                <rect key="frame" x="10" y="528" width="61" height="30"/>
                                 <state key="normal" title="Like This"/>
                                 <connections>
                                     <action selector="FavoritesButtonPress:" destination="TQL-M5-1pU" eventType="touchUpInside" id="eUs-af-tqm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9l-At-Act">
-                                <rect key="frame" x="238" y="484" width="72" height="30"/>
+                                <rect key="frame" x="238" y="528" width="72" height="30"/>
                                 <state key="normal" title="Floorplans"/>
                                 <connections>
                                     <segue destination="PIz-PT-NVD" kind="show" id="Kra-hW-GRZ"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="upS-uj-Ljr">
-                                <rect key="frame" x="0.0" y="64" width="320" height="420"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="464"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fF5-GV-NnJ">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="410"/>
@@ -668,7 +674,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aD-MH-IZg">
-                                <rect key="frame" x="129" y="484" width="62" height="30"/>
+                                <rect key="frame" x="129" y="528" width="62" height="30"/>
                                 <state key="normal" title="Favorites"/>
                                 <connections>
                                     <segue destination="CtA-uz-J8P" kind="show" id="YI4-41-epD"/>
@@ -954,10 +960,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rw-fF-gEN">
-                                <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="36L-i5-BDQ" userLabel="Floorplan Collection View">
-                                        <rect key="frame" x="0.0" y="43" width="320" height="372"/>
+                                        <rect key="frame" x="0.0" y="43" width="320" height="416"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Q0T-jj-glN">
                                             <size key="itemSize" width="320" height="413"/>
@@ -967,7 +973,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BuildingCollectionViewCell" id="GE2-N0-Ycd" customClass="BuildingCollectionViewCell" customModule="cs407" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="-20.5" width="320" height="413"/>
+                                                <rect key="frame" x="0.0" y="1.5" width="320" height="413"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="413"/>
@@ -1005,7 +1011,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="e0h-DM-BtE" userLabel="Floorplan Page Control">
-                                        <rect key="frame" x="141" y="423" width="39" height="37"/>
+                                        <rect key="frame" x="141" y="467" width="39" height="37"/>
                                         <color key="pageIndicatorTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </pageControl>
@@ -1077,7 +1083,7 @@
         <segue reference="OvD-ET-rge"/>
         <segue reference="HyO-3f-If3"/>
         <segue reference="QlP-A6-wVJ"/>
-        <segue reference="RKR-A9-a3S"/>
+        <segue reference="jRO-AI-WSR"/>
         <segue reference="awb-oi-RLi"/>
     </inferredMetricsTieBreakers>
 </document>
