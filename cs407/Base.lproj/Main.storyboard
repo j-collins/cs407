@@ -123,7 +123,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JPC-K6-gKf">
                                 <rect key="frame" x="236" y="7" width="68" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="LogOut"/>
+                                <state key="normal" title="Logout"/>
                                 <connections>
                                     <action selector="Actoglogout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="omy-0t-Mpo"/>
                                 </connections>
@@ -198,6 +198,9 @@
                                 <rect key="frame" x="256" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutAction1:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="hJT-Bo-V3x"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -290,6 +293,9 @@
                                 <rect key="frame" x="256" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="LogoutAction:" destination="0vg-55-bUr" eventType="touchUpInside" id="kmn-4f-Jq3"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -354,6 +360,9 @@
                                 <rect key="frame" x="256" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="ActLogout:" destination="Xth-OV-JPC" eventType="touchUpInside" id="CBP-a1-iv7"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -413,6 +422,9 @@
                                 <rect key="frame" x="256" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="LogOutAction:" destination="2iN-lF-75g" eventType="touchUpInside" id="w1V-i8-RFR"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -472,6 +484,9 @@
                                 <rect key="frame" x="256" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="LogoutAction:" destination="CtA-uz-J8P" eventType="touchUpInside" id="dFW-K1-UPT"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -636,6 +651,9 @@
                                 <rect key="frame" x="256" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="LogOutAction:" destination="TQL-M5-1pU" eventType="touchUpInside" id="Olr-E3-zdE"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -975,6 +993,9 @@
                                 <rect key="frame" x="256" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="LogoutAction:" destination="PIz-PT-NVD" eventType="touchUpInside" id="7zD-2w-rcW"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
