@@ -25,8 +25,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var storageReference : StorageReference!
     var image : UIImage!
     var databaseHandle : DatabaseHandle?
-    var buildings = [Building]()
-    var buildingNames: [String] = ["ClassOf1950", "Cordova Recreational Sports Center", "Electrical Engineering", "Elliott Hall of Music", "Forney Hall Of Chemical Engineering", "Hicks", "Krach Leadership Center", "Krannert", "Lawson", "MSEE", "Marriott Hall", "Mechanical Engineering", "Neil Armstrong Hall of Engineering", "Physics", "Purdue Memorial Union", "Rawls", "Seng Liang Wang Hall", "Stewart Center", "Thomas and Harvey Wilmeth Active Learning Center", "Wetherill Laboratory of Chemistry"] //List of all buildings in Database
+    var buildings: [String] = []
+    var buildingNames: [String] = [] //List of all buildings in Database
     //var response: MKDirectionsResponse = nil
     var polyline: MKPolyline = MKPolyline()
     var isrouting = false;
@@ -74,15 +74,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         //Trying to use firebase storge for map image...
         self.storageReference = Storage.storage().reference() //initialize reference var for Firebase storage
-        print("store 1")
         let mapRef = self.storageReference.child("map_overlay") //get ref to map_overlay directory
-        print("store 2")
         let mapChildRef = mapRef.child("Map.png")
-        print("store 3")
         //DispatchQueue.main.async{
         //mapChildRef.keepSynced(true)
         mapChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-            print("store 4")
             if let error = error {
                 print("Error \(error)")
             } else {
@@ -92,10 +88,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     print("GOT THE IMAGE!!")
                 }
             }
-            print("store 5")
         //}
         //}
-        print("store 6, end")
         //done with storage for now
         
         //NEEDED FOR THE MAP GETTING STARTED TUTORIAL
@@ -103,14 +97,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //let initialLoc = CLLocation(latitude: 40.428246, longitude: -86.914391)
         //centerMapOnInitialLocation(location: initialLoc) //call the helper function to center the map
         
-        print(" * * Line 1");
             let latDelta = self.campus.overlayTopLeftCoordinate.latitude - self.campus.overlayBottomRightCoordinate.latitude
-        print(" * * Line 2");
         
         // Think of a span as a tv size, measure from one corner to another
         let span = MKCoordinateSpanMake(fabs(latDelta), 0.0)
             let region = MKCoordinateRegionMake(self.campus.midCoordinate, span)
-        print(" * * Line 3");
         
             self.map.region = region
             self.map.delegate = self;
@@ -124,16 +115,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         //this chunk is for overlays
             let overlay = CampusMapOverlay(campus: self.campus)
-        print(" * * Line 4");
         
             self.map.add(overlay)
-        print(" * * Line 5");
         //mapView(overlay, rendererFor: campus: campus)
         
         //show building pins on map
-        print(" * * Line 6");
-            self.loadBuildingPins()
-        print(" * * Line 7");
+            self.loadBuildingNames()
+
         }
         //dropBuildingPins()
     }
@@ -164,7 +152,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             //}
             //done with storage for now
             
-            print(" * * if mapView CampusMapOverlay")
             if (self.image != nil) {
                 return CampusMapOverlayView(overlay: overlay, overlayImage: self.image)
             } else {
@@ -172,7 +159,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
             //return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
         } else {
-            print(" * * else not mapView CampusMapOverlay")
             let renderer = MKPolylineRenderer(overlay: overlay)
             renderer.strokeColor = UIColor.blue
             renderer.lineWidth = 4.0
@@ -191,16 +177,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         var long = 0.0
         
         //loadBuildingNames()
-        //print("*** Here")
         
-        for item in buildingNames {
+        for item in buildings { //buildingNames
             let test = self.ref.child("Buildings").child(String(describing: item))
             test.observe(.value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 if let actualValue = value {
                     lat = actualValue["Latitude"] as! Double
                     long = actualValue["Longitude"] as! Double
-                    print("values: ", lat, long)
+                    //print("values: ", lat, long)
                     let building = Buildings(title: item, locationName: "", discipline: "academic", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long)) //creates the pin (Annotation)
                     self.map.addAnnotation(building) //adds the pin to the map
                     
@@ -219,12 +204,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             let value = snapshot.value as? NSDictionary
             if let actualValue = value {
                 for (buildingName, _) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
-                    guard let building = Building(name: buildingName as! String, photo: nil) else {
-                        fatalError("Unable to instantiate building!")
-                    }
-                    print(buildingName)
-                    self.buildings.append(building)
+                    //guard let building = Building(name: buildingName as! String, photo: nil) else {
+                    //    fatalError("Unable to instantiate building!")
+                    //}
+                    //print(buildingName)
+                    self.buildings.append(String(describing: buildingName))
                 }
+                self.loadBuildingPins()
             }
         })
     }
@@ -236,7 +222,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     //this function is for updating the users location - it is called every time user changes position
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("in location Manager" )
         //if it goes into the if the user is in the middle of routing, else they are just pressing the current location button
         if(isrouting == true){
             self.map.remove(self.polyline)
