@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -21,6 +22,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
     var ref: DatabaseReference!
+    var storageReference : StorageReference!
+    var image : UIImage!
     var databaseHandle : DatabaseHandle?
     var buildings = [Building]()
     var buildingNames: [String] = ["ClassOf1950", "Cordova Recreational Sports Center", "Electrical Engineering", "Elliott Hall of Music", "Forney Hall Of Chemical Engineering", "Hicks", "Krach Leadership Center", "Krannert", "Lawson", "MSEE", "Marriott Hall", "Mechanical Engineering", "Neil Armstrong Hall of Engineering", "Physics", "Purdue Memorial Union", "Rawls", "Seng Liang Wang Hall", "Stewart Center", "Thomas and Harvey Wilmeth Active Learning Center", "Wetherill Laboratory of Chemistry"] //List of all buildings in Database
@@ -44,6 +47,24 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     //let regionRadiusDisplay: CLLocationDistance = 1000 //1000 meters (1/2 a mile)
     
+    func getMapData() {
+        if (self.image == nil) {
+            let mapRef = self.storageReference.child("map_overlay") //get ref to map_overlay directory
+            let mapChildRef = mapRef.child("Map.png")
+            mapChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                if let error = error {
+                    print("Error \(error)")
+                } else {
+                    //download was successful.
+                    self.image = UIImage(data: data!)
+                    if self.image != nil {
+                        print("GOT THE IMAGE!!")
+                    }
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadBuildingNames()
@@ -51,50 +72,105 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // define reference variable for database
         ref = Database.database().reference()
         
+        //Trying to use firebase storge for map image...
+        self.storageReference = Storage.storage().reference() //initialize reference var for Firebase storage
+        print("store 1")
+        let mapRef = self.storageReference.child("map_overlay") //get ref to map_overlay directory
+        print("store 2")
+        let mapChildRef = mapRef.child("Map.png")
+        print("store 3")
+        //DispatchQueue.main.async{
+        //mapChildRef.keepSynced(true)
+        mapChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            print("store 4")
+            if let error = error {
+                print("Error \(error)")
+            } else {
+                //download was successful.
+                self.image = UIImage(data: data!)
+                if self.image != nil {
+                    print("GOT THE IMAGE!!")
+                }
+            }
+            print("store 5")
+        //}
+        //}
+        print("store 6, end")
+        //done with storage for now
+        
         //NEEDED FOR THE MAP GETTING STARTED TUTORIAL
         //Set initial location for map: 610 Purdue Mall, West Lafayette, IN 47907
         //let initialLoc = CLLocation(latitude: 40.428246, longitude: -86.914391)
         //centerMapOnInitialLocation(location: initialLoc) //call the helper function to center the map
         
         print(" * * Line 1");
-        let latDelta = campus.overlayTopLeftCoordinate.latitude - campus.overlayBottomRightCoordinate.latitude
+            let latDelta = self.campus.overlayTopLeftCoordinate.latitude - self.campus.overlayBottomRightCoordinate.latitude
         print(" * * Line 2");
         
         // Think of a span as a tv size, measure from one corner to another
         let span = MKCoordinateSpanMake(fabs(latDelta), 0.0)
-        let region = MKCoordinateRegionMake(campus.midCoordinate, span)
+            let region = MKCoordinateRegionMake(self.campus.midCoordinate, span)
         print(" * * Line 3");
         
-        map.region = region
-        map.delegate = self;
+            self.map.region = region
+            self.map.delegate = self;
         
         //the stuff below is to make a user's location appear on the map
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.requestWhenInUseAuthorization()
+            self.manager.delegate = self
+            self.manager.desiredAccuracy = kCLLocationAccuracyBest
+            self.manager.requestWhenInUseAuthorization()
         //manager.startUpdatingLocation()
         self.map.showsUserLocation = true;
         
         //this chunk is for overlays
-        let overlay = CampusMapOverlay(campus: campus)
+            let overlay = CampusMapOverlay(campus: self.campus)
         print(" * * Line 4");
         
-        map.add(overlay)
+            self.map.add(overlay)
         print(" * * Line 5");
         //mapView(overlay, rendererFor: campus: campus)
         
         //show building pins on map
         print(" * * Line 6");
-        loadBuildingPins()
+            self.loadBuildingPins()
         print(" * * Line 7");
-        
+        }
         //dropBuildingPins()
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is CampusMapOverlay {
+            //var check : Int
+            //check = 0;
+            //Trying to use firebase storge for map image...
+            /*let mapRef = self.storageReference.child("map_overlay") //get ref to map_overlay directory
+            let mapChildRef = mapRef.child("Map.png")
+            mapChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                if let error = error {
+                    print("Error \(error)")
+                } else {
+                    //download was successful.
+                    self.image = UIImage(data: data!)
+                    if self.image != nil {
+                        print("GOT THE IMAGE!!")
+              //          check = 1;
+                        return CampusMapOverlayView(overlay: overlay, overlayImage: self.image)
+                    }
+                }
+            }*/
+            //if (check == 1) {
+              //  print("DISPLAYING MAP!")
+                //return CampusMapOverlayView(overlay: overlay, overlayImage: image)
+            //}
+            //done with storage for now
+            
             print(" * * if mapView CampusMapOverlay")
-            return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
+            if (self.image != nil) {
+                return CampusMapOverlayView(overlay: overlay, overlayImage: self.image)
+            } else {
+                print("Error getting map overlay image")
+            }
+            //return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
         } else {
             print(" * * else not mapView CampusMapOverlay")
             let renderer = MKPolylineRenderer(overlay: overlay)
@@ -244,6 +320,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     print("ok button pressed")
                 }
                 ac.addAction(okButtonAction)
+
                 
                 //Create route button
                 let routeButtonAction = UIAlertAction(title: "Route", style: .default) { (action:UIAlertAction!) in
@@ -251,6 +328,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     self.routing(lat: lat, long: long, name: buildingName!) //call method to create route
                 }
                 ac.addAction(routeButtonAction)
+                
+                //create get more info button
+                //you set the global variable so you can use it to segue to the full amenities page in the prepare function
+                self.destinationBuilding = buildingName!;
+
+                let getMoreInfoAction = UIAlertAction(title: "More Info", style: .default, handler: {action in self.performSegue(withIdentifier: "moreBuildingInfo", sender: self)})
+                ac.addAction(getMoreInfoAction)
+                
+                
                 
                 //present the pop-up
                 self.present(ac, animated: true)
@@ -407,8 +493,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             directionsString = directionsString + "\n"
             i = i + 1
         }
+        directionsString = directionsString + "\nDistance: " + String(route.distance) + " m"
+        directionsString = directionsString + "\nExpected Travel Time: " + String(format:"%.2f", (route.expectedTravelTime / 60 )) + " min."
         
-        let alertVC = UIAlertController(title: "Directions", message: directionsString, preferredStyle: .alert)
+        let alertVC = UIAlertController(title: "Route Info: ", message: directionsString, preferredStyle: .alert)
         
         let alertActionOkay = UIAlertAction(title: "Okay", style: .default, handler: nil)
         
@@ -444,22 +532,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.goButton.isHidden = true;
         //make sure that the next time clear route button is displayed the text will be clear route
         self.clearRouteButton.setTitle("Clear", for:.normal);
-        
+        //viewDidLoad()
+
     }
     
-    //used if seguing to johanna's amenities view controller
-    /*func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     print("    preparing for segue")
-     if (segue.identifier == "toTheMoon" )
-     {
-     //var amenities =segue.destination as! AmenitiesViewController
-     //amenities.viewDidLoad() = (sender as! MKAnnotationView).annotation!.title
-     print("   in segue if")
-     if let destinationVC = segue.destination as? AmenitiesViewController {
-     print("   trying to segue")
-     destinationVC.name = title
-     }
-     }
-     
-     }*/
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation.
+    //prepare()
+    //this is called when the "get more info" button in the popup is clicked.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        //This passes the building name to the new Amenities View so that it will display when you navigate.
+        if let destinationViewController = segue.destination as? AmenitiesViewController {
+                destinationViewController.name = self.destinationBuilding
+        }
+    }
+    
 }
