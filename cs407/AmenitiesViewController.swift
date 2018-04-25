@@ -44,6 +44,8 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var amenitiesLabel: UILabel!
     @IBOutlet weak var amenitiesTextView: UITextView!
     @IBOutlet weak var amenitiesCollectionView: UICollectionView!
+    @IBOutlet weak var amenitiesScrollView: UIScrollView!
+    @IBOutlet weak var amenitiesView: UIView!
     
     //Paging Help:
     //https://stackoverflow.com/questions/47745936/how-to-connect-uipagecontrol-to-uicollectionview-swift?rq=1
@@ -52,9 +54,9 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     
     var name : String? = "Default"
     
-    //Array of building images for the collection view.
-    //FIX. Question mark is used because may be nil or image - I think.
-    var buildingImages = [UIImage?]()
+    //Array of building image URLs for the collection view.
+    //FIX. Question mark is used because may be nil or URL - I think.
+    var buildingImageURLs = [URL?]()
     
     //FIX button added the following two functions.
     
@@ -62,8 +64,8 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //https://stackoverflow.com/questions/47745936/how-to-connect-uipagecontrol-to-uicollectionview-swift?rq=1
         
-        self.amenitiesPageControl.numberOfPages = buildingImages.count
-        return buildingImages.count
+        self.amenitiesPageControl.numberOfPages = buildingImageURLs.count
+        return buildingImageURLs.count
     }
     
     //collectionView() - updates image in cell.
@@ -77,11 +79,17 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
             fatalError("The dequeued cell is not an instance of BuildingCollectionViewCell.")
         }
         
-        //Finds the image in the buildingImages array and sets the cell to display that image.
-        //If this assignment takes place, the buildingImages[indexPath.row] was not nil.
-        //If image is nil, don't try to show it or it will fail.
-        if let image = buildingImages[indexPath.row] {
-            cell.displayContent(image: image)
+        //Finds the URL in the buildingImageURLs array and sets the cell to display that image.
+        //If this assignment takes place, the buildingImageURLs[indexPath.row] was not nil.
+        //If url is nil, don't try to show it or it will fail.
+        //Use FirebaseUI sd_setImage:
+        //https://firebase.google.com/docs/storage/ios/download-files
+        //This uses https://github.com/rs/SDWebImage which downloads the files
+        //in the background automatically and caches them for later use.
+        if let url = buildingImageURLs[indexPath.row] {
+            cell.buildingImage.sd_setImage(with: url, placeholderImage: nil, completed: {(image, error, cache, url) in
+                //print(url)
+            })
         }
         
         //Return cell to display.
@@ -97,7 +105,7 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
         let x_offset = scrollView.contentOffset.x
-        let average_width = scrollView.contentSize.width/CGFloat(buildingImages.count)
+        let average_width = scrollView.contentSize.width/CGFloat(buildingImageURLs.count)
         
         //print(x_offset)
         //print(average_width)
@@ -139,6 +147,11 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
         //Set the name of the building.
         buildingNameLabel.text = name
         
+        //Trying suggestions to make things scroll.
+        //self.amenitiesTextView.clipsToBounds = false
+        //self.amenitiesTextView.translatesAutoresizingMaskIntoConstraints = false
+        //self.amenitiesScrollView.translatesAutoresizingMaskIntoConstraints = false
+        
         //Get snapshot. Dictionary (key, value) is (building name, information associated with building).
         //Go to Buildings in database, go to building name.
         self.firebaseReference?.child("Buildings").child(name!).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -160,6 +173,22 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
                     }
                     self.amenitiesTextView.attributedText = amenitiesString
                     
+                    //More code trying to get the scroll view to scroll.
+                    /*let newTextViewHeight = ceil(self.amenitiesTextView.sizeThatFits(self.amenitiesTextView.frame.size).height)
+                    self.amenitiesTextView.frame.size.height = newTextViewHeight
+                    var contentRect = CGRect.zero
+                    
+                    for view in self.amenitiesView.subviews {
+                        print(view)
+                        contentRect = contentRect.union(view.frame)
+                    }
+                    
+                    self.amenitiesView.frame = contentRect
+                    self.amenitiesScrollView.contentSize = contentRect.size
+                    print(self.amenitiesView)
+                    print(self.amenitiesScrollView)
+                    print(self.amenitiesTextView)*/
+                    
                 }
                 
                 //Citation: Downloading Image
@@ -173,7 +202,7 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
                     //https://stackoverflow.com/questions/41812385/swift-3-expression-type-uiimage-is-ambiguous-without-more-context?rq=1
                     
                     //Fill the array (at top of class) with nil images, as many as the temp count from storage.
-                    self.buildingImages = [UIImage?](repeating: nil, count: buildingImageArrayTemp.count)
+                    self.buildingImageURLs = [URL?](repeating: nil, count: buildingImageArrayTemp.count)
                     
                     //For each array index and imageName at that index...
                     //https://stackoverflow.com/questions/24028421/swift-for-loop-for-index-element-in-array
@@ -182,32 +211,21 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
                         //Setting up pathway to image.
                         let buildingsChildRef = buildingsRef.child(imageName as! String)
                         
-                        //Get the image, up to 5MB.
-                        buildingsChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                            if let error = error {
-                                print("Error \(error)")
-                            } else {
-                                
-                                //Download was successful.
-                                //Update the image at this index in the array.
-                                if let image = UIImage(data: data!) {
-                                    
-                                    //Add image to the buildingsImages array.
-                                    self.buildingImages[index] = image
-                                    
-                                }
-                                
-                                //Collection view needs to reload.
-                                self.amenitiesCollectionView.reloadData()
-                                
-                                //buildingImageArrayTemp are the string names of images. buildingImages is an array of the downloaded images.
-                                
-                            }
-                        }
+                        //Obtain the download URL for the image in Firebase storage and
+                        //add it to the list of buildingImageURLs.
+                        buildingsChildRef.downloadURL(completion: {url, error in
+                            //Append the building to the list.
+                            self.buildingImageURLs[index] = url
+                            //Reload the collectionView item that now has a url. This starts
+                            //a download in the background when it ultimately calls sd_
+                            self.amenitiesCollectionView.reloadItems(at: [NSIndexPath(row: index, section: 0) as IndexPath])
+                        })
                     }
                 }
             }
+            self.amenitiesCollectionView.reloadData()
         })
+        
     }
 
     //This is for you, Kazi. Currently just prints to screen. This is where logic will go for Favorites Button.
@@ -236,7 +254,7 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
             //Now add the building to the Favorites list for the given user.
             self.firebaseReference?.child("Favorites").child((user?.uid)!).observeSingleEvent(of: .value, with: {(userFavoritesSnapshot) in
                 //Try to get the current list of user Favorites as a dictionary.
-                if let userFavorites = userFavoritesSnapshot.value as? NSDictionary {
+                if (userFavoritesSnapshot.value as? NSDictionary) != nil {
                     //print("User has favorites.")
                     //print(userFavorites)
                     
@@ -276,7 +294,7 @@ class AmenitiesViewController: UIViewController, UICollectionViewDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let flowLayout = customize(collectionViewLayout, margin: margin)
         let itemWidth = cellWidth(collectionView, layout: flowLayout, cellsPerRow: cellsPerRow)
-        return CGSize(width: itemWidth, height: 200)
+        return CGSize(width: itemWidth, height: 250)
     }
     
     /*

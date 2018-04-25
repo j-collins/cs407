@@ -10,13 +10,14 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseStorageUI //Friendlier API for Firebase Storage.
 
 class BuildingsTableViewController: UITableViewController {
 
     //MARK: Properties
     
     //Array of building objects.
-    var buildings = [Building]()
+    var buildings = [Building?]()
     
     //Add database reference.
     var firebaseReference : DatabaseReference!
@@ -88,8 +89,15 @@ class BuildingsTableViewController: UITableViewController {
         //Fetch the appropriate building for the data source layout.
         let building = buildings[indexPath.row]
         
-        cell.buildingNameLabel.text = building.name
-        cell.buildingImageView.image = building.photo
+        cell.buildingNameLabel.text = building?.name
+        
+        //Asynchronously download the image with caching.
+        //Built into Firebase StorageUI, using sd_setImage.
+        //Automatically updates imageView when download completes.
+        //On page reloads, it detects if there is a cached image.
+        cell.buildingImageView.sd_setImage(with: building?.url, placeholderImage: nil, completed: {(image, error, cache, url) in
+                //print(url)
+            })
 
         return cell
     }
@@ -159,7 +167,7 @@ class BuildingsTableViewController: UITableViewController {
             let value = snapshot.value as? NSDictionary
            
             if let actualValue = value {
-                
+                //Fill the array (at top of class) with nil images, as many as the temp count from storage.
                 //For each key, value pair (buildingName, and all associated buildingInfoData), sort alphabetically.
                 for (buildingName, buildingInfoData) in actualValue.sorted(by: {String(describing: $0.0)  < String(describing: $1.0)}) {
                     
@@ -173,6 +181,14 @@ class BuildingsTableViewController: UITableViewController {
                         //Build on the buildingsRef (/building_data) and add buildingImage string to the path. Now, have a new reference to the image.
                         let buildingsChildRef = buildingsRef.child(buildingImage)
                         
+                        //Create a Building object with the buildingName (interpreted as a string) and the photo temporarily set to nil.
+                        //This is important to make the list of buildings alphabetical.
+                        guard let building = Building(name: buildingName as! String, photo: nil) else {
+                            fatalError("Unable to instantiate building!")
+                        }
+                        
+                        self.buildings.append(building)
+                       
                         //I think this is all happening in the background. Images are being paired with the buildingNameString in the array as the downloads
                         //complete.
                         
@@ -180,43 +196,23 @@ class BuildingsTableViewController: UITableViewController {
                         
                         //Citation: Downloading Image
                         //https://code.tutsplus.com/tutorials/get-started-with-firebase-storage-for-ios--cms-30203
-                        
-                        //Download the image (up to 5 MB).
-                        buildingsChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                            if let error = error {
-                                print("Error \(error)")
-                            } else {
-                                //Image was downloaded.
-        
-                                //Interpret the buildingName as a string.
-                                let buildingNameString = buildingName as! String
-
-                                //Citation: Getting Index
-                                //https://stackoverflow.com/questions/28727845/find-an-object-in-array
-                                //Get the index of the building (buildingNameString).
-                                if let i = self.buildings.index(where : { $0.name == buildingNameString }) {
-                                    
-                                    //Go to that index in the buildings array, and set data (the image) as a UIImage.
-                                    //For Debugging: https://stackoverflow.com/questions/2780793/xcode-debugging-displaying-images
-                                    self.buildings[i].photo = UIImage(data: data!)
-                                    
-                                    //Reload.
-                                    self.tableView.reloadData()
-                                }
+                        buildingsChildRef.downloadURL(completion: {url, error in
+                            //Find the index of the current building and set the URL for the building.
+                            if let i = self.buildings.index(where : { $0?.name == building.name }) {
+                                
+                                //Go to that index in the buildings URL array, and set data (the url).
+                                //For Debugging: https://stackoverflow.com/questions/2780793/xcode-debugging-displaying-images
+                                self.buildings[i]?.url = url
+                                
+                                //Reload.
+                                self.tableView.reloadData()
                             }
-                        }
+                        })
+          
+                        
                     }
                     
-                    //Create a Building object with the buildingName (interpreted as a string) and the photo temporarily set to nil.
-                    guard let building = Building(name: buildingName as! String, photo: nil) else {
-                        fatalError("Unable to instantiate building!")
-                    }
                     
-                    //Append the building to the list.
-                    self.buildings.append(building)
-                    
-                    //Reload.
-                    self.tableView.reloadData()
                 }
                
             }

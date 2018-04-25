@@ -13,8 +13,11 @@ class Building {
     //MARK: Properties
     
     //The name of the building and a photo, i.e. thumbnail image of exterior.
+    //The URL for the photo and the photoView outlet.
     var name : String
+    var url : URL?
     var photo: UIImage?
+    var photoView : UIImageView?
     
     //MARK: Initialization
     init?(name: String, photo: UIImage?) {
@@ -26,6 +29,7 @@ class Building {
         //Initialize stored properties.
         self.name = name
         self.photo = photo
-        
+        self.photoView = nil
+        self.url = nil
     }
 }

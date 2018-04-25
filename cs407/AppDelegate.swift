@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure() //Connect Firebase when the app starts
+        
+        //Initialize reference variable for Firebase database.
+        //Tell firebase to enable persistent data storage and tell it to keep
+        //the Buildings and Favorites references synchronized with the
+        //persistent data storage.
+        //https://firebase.google.com/docs/database/ios/offline-capabilities
+        Database.database().isPersistenceEnabled = true
+        let buildingsRef = Database.database().reference(withPath: "Buildings")
+        buildingsRef.keepSynced(true)
+        let favoritesRef = Database.database().reference(withPath: "Favorites")
+        favoritesRef.keepSynced(true)
+        
         return true
     }
 

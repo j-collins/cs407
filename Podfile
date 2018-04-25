@@ -6,6 +6,7 @@ target 'cs407' do
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
+pod 'FirebaseUI/Storage'
 pod 'Firebase/Core'
   use_frameworks!
 

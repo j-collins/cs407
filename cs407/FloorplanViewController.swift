@@ -36,16 +36,16 @@ class FloorplanViewController: UIViewController, UICollectionViewDelegate, UICol
     
     var name : String? = "Default"
     
-    //Array of floorplan images for the collection view.
-    var floorplanImages = [UIImage?]()
+    //Array of floorplan image URLs for the collection view.
+    var floorplanImageURLs = [URL?]()
     
     //FIX button added these.
     
     //Image count.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //https://stackoverflow.com/questions/47745936/how-to-connect-uipagecontrol-to-uicollectionview-swift?rq=1
-        self.floorplanPageControl.numberOfPages = floorplanImages.count
-        return floorplanImages.count
+        self.floorplanPageControl.numberOfPages = floorplanImageURLs.count
+        return floorplanImageURLs.count
     }
     
     //Update image in cell.
@@ -59,10 +59,16 @@ class FloorplanViewController: UIViewController, UICollectionViewDelegate, UICol
             fatalError("The dequeued cell is not an instance of BuildingCollectionViewCell.")
         }
         
-        //Find the image in the floorplanImages array and set the cell to display that image.
-        //If this assignment takes place, the floorplanImages[indexPath.row] was not nil.
-        if let image = floorplanImages[indexPath.row] {
-            cell.displayContent(image: image)
+        //Find the image URL in the floorplanImageURLs array and set the cell to display that image.
+        //If this assignment takes place, the floorplanImageURLs[indexPath.row] was not nil.
+        //Use FirebaseUI sd_setImage:
+        //https://firebase.google.com/docs/storage/ios/download-files
+        //This uses https://github.com/rs/SDWebImage which downloads the files
+        //in the background automatically and caches them for later use.
+        if let url = self.floorplanImageURLs[indexPath.row] {
+            cell.buildingImage.sd_setImage(with: url, placeholderImage: nil, completed: {(image, error, cache, url) in
+                //print(url)
+            })
         }
         
         //Return cell to display.
@@ -76,7 +82,7 @@ class FloorplanViewController: UIViewController, UICollectionViewDelegate, UICol
         
         //https://stackoverflow.com/questions/40975302/how-to-add-pagecontrol-inside-uicollectionview-image-scrolling/40982168
         let x_offset = scrollView.contentOffset.x
-        let average_width = scrollView.contentSize.width/CGFloat(floorplanImages.count)
+        let average_width = scrollView.contentSize.width/CGFloat(floorplanImageURLs.count)
         
         //print(x_offset)
         //print(average_width)
@@ -117,7 +123,7 @@ class FloorplanViewController: UIViewController, UICollectionViewDelegate, UICol
                     
                     //Preallocate buildingImages with space for the total number of images.
                     //https://stackoverflow.com/questions/41812385/swift-3-expression-type-uiimage-is-ambiguous-without-more-context?rq=1
-                    self.floorplanImages = [UIImage?](repeating: nil, count: floorplanImageArray.count)
+                    self.floorplanImageURLs = [URL?](repeating: nil, count: floorplanImageArray.count)
                     
                     //For each array index and imageName at that index...
                     //https://stackoverflow.com/questions/24028421/swift-for-loop-for-index-element-in-array
@@ -126,25 +132,18 @@ class FloorplanViewController: UIViewController, UICollectionViewDelegate, UICol
                         //Set up path to image.
                         let floorplanChildRef = buildingsRef.child(imageName as! String)
                         
-                        //Get the image, up to 5MB.
-                        floorplanChildRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                            if let error = error {
-                                print("Error \(error)")
-                            } else {
-                                //Update the image at this index in the array.
-                                if let image = UIImage(data: data!) {
-                                    self.floorplanImages[index] = image
-                                }
-                                
-                                //Collection view needs to reload.
-                                self.floorplanCollectionView.reloadData()
-                                
-                            }
-                        }
+                        //Find the image to update and set the URL for the image in the array of image URLs.
+                        floorplanChildRef.downloadURL(completion: {url, error in
+                            //Append the building to the list.
+                            self.floorplanImageURLs[index] = url
+                            self.floorplanCollectionView.reloadItems(at: [NSIndexPath(row: index, section: 0) as IndexPath])
+                        })
                     }
                 }
             }
+            self.floorplanCollectionView.reloadData()
         })
+        
     }
     
     
