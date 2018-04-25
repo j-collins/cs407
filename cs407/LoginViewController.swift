@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
         self.present(alertVC, animated: true, completion: nil)
     } else {
     print ("Email verified. Signing in...")
-    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
+    let vc =  self.storyboard?.instantiateViewController(withIdentifier: "HomeNav")
     self.present(vc!, animated: true, completion: nil)
     }
     }

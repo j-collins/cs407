@@ -19,14 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sLg-ZW-fGc">
-                                <rect key="frame" x="0.0" y="8" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                            </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFe-UN-SYJ">
                                 <rect key="frame" x="16" y="269" width="90" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -36,7 +28,7 @@
                                     <color key="titleColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Dwr-FK-o5C" kind="presentation" id="DR3-fR-Z0T"/>
+                                    <segue destination="Dwr-FK-o5C" kind="show" id="ZHX-vS-4nN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Hb-ig-Yf1">
@@ -48,7 +40,7 @@
                                     <color key="titleColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2iN-lF-75g" kind="presentation" id="ofJ-GK-dR4"/>
+                                    <segue destination="2iN-lF-75g" kind="show" id="WfC-a5-kHv"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVS-9e-yph">
@@ -111,28 +103,6 @@
                                     <segue destination="CtA-uz-J8P" kind="show" id="awb-oi-RLi"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xvs-xd-3dQ">
-                                <rect key="frame" x="8" y="0.0" width="304" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="BoilerFind" id="b0t-ow-Yac">
-                                        <barButtonItem key="rightBarButtonItem" style="plain" id="fzB-Zk-tJ7">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JPC-K6-gKf">
-                                                <rect key="frame" x="220" y="7" width="68" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="LogOut"/>
-                                                <connections>
-                                                    <action selector="Actoglogout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="omy-0t-Mpo"/>
-                                                </connections>
-                                            </button>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDN-dw-9cM">
                                 <rect key="frame" x="114" y="368" width="90" height="89"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -141,20 +111,31 @@
                                     <color key="titleColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="0vg-55-bUr" kind="presentation" id="vwK-CH-r5q"/>
+                                    <segue destination="0vg-55-bUr" kind="show" id="OPN-gG-2bS"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="TJO-Sw-nwx"/>
                     </view>
-                    <navigationItem key="navigationItem" id="lO6-G7-dfz"/>
+                    <navigationItem key="navigationItem" title="BoilerFind" id="b0t-ow-Yac">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="fzB-Zk-tJ7">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JPC-K6-gKf">
+                                <rect key="frame" x="236" y="7" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="LogOut"/>
+                                <connections>
+                                    <action selector="Actoglogout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="omy-0t-Mpo"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="286.875" y="230.28169014084509"/>
+            <point key="canvasLocation" x="1284.375" y="230.28169014084509"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Map-->
         <scene sceneID="GlY-qG-YHA">
             <objects>
                 <viewController id="Dwr-FK-o5C" customClass="MapViewController" customModule="cs407" customModuleProvider="target" sceneMemberID="viewController">
@@ -163,7 +144,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="x0i-ze-6gr">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqT-07-xpC">
                                 <rect key="frame" x="16" y="76" width="104" height="33"/>
@@ -177,32 +158,6 @@
                                     <action selector="getCurrentLocButton:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="fyE-pP-nEl"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4f-tF-r5O">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="BoilerFind" id="Lr6-2d-azi">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="rac-JN-jao">
-                                            <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" id="wCx-Xt-L6H"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" id="rTv-8b-5CK">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qGo-9l-sSL">
-                                                <rect key="frame" x="253" y="7" width="51" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="LogOut"/>
-                                                <connections>
-                                                    <action selector="logoutAction1:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="qy2-c2-24i"/>
-                                                </connections>
-                                            </button>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8e-FT-Wgw">
                                 <rect key="frame" x="194" y="76" width="111" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -230,17 +185,22 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="h4f-tF-r5O" firstAttribute="top" secondItem="QZF-rf-7rF" secondAttribute="top" id="7i7-nE-GIq"/>
                             <constraint firstItem="x0i-ze-6gr" firstAttribute="bottom" secondItem="QZF-rf-7rF" secondAttribute="bottom" id="83x-6V-zzi"/>
                             <constraint firstItem="x0i-ze-6gr" firstAttribute="trailing" secondItem="QZF-rf-7rF" secondAttribute="trailing" id="FP5-r2-PbM"/>
-                            <constraint firstItem="h4f-tF-r5O" firstAttribute="trailing" secondItem="QZF-rf-7rF" secondAttribute="trailing" id="PJj-te-kXl"/>
-                            <constraint firstItem="h4f-tF-r5O" firstAttribute="leading" secondItem="QZF-rf-7rF" secondAttribute="leading" id="Qae-yd-EQ3"/>
+                            <constraint firstItem="x0i-ze-6gr" firstAttribute="top" secondItem="QZF-rf-7rF" secondAttribute="top" constant="44" id="Q1L-h8-XcJ"/>
                             <constraint firstItem="x0i-ze-6gr" firstAttribute="leading" secondItem="QZF-rf-7rF" secondAttribute="leading" id="UHD-9R-qGW"/>
-                            <constraint firstItem="x0i-ze-6gr" firstAttribute="top" secondItem="h4f-tF-r5O" secondAttribute="bottom" id="VQU-RF-jjC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QZF-rf-7rF"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vF6-wK-ePE"/>
+                    <navigationItem key="navigationItem" title="Map" id="mOh-2V-c3E">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="U3Y-kX-nHh">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RP1-hI-ekb">
+                                <rect key="frame" x="256" y="7" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="clearRouteButton" destination="g8e-FT-Wgw" id="fBR-B0-5SR"/>
                         <outlet property="goButton" destination="ZNO-CX-fOs" id="Kfc-mv-iGD"/>
@@ -250,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQC-mX-MCu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1368.75" y="231.33802816901408"/>
+            <point key="canvasLocation" x="2366.25" y="231.33802816901408"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="vk7-FJ-bIR">
@@ -260,28 +220,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a4R-E5-JY6">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="BoilerFind" id="t1p-rM-Tnj">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="7lj-JS-KZQ">
-                                            <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" id="gS6-LS-NJ5"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Logout" id="X5W-x3-ab8">
-                                            <connections>
-                                                <action selector="LogoutAction:" destination="0vg-55-bUr" id="zLU-h6-xml"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlS-M7-6uB">
                                 <rect key="frame" x="82" y="227" width="198" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -339,13 +277,22 @@
                                     <color key="titleColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Xth-OV-JPC" kind="presentation" id="97b-ZU-mIg"/>
+                                    <segue destination="Xth-OV-JPC" kind="show" id="ioJ-rF-kXg"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="tYa-Ye-tkd"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Profile" id="Iw6-fG-wgx">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="QUN-b6-meZ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="E5I-0z-I7w">
+                                <rect key="frame" x="256" y="7" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="LabelEmail" destination="jlS-M7-6uB" id="Qpx-iq-sst"/>
                         <outlet property="LabelName" destination="3rU-ao-GUZ" id="kKr-4v-lxY"/>
@@ -354,7 +301,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Cs-jH-pDn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2238.75" y="315.84507042253523"/>
+            <point key="canvasLocation" x="3236.25" y="315.84507042253523"/>
         </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="M7O-q6-Lsx">
@@ -364,33 +311,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zcf-Fi-192">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="BoilerFind" id="Lc5-CP-JM6">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="GtO-yJ-FRw">
-                                            <connections>
-                                                <segue destination="0vg-55-bUr" kind="presentation" id="feQ-H0-GNA"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" id="fwd-zf-yBg">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Od-c2-dXy">
-                                                <rect key="frame" x="246" y="7" width="58" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Logout"/>
-                                                <connections>
-                                                    <action selector="ActLogout:" destination="Xth-OV-JPC" eventType="touchUpInside" id="Sjq-IK-CTb"/>
-                                                </connections>
-                                            </button>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZG-lS-0B1">
                                 <rect key="frame" x="77" y="74" width="132" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -428,15 +348,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mp6-mS-BTY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="JXP-hZ-6JD">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="HsZ-Rf-5Jp">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HyF-5Q-6pC">
+                                <rect key="frame" x="256" y="7" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="NameTextField" destination="6cg-aB-0CD" id="gAO-fQ-sbr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kHt-Gt-wLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2966.25" y="310.56338028169017"/>
+            <point key="canvasLocation" x="3963.75" y="310.56338028169017"/>
         </scene>
-        <!--Buildings Table View Controller-->
+        <!--Buildings-->
         <scene sceneID="vne-cc-2CW">
             <objects>
                 <tableViewController id="2iN-lF-75g" customClass="BuildingsTableViewController" customModule="cs407" customModuleProvider="target" sceneMemberID="viewController">
@@ -444,42 +373,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="30E-hh-NYU">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8Y-lv-0b6">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <textAttributes key="titleTextAttributes">
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </textAttributes>
-                                    <items>
-                                        <navigationItem title="BoilerFind" id="KKK-H0-Tbv">
-                                            <barButtonItem key="leftBarButtonItem" title="Back" id="nHW-Fc-4gs">
-                                                <connections>
-                                                    <segue destination="BYZ-38-t0r" kind="presentation" id="Pbp-Ky-sqq"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem key="rightBarButtonItem" title="Logout" id="1kz-oe-x7g">
-                                                <connections>
-                                                    <action selector="LogOutAction:" destination="2iN-lF-75g" id="nkx-eZ-h8U"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </navigationItem>
-                                    </items>
-                                </navigationBar>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="trailing" secondItem="Y8Y-lv-0b6" secondAttribute="trailing" id="207-YW-iEH"/>
-                                <constraint firstItem="Y8Y-lv-0b6" firstAttribute="leading" secondItem="30E-hh-NYU" secondAttribute="leading" id="NV8-eK-wEW"/>
-                                <constraint firstItem="Y8Y-lv-0b6" firstAttribute="top" secondItem="30E-hh-NYU" secondAttribute="top" id="tic-6M-Vyt"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BuildingTableViewCell" rowHeight="90" id="Tg0-wS-izb" customClass="BuildingTableViewCell" customModule="cs407" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="90"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tg0-wS-izb" id="g8O-fH-HLC">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
@@ -501,7 +397,7 @@
                                 <connections>
                                     <outlet property="buildingImageView" destination="f6Q-zr-oQ0" id="jyd-H5-hPD"/>
                                     <outlet property="buildingNameLabel" destination="MNq-OX-bLM" id="nbI-K0-Ux5"/>
-                                    <segue destination="TQL-M5-1pU" kind="presentation" id="RKR-A9-a3S"/>
+                                    <segue destination="TQL-M5-1pU" kind="show" id="RKR-A9-a3S"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -511,12 +407,10 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="KyV-wJ-S3g">
-                        <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="8rh-EK-cJp"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Rs7-2u-hAP">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fG6-hJ-pDS">
-                                <rect key="frame" x="311" y="7" width="48" height="30"/>
+                    <navigationItem key="navigationItem" title="Buildings" id="ytz-AM-ywD">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="NQu-FX-UYb">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Q0-dr-Dmz">
+                                <rect key="frame" x="256" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
                             </button>
@@ -531,7 +425,7 @@
             </objects>
             <point key="canvasLocation" x="518" y="1075"/>
         </scene>
-        <!--Favorites Table View Controller-->
+        <!--Favorites-->
         <scene sceneID="AJe-KM-Duo">
             <objects>
                 <tableViewController id="CtA-uz-J8P" customClass="FavoritesTableViewController" customModule="cs407" customModuleProvider="target" sceneMemberID="viewController">
@@ -539,27 +433,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="BV6-qJ-4L8">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <items>
-                                <navigationItem title="BoilerFind" id="nzn-4Y-0DK" colorLabel="IBBuiltInLabel-Orange">
-                                    <barButtonItem key="leftBarButtonItem" title="Back" id="ROX-PF-gwA">
-                                        <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="Aby-NI-i80"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem key="rightBarButtonItem" title="Logout" id="7KV-kt-MXM">
-                                        <connections>
-                                            <action selector="LogoutAction:" destination="CtA-uz-J8P" id="wpq-XI-4DN"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </navigationItem>
-                            </items>
-                        </navigationBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoritesTableViewCell" rowHeight="90" id="i6d-kA-OYC" customClass="FavoritesTableViewCell" customModule="cs407" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="90"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i6d-kA-OYC" id="hha-ax-eKQ">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
@@ -590,12 +466,21 @@
                             <outlet property="delegate" destination="CtA-uz-J8P" id="kRn-Gx-vQj"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Favorites" id="bS0-BZ-jc4">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Sp9-Hq-b1e">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WYl-K9-vRD">
+                                <rect key="frame" x="256" y="7" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wny-CZ-kUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="517.5" y="1897.1830985915494"/>
         </scene>
-        <!--Amenities View Controller-->
+        <!--Amenities-->
         <scene sceneID="Bbk-6v-kvb">
             <objects>
                 <viewController id="TQL-M5-1pU" customClass="AmenitiesViewController" customModule="cs407" customModuleProvider="target" sceneMemberID="viewController">
@@ -603,43 +488,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJ5-Z7-ErN">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="BoilerFind" id="N3X-Ck-ylB">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="10Z-Dq-L9L">
-                                            <connections>
-                                                <segue destination="2iN-lF-75g" kind="presentation" id="mPg-1o-p8q"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Logout" id="xID-o2-H7n">
-                                            <connections>
-                                                <action selector="LogOutAction:" destination="TQL-M5-1pU" id="6dY-Eg-CEf"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MM0-3N-JLd">
-                                <rect key="frame" x="10" y="528" width="61" height="30"/>
+                                <rect key="frame" x="10" y="484" width="61" height="30"/>
                                 <state key="normal" title="Like This"/>
                                 <connections>
                                     <action selector="FavoritesButtonPress:" destination="TQL-M5-1pU" eventType="touchUpInside" id="eUs-af-tqm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9l-At-Act">
-                                <rect key="frame" x="238" y="528" width="72" height="30"/>
+                                <rect key="frame" x="238" y="484" width="72" height="30"/>
                                 <state key="normal" title="Floorplans"/>
                                 <connections>
                                     <segue destination="PIz-PT-NVD" kind="show" id="Kra-hW-GRZ"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="upS-uj-Ljr">
-                                <rect key="frame" x="0.0" y="64" width="320" height="464"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="420"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fF5-GV-NnJ">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="410"/>
@@ -744,7 +608,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aD-MH-IZg">
-                                <rect key="frame" x="129" y="528" width="62" height="30"/>
+                                <rect key="frame" x="129" y="484" width="62" height="30"/>
                                 <state key="normal" title="Favorites"/>
                                 <connections>
                                     <segue destination="CtA-uz-J8P" kind="show" id="YI4-41-epD"/>
@@ -753,15 +617,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="tJ5-Z7-ErN" firstAttribute="trailing" secondItem="CzE-GJ-eUR" secondAttribute="trailing" id="6Nj-A4-EYT"/>
-                            <constraint firstItem="tJ5-Z7-ErN" firstAttribute="top" secondItem="CzE-GJ-eUR" secondAttribute="top" id="AI8-yZ-00b"/>
                             <constraint firstItem="CzE-GJ-eUR" firstAttribute="bottom" secondItem="MM0-3N-JLd" secondAttribute="bottom" constant="10" id="AaU-Xr-J14"/>
                             <constraint firstItem="upS-uj-Ljr" firstAttribute="trailing" secondItem="CzE-GJ-eUR" secondAttribute="trailing" id="Caw-UA-hjp"/>
                             <constraint firstItem="upS-uj-Ljr" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" id="GCC-Cj-uMU"/>
                             <constraint firstItem="CzE-GJ-eUR" firstAttribute="bottom" secondItem="W9l-At-Act" secondAttribute="bottom" constant="10" id="HAb-p7-XiM"/>
-                            <constraint firstItem="tJ5-Z7-ErN" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" id="ILk-Ko-gA3"/>
+                            <constraint firstItem="upS-uj-Ljr" firstAttribute="top" secondItem="CzE-GJ-eUR" secondAttribute="top" id="ILc-tJ-iJf"/>
                             <constraint firstItem="9aD-MH-IZg" firstAttribute="baseline" secondItem="MM0-3N-JLd" secondAttribute="baseline" id="K7b-dt-GKv"/>
-                            <constraint firstItem="upS-uj-Ljr" firstAttribute="top" secondItem="tJ5-Z7-ErN" secondAttribute="bottom" id="PVz-gp-7WD"/>
                             <constraint firstItem="CzE-GJ-eUR" firstAttribute="trailing" secondItem="W9l-At-Act" secondAttribute="trailing" constant="10" id="TMd-yv-RJf"/>
                             <constraint firstItem="MM0-3N-JLd" firstAttribute="leading" secondItem="CzE-GJ-eUR" secondAttribute="leading" constant="10" id="raS-iF-d8m"/>
                             <constraint firstItem="9aD-MH-IZg" firstAttribute="centerX" secondItem="upS-uj-Ljr" secondAttribute="centerX" id="sPR-cR-UT2"/>
@@ -769,6 +630,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CzE-GJ-eUR"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Amenities" id="Kco-MQ-6a6">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="hTB-UM-CJ5">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3fN-NZ-uHm">
+                                <rect key="frame" x="256" y="7" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="amenitiesCollectionView" destination="ZE8-z4-B9z" id="OSt-pr-Mag"/>
                         <outlet property="amenitiesLabel" destination="cc5-9p-SrH" id="SM8-om-dlC"/>
@@ -779,17 +649,6 @@
                         <outlet property="buildingNameLabel" destination="fXs-H2-AY4" id="o80-Yo-zmN"/>
                     </connections>
                 </viewController>
-                <navigationItem id="Kco-MQ-6a6">
-                    <nil key="title"/>
-                    <barButtonItem key="leftBarButtonItem" title="Back" id="n60-aw-jcD"/>
-                    <barButtonItem key="rightBarButtonItem" style="plain" id="hTB-UM-CJ5">
-                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3fN-NZ-uHm">
-                            <rect key="frame" x="311" y="7" width="48" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Logout"/>
-                        </button>
-                    </barButtonItem>
-                </navigationItem>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZc-HC-HQ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1548.75" y="1093.3098591549297"/>
@@ -1023,7 +882,7 @@
             </objects>
             <point key="canvasLocation" x="2452.5" y="-561.97183098591552"/>
         </scene>
-        <!--Floorplan View Controller-->
+        <!--Floorplans-->
         <scene sceneID="DWQ-Qo-5fq">
             <objects>
                 <viewController id="PIz-PT-NVD" customClass="FloorplanViewController" customModule="cs407" customModuleProvider="target" sceneMemberID="viewController">
@@ -1031,32 +890,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZDP-Ns-Pkd">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="textColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="BoilerFind" id="U3Q-jp-qAV">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="6HZ-Q2-2xT">
-                                            <connections>
-                                                <segue destination="TQL-M5-1pU" kind="show" id="YKS-5q-Qh7"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Logout" id="HnP-IV-7Uh">
-                                            <connections>
-                                                <action selector="LogoutAction:" destination="PIz-PT-NVD" id="GZo-NU-Fpd"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rw-fF-gEN">
-                                <rect key="frame" x="0.0" y="56" width="320" height="512"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="36L-i5-BDQ" userLabel="Floorplan Collection View">
-                                        <rect key="frame" x="0.0" y="51" width="320" height="416"/>
+                                        <rect key="frame" x="0.0" y="43" width="320" height="372"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Q0T-jj-glN">
                                             <size key="itemSize" width="320" height="413"/>
@@ -1066,7 +904,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BuildingCollectionViewCell" id="GE2-N0-Ycd" customClass="BuildingCollectionViewCell" customModule="cs407" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="1.5" width="320" height="413"/>
+                                                <rect key="frame" x="0.0" y="-20.5" width="320" height="413"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="413"/>
@@ -1098,13 +936,13 @@
                                         </connections>
                                     </collectionView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tD8-Mh-DU4">
-                                        <rect key="frame" x="134" y="8" width="53" height="27"/>
+                                        <rect key="frame" x="134" y="0.0" width="53" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="e0h-DM-BtE" userLabel="Floorplan Page Control">
-                                        <rect key="frame" x="141" y="475" width="39" height="37"/>
+                                        <rect key="frame" x="141" y="423" width="39" height="37"/>
                                         <color key="pageIndicatorTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </pageControl>
@@ -1114,7 +952,7 @@
                                     <constraint firstAttribute="trailing" secondItem="36L-i5-BDQ" secondAttribute="trailing" id="5Rl-ei-skp"/>
                                     <constraint firstItem="36L-i5-BDQ" firstAttribute="top" secondItem="tD8-Mh-DU4" secondAttribute="bottom" constant="16" id="5ml-xH-mKW"/>
                                     <constraint firstItem="e0h-DM-BtE" firstAttribute="centerX" secondItem="36L-i5-BDQ" secondAttribute="centerX" id="Cch-kF-WTI"/>
-                                    <constraint firstItem="tD8-Mh-DU4" firstAttribute="top" secondItem="1rw-fF-gEN" secondAttribute="top" constant="8" id="H94-qU-ZFw"/>
+                                    <constraint firstItem="tD8-Mh-DU4" firstAttribute="top" secondItem="1rw-fF-gEN" secondAttribute="top" id="H94-qU-ZFw"/>
                                     <constraint firstItem="tD8-Mh-DU4" firstAttribute="centerX" secondItem="36L-i5-BDQ" secondAttribute="centerX" id="LEw-bC-0mj"/>
                                     <constraint firstItem="36L-i5-BDQ" firstAttribute="leading" secondItem="1rw-fF-gEN" secondAttribute="leading" id="LML-nu-Gb1"/>
                                     <constraint firstAttribute="bottom" secondItem="36L-i5-BDQ" secondAttribute="bottom" constant="45" id="id3-Sn-LWj"/>
@@ -1124,46 +962,56 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ZDP-Ns-Pkd" firstAttribute="trailing" secondItem="b6E-AL-4YN" secondAttribute="trailing" id="38e-Jo-kQg"/>
-                            <constraint firstItem="ZDP-Ns-Pkd" firstAttribute="leading" secondItem="b6E-AL-4YN" secondAttribute="leading" id="CGG-cM-BNe"/>
-                            <constraint firstItem="ZDP-Ns-Pkd" firstAttribute="top" secondItem="b6E-AL-4YN" secondAttribute="top" id="Pxg-6b-hzb"/>
-                            <constraint firstItem="1rw-fF-gEN" firstAttribute="leading" secondItem="ZDP-Ns-Pkd" secondAttribute="leading" id="Rbi-V2-T1p"/>
-                            <constraint firstItem="1rw-fF-gEN" firstAttribute="top" secondItem="b6E-AL-4YN" secondAttribute="top" constant="36" id="SK0-76-n8o"/>
-                            <constraint firstItem="1rw-fF-gEN" firstAttribute="trailing" secondItem="ZDP-Ns-Pkd" secondAttribute="trailing" id="fOW-wh-HN3"/>
+                            <constraint firstAttribute="trailing" secondItem="1rw-fF-gEN" secondAttribute="trailing" id="2Gh-EE-69Q"/>
+                            <constraint firstItem="1rw-fF-gEN" firstAttribute="top" secondItem="b6E-AL-4YN" secondAttribute="top" id="SK0-76-n8o"/>
                             <constraint firstItem="1rw-fF-gEN" firstAttribute="bottom" secondItem="b6E-AL-4YN" secondAttribute="bottom" id="mYP-tY-55u"/>
+                            <constraint firstItem="1rw-fF-gEN" firstAttribute="leading" secondItem="h43-8j-zbW" secondAttribute="leading" id="qFY-HW-cgn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="b6E-AL-4YN"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Floorplans" id="Adu-2i-d5V">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="aGi-98-ZvH">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="01e-Ap-Ghw">
+                                <rect key="frame" x="256" y="7" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="buildingNameLabel" destination="tD8-Mh-DU4" id="vkf-TX-W2E"/>
                         <outlet property="floorplanCollectionView" destination="36L-i5-BDQ" id="1AF-HO-KIn"/>
                         <outlet property="floorplanPageControl" destination="e0h-DM-BtE" id="WnH-jJ-790"/>
                     </connections>
                 </viewController>
-                <navigationItem id="Adu-2i-d5V">
-                    <nil key="title"/>
-                    <barButtonItem key="leftBarButtonItem" title="Back" id="jdM-WN-vem"/>
-                    <barButtonItem key="rightBarButtonItem" style="plain" id="aGi-98-ZvH">
-                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="01e-Ap-Ghw">
-                            <rect key="frame" x="311" y="7" width="48" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Logout"/>
-                        </button>
-                    </barButtonItem>
-                </navigationItem>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bg-TP-821" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2452.5" y="1092.2535211267607"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="osw-hu-sOc">
+            <objects>
+                <navigationController storyboardIdentifier="HomeNav" automaticallyAdjustsScrollViewInsets="NO" id="3Bg-sT-68p" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x4D-zo-Zvg">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="DtD-ES-NDn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k0H-go-EnG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="286.875" y="230.28169014084509"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yUy-FF-OhG"/>
+        <segue reference="OvD-ET-rge"/>
         <segue reference="HyO-3f-If3"/>
-        <segue reference="s9d-5w-YsD"/>
-        <segue reference="jRO-AI-WSR"/>
+        <segue reference="QlP-A6-wVJ"/>
+        <segue reference="RKR-A9-a3S"/>
         <segue reference="awb-oi-RLi"/>
-        <segue reference="ofJ-GK-dR4"/>
-        <segue reference="vwK-CH-r5q"/>
-        <segue reference="wCx-Xt-L6H"/>
     </inferredMetricsTieBreakers>
 </document>
