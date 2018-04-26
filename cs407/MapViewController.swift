@@ -397,8 +397,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     let route = response.routes[0]
                     self.polyline = route.polyline
                     self.map.add((self.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
-                    let rect = self.polyline.boundingMapRect //this should be a little bigger...
-                    self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+                    let rect = self.polyline.boundingMapRect
+                    //self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true) //this should be a little bigger...
+                    self.map.setVisibleMapRect(rect, edgePadding: UIEdgeInsetsMake(80, 80, 80, 80), animated: true)
+                    
                     self.getSteps(route: route)
                 }
                 
