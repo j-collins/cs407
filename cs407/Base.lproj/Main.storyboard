@@ -227,6 +227,18 @@
                                     <action selector="onGoButtonClick:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="K7j-R5-ps2"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zK6-I8-Dm0">
+                                <rect key="frame" x="16" y="523" width="112" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.74966114760000002" green="0.56443548200000004" blue="0.0015851020579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Written DIrections">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onWrittenDirecttionsButtonClick:" destination="Dwr-FK-o5C" eventType="touchUpInside" id="E7z-9J-SIp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -259,6 +271,7 @@
                         <outlet property="clearRouteButton" destination="g8e-FT-Wgw" id="fBR-B0-5SR"/>
                         <outlet property="goButton" destination="ZNO-CX-fOs" id="Kfc-mv-iGD"/>
                         <outlet property="map" destination="x0i-ze-6gr" id="r5d-g3-7cN"/>
+                        <outlet property="writtenDirectionsButton" destination="zK6-I8-Dm0" id="qBJ-6q-gni"/>
                         <segue destination="TQL-M5-1pU" kind="show" identifier="moreBuildingInfo" id="jRO-AI-WSR"/>
                     </connections>
                 </viewController>
@@ -973,7 +986,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BuildingCollectionViewCell" id="GE2-N0-Ycd" customClass="BuildingCollectionViewCell" customModule="cs407" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="1.5" width="320" height="413"/>
+                                                <rect key="frame" x="0.0" y="-20.5" width="320" height="413"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="413"/>
@@ -1083,7 +1096,7 @@
         <segue reference="OvD-ET-rge"/>
         <segue reference="HyO-3f-If3"/>
         <segue reference="QlP-A6-wVJ"/>
-        <segue reference="RKR-A9-a3S"/>
+        <segue reference="jRO-AI-WSR"/>
         <segue reference="YI4-41-epD"/>
     </inferredMetricsTieBreakers>
 </document>
