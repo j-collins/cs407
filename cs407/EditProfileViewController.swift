@@ -44,8 +44,11 @@ class EditProfileViewController: UIViewController {
             ref.child("UserName").child((user?.uid)!).setValue(username)
             let alert = UIAlertController(title: "Edit Success!", message: "Your name is successfully updated!", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
-                let viewControllerYouWantToPresent = self.storyboard?.instantiateViewController(withIdentifier: "Profile")
-                self.present(viewControllerYouWantToPresent!, animated: true, completion: nil)
+                //let viewControllerYouWantToPresent = self.storyboard?.instantiateViewController(withIdentifier: "Profile")
+                //self.present(viewControllerYouWantToPresent!, animated: true, completion: nil)
+                
+                //https://stackoverflow.com/questions/28760541/programmatically-go-back-to-previous-viewcontroller-in-swift
+                self.navigationController?.popViewController(animated: true)
             }
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)

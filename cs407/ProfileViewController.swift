@@ -22,7 +22,8 @@ class ProfileViewController: UIViewController {
   let userid = Auth.auth().currentUser
    
     //LabelEmail.text = user
-    override func viewDidLoad() {
+    //viewDidLoad was not called after popping back from EditProfile. viewWillAppear is called each time.
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
         self.LabelEmail.text = user;
         self.LabelPassword.text = "********"
