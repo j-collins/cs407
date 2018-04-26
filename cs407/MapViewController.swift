@@ -18,6 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var clearRouteButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var writtenDirectionsButton: UIButton!
     
     var campus = Campus(filename: "Campus")
     let manager = CLLocationManager()
@@ -28,6 +29,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var buildings: [String] = []
     var buildingNames: [String] = [] //List of all buildings in Database
     //var response: MKDirectionsResponse = nil
+    var globalroute: MKRoute?
     var polyline: MKPolyline = MKPolyline()
     var isrouting = false;
     var mostCurrentUserLatitude = 0.0;
@@ -395,10 +397,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     }
                     
                     let route = response.routes[0]
+                    //set global route variable
+                    self.globalroute = route;
                     self.polyline = route.polyline
                     self.map.add((self.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
-                    let rect = self.polyline.boundingMapRect //this should be a little bigger...
-                    self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+                    let rect = self.polyline.boundingMapRect
+                    //self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true) //this should be a little bigger...
+                    self.map.setVisibleMapRect(rect, edgePadding: UIEdgeInsetsMake(80, 80, 80, 80), animated: true)
+                    
                     self.getSteps(route: route)
                 }
                 
@@ -406,6 +412,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 self.clearRouteButton.isHidden = false;
                 //display the button to "go" in destination
                 self.goButton.isHidden = false;
+                self.writtenDirectionsButton.isHidden = false;
                 
                 //TODO - if the users reaches the destination, stop routing
                 
@@ -450,6 +457,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     }
                     
                     let route = response.routes[0]
+                    //re-set global route variable
+                    self.globalroute = route;
+                    //re-set global polyline variable
                     self.polyline = route.polyline
                     self.map.add((self.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
                 }
@@ -490,6 +500,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.present(alertVC, animated: true, completion: nil)
     }
     
+    //when this button is pressed a popup of the directions is shown
+    @IBAction func onWrittenDirecttionsButtonClick(_ sender: Any) {
+        getSteps(route: globalroute!);
+    }
+    
+    //when this button is clicked the go button is removed, the text of the clear route button is changed and the route starts to update if the user moves
     @IBAction func onGoButtonClick(_ sender: Any) {
         //remove Go button
         self.goButton.isHidden = true;
@@ -514,6 +530,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         //rehide the clear route button
         self.clearRouteButton.isHidden = true;
+        //rehide the Written Directions Button
+        self.writtenDirectionsButton.isHidden = true;
         //rehide the go button
         self.goButton.isHidden = true;
         //make sure that the next time clear route button is displayed the text will be clear route
