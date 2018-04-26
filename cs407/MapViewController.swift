@@ -158,12 +158,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 print("Error getting map overlay image")
             }
             //return CampusMapOverlayView(overlay: overlay, overlayImage: #imageLiteral(resourceName: "overlay_campus")) //#imageLiteral(resourceName: "overlay_campus"
-        } else {
+        } else if (self.isrouting){
+            print("going into here")
             let renderer = MKPolylineRenderer(overlay: overlay)
             renderer.strokeColor = UIColor.blue
             renderer.lineWidth = 4.0
             return renderer
-        }
+        }else{}
         return MKOverlayRenderer()
     }
     
@@ -395,8 +396,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     
                     let route = response.routes[0]
                     self.polyline = route.polyline
-                    self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
-                    let rect = route.polyline.boundingMapRect //this should be a little bigger...
+                    self.map.add((self.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
+                    let rect = self.polyline.boundingMapRect //this should be a little bigger...
                     self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
                     self.getSteps(route: route)
                 }
@@ -450,7 +451,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     
                     let route = response.routes[0]
                     self.polyline = route.polyline
-                    self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
+                    self.map.add((self.polyline), level: MKOverlayLevel.aboveRoads) //drawn with polyline on top of map
                 }
                 
             }
