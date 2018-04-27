@@ -510,7 +510,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //remove Go button
         self.goButton.isHidden = true;
         //change the words of "Clear Route" to be "Cancel Route"
-        self.clearRouteButton.setTitle( "Cancel Route" , for: .normal );
+        //self.clearRouteButton.setTitle( "Cancel Route" , for: .normal );
         
         //while the user is not at the destination or has not pressed cancel, update keep recalcuating the route in the didupdatelocations function
         manager.startUpdatingLocation()
@@ -535,7 +535,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //rehide the go button
         self.goButton.isHidden = true;
         //make sure that the next time clear route button is displayed the text will be clear route
-        self.clearRouteButton.setTitle("Clear", for:.normal);
+        //self.clearRouteButton.setTitle("Clear", for:.normal);
         //viewDidLoad()
 
     }

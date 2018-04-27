@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="rG4-Zk-VPL">
-                                <rect key="frame" x="16" y="250" width="343" height="167"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="rG4-Zk-VPL">
+                                <rect key="frame" x="16" y="250" width="343" height="157"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="343" id="4a1-RX-4In"/>
                                     <constraint firstAttribute="height" constant="167" id="Pvw-el-DEx"/>
